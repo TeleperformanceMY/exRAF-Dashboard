@@ -25,6 +25,7 @@ body {
 .container {
     max-width: 800px;
     flex: 1;
+    padding-top: 20px;
 }
 
 .logo {
@@ -32,7 +33,6 @@ body {
     height: auto;
     filter: grayscale(100%);
     transition: all 0.3s ease;
-    margin-top: 10px;
 }
 
 .logo:hover {
@@ -194,18 +194,32 @@ footer {
     max-height: 300px;
 }
 
+.is-invalid {
+    border-color: var(--danger-color) !important;
+}
+
+.invalid-feedback {
+    display: none;
+    color: var(--danger-color);
+    font-size: 0.875em;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 20px;
     }
     
     .logo {
-        max-width: 140px;
+        max-height: 70px;
     }
 }
 
 @media (max-width: 576px) {
     .container {
         padding: 15px;
+    }
+    
+    .logo {
+        max-height: 60px;
     }
 }
