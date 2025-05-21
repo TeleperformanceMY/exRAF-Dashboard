@@ -930,7 +930,702 @@
                             borderWidth: 1
                         }]
                     },
+                    options: {<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Dashboard - Teleperformance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="TPLogo11.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #1a252f;
+            --gray-color: #6c757d;
+            --yellow-status: #fff3cd;
+            --light-green-status: #d1e7dd;
+            --normal-green-status: #28a745;
+            --red-status: #f8d7da;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 800px;
+            flex: 1;
+            padding-top: 20px;
+        }
+        
+        .logo {
+            max-height: 80px;
+            height: auto;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-box {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .form-control, .form-select {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Status color classes */
+        .status-received,
+        .status-assessment,
+        .status-talent,
+        .status-operations {
+            background-color: var(--yellow-status);
+            border-left: 5px solid var(--warning-color);
+        }
+        
+        .status-probation {
+            background-color: var(--light-green-status);
+            border-left: 5px solid #20c997;
+        }
+        
+        .status-passed {
+            background-color: var(--normal-green-status);
+            border-left: 5px solid var(--success-color);
+            color: white;
+        }
+        
+        .status-failed,
+        .status-unreliable {
+            background-color: var(--red-status);
+            border-left: 5px solid var(--danger-color);
+        }
+        
+        .social-media-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+        
+        .phone-hint {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-top: 5px;
+            display: block;
+        }
+        
+        #statusChart {
+            width: 100%;
+            max-height: 300px;
+        }
+        
+        .is-invalid {
+            border-color: var(--danger-color) !important;
+        }
+        
+        .invalid-feedback {
+            display: none;
+            color: var(--danger-color);
+            font-size: 0.875em;
+        }
+        
+        .referral-item {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .logo {
+                max-height: 70px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                max-height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <img src="TPLogo11.png" alt="Teleperformance Logo" class="logo img-fluid">
+        </div>
+        
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <label for="lang-select" class="form-label">Choose Your Language:</label>
+                    <select id="lang-select" class="form-select">
+                        <option value="en">English</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ko">Korean</option>
+                        <option value="zh-CN">Mandarin</option>
+                        <option value="zh-HK">Cantonese</option>
+                    </select>
+                </div>
+                
+                <div id="auth-step">
+                    <h4 class="text-center mb-4">Referral Dashboard</h4>
+                    <p class="text-center mb-4">Enter your details to view your referral status</p>
+                    
+                    <div class="section-box mb-4">
+                        <div class="mb-3">
+                            <label for="dashboard-phone" class="form-label">Phone Number:</label>
+                            <input type="tel" id="dashboard-phone" class="form-control" placeholder="Enter your phone number (01XXXXXXXX)" required>
+                            <div class="invalid-feedback">Please provide a valid phone number (01XXXXXXXX).</div>
+                            <div class="phone-hint mt-1 small text-muted">Your phone number must be linked to TnG eWallet for the payment process</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="dashboard-email" class="form-label">Email Address:</label>
+                            <input type="email" id="dashboard-email" class="form-control" placeholder="Enter your email address" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                        </div>
+                        
+                        <button id="dashboard-submit" class="btn btn-primary w-100">View Referral Status</button>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <a href="https://teleperformancemy.github.io/RAF/" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Referral Form
+                        </a>
+                    </div>
+                </div>
+                
+                <div id="results-step" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4>Your Referrals</h4>
+                        <button id="dashboard-back" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back
+                        </button>
+                    </div>
+                    
+                    <div id="referral-stats" class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Total Referrals</h5>
+                                    <h3 class="text-primary" id="total-referrals">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Hired</h5>
+                                    <h3 class="text-success" id="hired-referrals">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">In Progress</h5>
+                                    <h3 class="text-warning" id="progress-referrals">0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-3">Status Distribution</h5>
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-bullhorn me-2"></i> Keep pushing your friends! Candidates who complete assessments quickly are more likely to get hired.
+                    </div>
+                    
+                    <div id="referral-list"></div>
+                    
+                    <div class="mt-4 text-center">
+                        <h5>Our Social Media</h5>
+                        <div class="social-media-links">
+                            <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.tiktok.com/@teleperformance" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            <a href="http://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© <span id="current-year"></span> TP.COM All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">#MoreTogether</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            let statusChart = null;
+            
+            // Sample data
+            const sampleData = {
+                "60123456789:fansheng072799@gmail.com": [
+                    {
+                        name: "Fan Sheng Chen",
+                        email: "fansheng072799@gmail.com",
+                        stage: "Hired",
+                        status: "Terminated before 90 days",
+                        statusType: "unreliable",
+                        applicationDate: "2025-01-31",
+                        hireDate: "2025-02-06",
+                        daysInStage: 5,
+                        category: "Hospitality/Travel",
+                        source: "TWO95",
+                        needsAction: false
+                    },
+                    {
+                        name: "John Doe",
+                        email: "john.doe@example.com",
+                        stage: "Assessment",
+                        status: "Endorsed to Assessment",
+                        statusType: "assessment",
+                        applicationDate: "2025-03-15",
+                        hireDate: "",
+                        daysInStage: 12,
+                        category: "Automotive",
+                        source: "Employee Referral",
+                        needsAction: true
+                    }
+                ],
+                "60123456788:keerthanajahanathan95@gmail.com": [
+                    {
+                        name: "Keerthana Jahanathan",
+                        email: "keerthanajahanathan95@gmail.com",
+                        stage: "Hired",
+                        status: "Successfully hired",
+                        statusType: "passed",
+                        applicationDate: "2024-04-30",
+                        hireDate: "2024-05-13",
+                        daysInStage: 13,
+                        category: "Automotive",
+                        source: "TWO95",
+                        needsAction: false
+                    },
+                    {
+                        name: "Devendhiran Pillai",
+                        email: "devendhiranpillai@gmail.com",
+                        stage: "Offer Presented",
+                        status: "Endorsed to Talent Acquisition",
+                        statusType: "talent",
+                        applicationDate: "2024-07-01",
+                        hireDate: "",
+                        daysInStage: 45,
+                        category: "Hospitality/Travel",
+                        source: "TWO95",
+                        needsAction: true
+                    },
+                    {
+                        name: "Alice Smith",
+                        email: "alice.smith@example.com",
+                        status: "Received Application",
+                        statusType: "received",
+                        stage: "Application",
+                        applicationDate: "2025-02-20",
+                        daysInStage: 8,
+                        needsAction: false
+                    }
+                ]
+            };
+            
+            // Validate phone number
+            function validatePhone(phone) {
+                const regex = /^01\d{8,9}$/;
+                return regex.test(phone);
+            }
+            
+            // Validate email
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+            
+            // Show error message
+            function showError(input, message) {
+                const formControl = input.closest('.mb-3');
+                const error = formControl.querySelector('.invalid-feedback');
+                
+                formControl.classList.add('was-validated');
+                error.textContent = message;
+                error.style.display = 'block';
+                input.classList.add('is-invalid');
+            }
+            
+            // Clear error
+            function clearError(input) {
+                const formControl = input.closest('.mb-3');
+                const error = formControl.querySelector('.invalid-feedback');
+                
+                formControl.classList.remove('was-validated');
+                error.style.display = 'none';
+                input.classList.remove('is-invalid');
+            }
+            
+            // Form submission
+            document.getElementById('dashboard-submit').addEventListener('click', function() {
+                const phone = document.getElementById('dashboard-phone').value.trim();
+                const email = document.getElementById('dashboard-email').value.trim();
+                let isValid = true;
+                
+                // Validate phone
+                if (!phone) {
+                    showError(document.getElementById('dashboard-phone'), 
+                             "Please provide a valid phone number (01XXXXXXXX).");
+                    isValid = false;
+                } else if (!validatePhone(phone)) {
+                    showError(document.getElementById('dashboard-phone'), 
+                             "Please provide a valid phone number (01XXXXXXXX).");
+                    isValid = false;
+                } else {
+                    clearError(document.getElementById('dashboard-phone'));
+                }
+                
+                // Validate email
+                if (!email) {
+                    showError(document.getElementById('dashboard-email'), 
+                             "Please provide a valid email address.");
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    showError(document.getElementById('dashboard-email'), 
+                             "Please provide a valid email address.");
+                    isValid = false;
+                } else {
+                    clearError(document.getElementById('dashboard-email'));
+                }
+                
+                if (!isValid) return;
+                
+                // Get referrals from sample data
+                const key = `${phone}:${email}`;
+                const referrals = sampleData[key] || [];
+                
+                // Show results
+                showReferralResults(referrals);
+            });
+            
+            // Back button
+            document.getElementById('dashboard-back').addEventListener('click', function() {
+                document.getElementById('auth-step').style.display = 'block';
+                document.getElementById('results-step').style.display = 'none';
+            });
+            
+            // Show referral results
+            function showReferralResults(referrals) {
+                document.getElementById('auth-step').style.display = 'none';
+                document.getElementById('results-step').style.display = 'block';
+                
+                // Update stats
+                document.getElementById('total-referrals').textContent = referrals.length;
+                document.getElementById('hired-referrals').textContent = 
+                    referrals.filter(r => r.stage === 'Hired' && r.statusType === 'passed').length;
+                document.getElementById('progress-referrals').textContent = 
+                    referrals.filter(r => r.stage !== 'Hired' || r.statusType !== 'passed').length;
+                
+                // Update chart
+                updateChart(referrals);
+                
+                // Update referral list
+                const referralList = document.getElementById('referral-list');
+                referralList.innerHTML = '';
+                
+                if (referrals.length === 0) {
+                    referralList.innerHTML = `
+                        <div class="alert alert-info">
+                            No referrals found with these details.
+                        </div>
+                    `;
+                    return;
+                }
+                
+                referrals.forEach(referral => {
+                    const item = document.createElement('div');
+                    item.className = `referral-item status-${referral.statusType}`;
+                    
+                    // Action button
+                    let actionButton = '';
+                    if (referral.needsAction) {
+                        actionButton = `
+                            <button class="btn btn-sm btn-primary remind-btn">
+                                Remind
+                            </button>
+                        `;
+                    } else if (referral.stage === 'Hired' && referral.statusType === 'passed') {
+                        actionButton = `
+                            <button class="btn btn-sm btn-success celebrate-btn">
+                                Celebrate!
+                            </button>
+                        `;
+                    }
+                    
+                    item.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="mb-1">${referral.name}</h5>
+                                <p class="mb-1 text-muted small">${referral.email}</p>
+                            </div>
+                            <span class="badge bg-secondary">${referral.status}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <small class="text-muted">Stage</small>
+                                <p>${referral.stage}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">Application Date</small>
+                                <p>${new Date(referral.applicationDate).toLocaleDateString()}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">Days in Stage</small>
+                                <p>${referral.daysInStage}</p>
+                            </div>
+                            <div class="col-md-3 text-end">
+                                ${actionButton}
+                            </div>
+                        </div>
+                    `;
+                    
+                    referralList.appendChild(item);
+                });
+                
+                // Add event listeners to action buttons
+                document.querySelectorAll('.remind-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const name = this.closest('.referral-item').querySelector('h5').textContent;
+                        alert(`Reminder sent to ${name}!`);
+                    });
+                });
+                
+                document.querySelectorAll('.celebrate-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        alert('Congratulations on your successful referral!');
+                    });
+                });
+            }
+            
+            // Update chart with referral data
+            function updateChart(referrals = []) {
+                const ctx = document.getElementById('statusChart').getContext('2d');
+                
+                // Count status types
+                const statusCounts = {
+                    received: 0,
+                    assessment: 0,
+                    talent: 0,
+                    operations: 0,
+                    probation: 0,
+                    passed: 0,
+                    failed: 0,
+                    unreliable: 0
+                };
+                
+                referrals.forEach(ref => {
+                    if (statusCounts.hasOwnProperty(ref.statusType)) {
+                        statusCounts[ref.statusType]++;
+                    }
+                });
+                
+                // Labels for the chart
+                const labels = [
+                    "Received Application",
+                    "Endorsed to Assessment",
+                    "Endorsed to Talent Acquisition",
+                    "Endorsed to Operations",
+                    "Hired (in probation period)",
+                    "Hired (passed probation)",
+                    "Failed",
+                    "Unreliable"
+                ];
+                
+                const data = [
+                    statusCounts.received,
+                    statusCounts.assessment,
+                    statusCounts.talent,
+                    statusCounts.operations,
+                    statusCounts.probation,
+                    statusCounts.passed,
+                    statusCounts.failed,
+                    statusCounts.unreliable
+                ];
+                
+                // Colors for each status
+                const backgroundColors = [
+                    'rgba(255, 193, 7, 0.7)',    // Received - yellow
+                    'rgba(255, 193, 7, 0.7)',    // Assessment - yellow
+                    'rgba(255, 193, 7, 0.7)',    // Talent - yellow
+                    'rgba(255, 193, 7, 0.7)',    // Operations - yellow
+                    'rgba(32, 201, 151, 0.7)',   // Probation - light green
+                    'rgba(40, 167, 69, 0.7)',    // Passed - green
+                    'rgba(220, 53, 69, 0.7)',    // Failed - red
+                    'rgba(220, 53, 69, 0.7)'     // Unreliable - red
+                ];
+                
+                // Destroy previous chart if exists
+                if (statusChart) {
+                    statusChart.destroy();
+                }
+                
+                // Create new chart
+                statusChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderWidth: 1
+                        }]
+                    },
                     options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = Math.round((value / total) * 100);
+                                        return `${label}: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
                         responsive: true,
                         plugins: {
                             legend: {
