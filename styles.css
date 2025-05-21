@@ -1,0 +1,211 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #1a252f;
+    --gray-color: #6c757d;
+    --yellow-status: #fff3cd;
+    --light-green-status: #d4edda;
+    --normal-green-status: #28a745;
+    --red-status: #f8d7da;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 800px;
+    flex: 1;
+}
+
+.logo {
+    max-height: 80px;
+    height: auto;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.logo:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-box {
+    background-color: var(--light-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.form-control, .form-select {
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+.referral-item {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.status-received {
+    background-color: var(--yellow-status);
+    border-left: 5px solid #ffc107;
+}
+
+.status-assessment {
+    background-color: var(--yellow-status);
+    border-left: 5px solid #ffc107;
+}
+
+.status-talent {
+    background-color: var(--yellow-status);
+    border-left: 5px solid #ffc107;
+}
+
+.status-operations {
+    background-color: var(--yellow-status);
+    border-left: 5px solid #ffc107;
+}
+
+.status-probation {
+    background-color: var(--light-green-status);
+    border-left: 5px solid #20c997;
+}
+
+.status-passed {
+    background-color: var(--normal-green-status);
+    border-left: 5px solid var(--success-color);
+    color: white;
+}
+
+.status-failed {
+    background-color: var(--red-status);
+    border-left: 5px solid var(--danger-color);
+}
+
+.status-unreliable {
+    background-color: var(--red-status);
+    border-left: 5px solid var(--danger-color);
+}
+
+.social-media-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0.25rem;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 2rem 0;
+    margin-top: auto;
+}
+
+.phone-hint {
+    font-size: 0.8rem;
+    color: var(--gray-color);
+    margin-top: 5px;
+    display: block;
+}
+
+#statusChart {
+    width: 100%;
+    max-height: 300px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .logo {
+        max-width: 140px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 15px;
+    }
+}
