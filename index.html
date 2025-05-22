@@ -1,4 +1,4 @@
-options: {<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,8 +40,8 @@ options: {<!DOCTYPE html>
         }
         
         .logo {
-            max-height: 80px;
-            height: auto;
+            height: 80px;
+            width: auto;
             filter: grayscale(100%);
             transition: all 0.3s ease;
         }
@@ -55,61 +55,9 @@ options: {<!DOCTYPE html>
             border: none;
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .section-box {
-            background-color: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .section-title {
-            color: var(--primary-color);
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
-        }
-        
-        .form-control, .form-select {
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--dark-color);
-            transform: translateY(-2px);
-        }
-        
-        /* Status color classes */
         .status-received,
         .status-assessment,
         .status-talent,
@@ -135,61 +83,41 @@ options: {<!DOCTYPE html>
             border-left: 5px solid var(--danger-color);
         }
         
-        .social-media-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
         .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            font-size: 20px;
+            margin: 0 5px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
         }
         
         footer {
             background-color: var(--dark-color);
-            color: var(--light-color);
-            padding: 2rem 0;
+            color: white;
+            padding: 20px 0;
             margin-top: auto;
         }
         
-        .phone-hint {
-            font-size: 0.8rem;
-            color: var(--gray-color);
-            margin-top: 5px;
-            display: block;
-        }
-        
         #statusChart {
-            width: 100%;
             max-height: 300px;
-        }
-        
-        .is-invalid {
-            border-color: var(--danger-color) !important;
         }
         
         .invalid-feedback {
             display: none;
             color: var(--danger-color);
-            font-size: 0.875em;
+        }
+        
+        .is-invalid {
+            border-color: var(--danger-color) !important;
         }
         
         .referral-item {
@@ -199,75 +127,53 @@ options: {<!DOCTYPE html>
             background-color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .logo {
-                max-height: 70px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .logo {
-                max-height: 60px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container py-4">
         <div class="text-center mb-4">
-            <img src="TPLogo11.png" alt="Teleperformance Logo" class="logo img-fluid">
+            <img src="TPLogo11.png" alt="Teleperformance Logo" class="logo">
         </div>
         
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body p-4">
+                <!-- Language Selector -->
                 <div class="mb-3">
-                    <label for="lang-select" class="form-label">Choose Your Language:</label>
+                    <label for="lang-select" class="form-label">Language:</label>
                     <select id="lang-select" class="form-select">
                         <option value="en">English</option>
                         <option value="ja">Japanese</option>
                         <option value="ko">Korean</option>
-                        <option value="zh-CN">Mandarin</option>
-                        <option value="zh-HK">Cantonese</option>
+                        <option value="zh-CN">Chinese</option>
                     </select>
                 </div>
                 
+                <!-- Login Form -->
                 <div id="auth-step">
                     <h4 class="text-center mb-4">Referral Dashboard</h4>
-                    <p class="text-center mb-4">Enter your details to view your referral status</p>
                     
-                    <div class="section-box mb-4">
-                        <div class="mb-3">
-                            <label for="dashboard-phone" class="form-label">Phone Number:</label>
-                            <input type="tel" id="dashboard-phone" class="form-control" placeholder="Enter your phone number (01XXXXXXXX)" required>
-                            <div class="invalid-feedback">Please provide a valid phone number (01XXXXXXXX).</div>
-                            <div class="phone-hint mt-1 small text-muted">Your phone number must be linked to TnG eWallet for the payment process</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="dashboard-email" class="form-label">Email Address:</label>
-                            <input type="email" id="dashboard-email" class="form-control" placeholder="Enter your email address" required>
-                            <div class="invalid-feedback">Please provide a valid email address.</div>
-                        </div>
-                        
-                        <button id="dashboard-submit" class="btn btn-primary w-100">View Referral Status</button>
+                    <div class="mb-3">
+                        <label for="dashboard-phone" class="form-label">Phone Number:</label>
+                        <input type="tel" id="dashboard-phone" class="form-control" placeholder="e.g. 0123456789" required>
+                        <div class="invalid-feedback">Please enter a valid phone number (e.g. 0123456789)</div>
                     </div>
                     
-                    <div class="text-center mt-3">
+                    <div class="mb-3">
+                        <label for="dashboard-email" class="form-label">Email:</label>
+                        <input type="email" id="dashboard-email" class="form-control" placeholder="e.g. example@email.com" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                    </div>
+                    
+                    <button id="dashboard-submit" class="btn btn-primary w-100 mb-3">View Status</button>
+                    
+                    <div class="text-center">
                         <a href="https://teleperformancemy.github.io/RAF/" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Referral Form
+                            <i class="fas fa-arrow-left me-2"></i> Back to Form
                         </a>
                     </div>
                 </div>
                 
+                <!-- Results Section -->
                 <div id="results-step" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4>Your Referrals</h4>
@@ -276,12 +182,13 @@ options: {<!DOCTYPE html>
                         </button>
                     </div>
                     
-                    <div id="referral-stats" class="row mb-4">
+                    <!-- Stats Cards -->
+                    <div class="row mb-4">
                         <div class="col-md-4 mb-3">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">Total Referrals</h5>
-                                    <h3 class="text-primary" id="total-referrals">0</h3>
+                                    <h5 class="card-title">Total</h5>
+                                    <h2 class="text-primary" id="total-referrals">0</h2>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +196,7 @@ options: {<!DOCTYPE html>
                             <div class="card h-100">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">Hired</h5>
-                                    <h3 class="text-success" id="hired-referrals">0</h3>
+                                    <h2 class="text-success" id="hired-referrals">0</h2>
                                 </div>
                             </div>
                         </div>
@@ -297,33 +204,39 @@ options: {<!DOCTYPE html>
                             <div class="card h-100">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">In Progress</h5>
-                                    <h3 class="text-warning" id="progress-referrals">0</h3>
+                                    <h2 class="text-warning" id="progress-referrals">0</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
+                    <!-- Pie Chart -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5 class="card-title text-center mb-3">Status Distribution</h5>
+                            <h5 class="text-center mb-3">Status Distribution</h5>
                             <canvas id="statusChart"></canvas>
                         </div>
                     </div>
                     
-                    <div class="alert alert-info mb-4">
-                        <i class="fas fa-bullhorn me-2"></i> Keep pushing your friends! Candidates who complete assessments quickly are more likely to get hired.
-                    </div>
+                    <!-- Referral List -->
+                    <div id="referral-list" class="mb-4"></div>
                     
-                    <div id="referral-list"></div>
-                    
-                    <div class="mt-4 text-center">
-                        <h5>Our Social Media</h5>
-                        <div class="social-media-links">
-                            <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/@teleperformance" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
-                            <a href="http://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <!-- Social Media -->
+                    <div class="text-center mt-4">
+                        <h5>Follow Us</h5>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank">
+                                <i class="fab fa-youtube"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -331,14 +244,14 @@ options: {<!DOCTYPE html>
         </div>
     </div>
     
-    <footer>
+    <footer class="text-center">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0">© <span id="current-year"></span> TP.COM All rights reserved.</p>
+                <div class="col-md-6 text-md-start">
+                    <p>© <span id="current-year"></span> Teleperformance</p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">#MoreTogether</p>
+                <div class="col-md-6 text-md-end">
+                    <p>#MoreTogether</p>
                 </div>
             </div>
         </div>
@@ -346,81 +259,188 @@ options: {<!DOCTYPE html>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Translations for all languages
+        const translations = {
+            en: {
+                dashboardTitle: "Referral Dashboard",
+                phoneLabel: "Phone Number:",
+                phoneError: "Please enter a valid phone number (e.g. 0123456789)",
+                emailLabel: "Email:",
+                emailError: "Please enter a valid email address",
+                viewStatusBtn: "View Status",
+                backToRAF: "Back to Form",
+                yourReferralsTitle: "Your Referrals",
+                backBtn: "Back",
+                totalReferrals: "Total",
+                hiredReferrals: "Hired",
+                inProgress: "In Progress",
+                statusDistribution: "Status Distribution",
+                noReferrals: "No referrals found",
+                statusReceived: "Received Application",
+                statusAssessment: "Endorsed to Assessment",
+                statusTalent: "Endorsed to Talent",
+                statusOperations: "Endorsed to Operations",
+                statusProbation: "Hired (probation)",
+                statusPassed: "Hired (passed)"
+            },
+            ja: {
+                dashboardTitle: "紹介ダッシュボード",
+                phoneLabel: "電話番号:",
+                phoneError: "有効な電話番号を入力してください (例: 0123456789)",
+                emailLabel: "メールアドレス:",
+                emailError: "有効なメールアドレスを入力してください",
+                viewStatusBtn: "ステータスを表示",
+                backToRAF: "フォームに戻る",
+                yourReferralsTitle: "あなたの紹介",
+                backBtn: "戻る",
+                totalReferrals: "合計",
+                hiredReferrals: "採用",
+                inProgress: "進行中",
+                statusDistribution: "ステータス分布",
+                noReferrals: "紹介が見つかりません",
+                statusReceived: "申込受付",
+                statusAssessment: "審査に推薦",
+                statusTalent: "人材獲得に推薦",
+                statusOperations: "オペレーションに推薦",
+                statusProbation: "採用（試用期間中）",
+                statusPassed: "採用（試用期間通過）"
+            },
+            ko: {
+                dashboardTitle: "추천 대시보드",
+                phoneLabel: "전화번호:",
+                phoneError: "유효한 전화번호 입력 (예: 0123456789)",
+                emailLabel: "이메일:",
+                emailError: "유효한 이메일 주소 입력",
+                viewStatusBtn: "상태 보기",
+                backToRAF: "양식으로 돌아가기",
+                yourReferralsTitle: "귀하의 추천",
+                backBtn: "뒤로",
+                totalReferrals: "총계",
+                hiredReferrals: "채용됨",
+                inProgress: "진행 중",
+                statusDistribution: "상태 분포",
+                noReferrals: "추천을 찾을 수 없음",
+                statusReceived: "신청서 접수",
+                statusAssessment: "평가 추천",
+                statusTalent: "인재 채용 추천",
+                statusOperations: "운영 추천",
+                statusProbation: "채용 (수습 기간)",
+                statusPassed: "채용 (수습 통과)"
+            },
+            "zh-CN": {
+                dashboardTitle: "推荐仪表板",
+                phoneLabel: "电话号码:",
+                phoneError: "请输入有效的电话号码 (例如: 0123456789)",
+                emailLabel: "电子邮件:",
+                emailError: "请输入有效的电子邮件地址",
+                viewStatusBtn: "查看状态",
+                backToRAF: "返回表格",
+                yourReferralsTitle: "您的推荐",
+                backBtn: "返回",
+                totalReferrals: "总计",
+                hiredReferrals: "已雇用",
+                inProgress: "进行中",
+                statusDistribution: "状态分布",
+                noReferrals: "未找到推荐",
+                statusReceived: "已收申请",
+                statusAssessment: "推荐评估",
+                statusTalent: "推荐人才获取",
+                statusOperations: "推荐运营",
+                statusProbation: "雇用（试用期）",
+                statusPassed: "雇用（通过试用）"
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Set current year
             document.getElementById('current-year').textContent = new Date().getFullYear();
             
+            let currentLanguage = 'en';
             let statusChart = null;
             
-            // Sample data
+            // Sample data that definitely works
             const sampleData = {
-                "60123456789:fansheng072799@gmail.com": [
-                    {
-                        name: "Fan Sheng Chen",
-                        email: "fansheng072799@gmail.com",
-                        stage: "Hired",
-                        status: "Terminated before 90 days",
-                        statusType: "unreliable",
-                        applicationDate: "2025-01-31",
-                        hireDate: "2025-02-06",
-                        daysInStage: 5,
-                        category: "Hospitality/Travel",
-                        source: "TWO95",
-                        needsAction: false
-                    },
+                "0123456789:test@example.com": [
                     {
                         name: "John Doe",
-                        email: "john.doe@example.com",
+                        email: "john@example.com",
+                        stage: "Hired",
+                        status: "Passed probation",
+                        statusType: "passed",
+                        applicationDate: "2023-05-15",
+                        daysInStage: 90
+                    },
+                    {
+                        name: "Jane Smith",
+                        email: "jane@example.com",
                         stage: "Assessment",
                         status: "Endorsed to Assessment",
                         statusType: "assessment",
-                        applicationDate: "2025-03-15",
-                        hireDate: "",
-                        daysInStage: 12,
-                        category: "Automotive",
-                        source: "Employee Referral",
-                        needsAction: true
+                        applicationDate: "2023-06-20",
+                        daysInStage: 14
+                    },
+                    {
+                        name: "Mike Johnson",
+                        email: "mike@example.com",
+                        stage: "Operations",
+                        status: "Endorsed to Operations",
+                        statusType: "operations",
+                        applicationDate: "2023-07-10",
+                        daysInStage: 5
                     }
                 ],
-                "60123456788:keerthanajahanathan95@gmail.com": [
+                "0112233445:demo@test.com": [
                     {
-                        name: "Keerthana Jahanathan",
-                        email: "keerthanajahanathan95@gmail.com",
+                        name: "Sarah Williams",
+                        email: "sarah@test.com",
                         stage: "Hired",
-                        status: "Successfully hired",
-                        statusType: "passed",
-                        applicationDate: "2024-04-30",
-                        hireDate: "2024-05-13",
-                        daysInStage: 13,
-                        category: "Automotive",
-                        source: "TWO95",
-                        needsAction: false
+                        status: "In probation",
+                        statusType: "probation",
+                        applicationDate: "2023-08-01",
+                        daysInStage: 45
                     },
                     {
-                        name: "Devendhiran Pillai",
-                        email: "devendhiranpillai@gmail.com",
-                        stage: "Offer Presented",
-                        status: "Endorsed to Talent Acquisition",
+                        name: "David Brown",
+                        email: "david@test.com",
+                        stage: "Talent",
+                        status: "Endorsed to Talent",
                         statusType: "talent",
-                        applicationDate: "2024-07-01",
-                        hireDate: "",
-                        daysInStage: 45,
-                        category: "Hospitality/Travel",
-                        source: "TWO95",
-                        needsAction: true
-                    },
-                    {
-                        name: "Alice Smith",
-                        email: "alice.smith@example.com",
-                        status: "Received Application",
-                        statusType: "received",
-                        stage: "Application",
-                        applicationDate: "2025-02-20",
-                        daysInStage: 8,
-                        needsAction: false
+                        applicationDate: "2023-08-15",
+                        daysInStage: 7
                     }
                 ]
             };
+            
+            // Update translations
+            function updateTranslations() {
+                const translation = translations[currentLanguage] || translations.en;
+                
+                // Update all elements with data-translate attribute
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    const key = el.getAttribute('data-translate');
+                    if (translation[key]) {
+                        el.textContent = translation[key];
+                    }
+                });
+                
+                // Update placeholders
+                document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-translate-placeholder');
+                    if (translation[key]) el.placeholder = translation[key];
+                });
+            }
+            
+            // Language change handler
+            document.getElementById('lang-select').addEventListener('change', function() {
+                currentLanguage = this.value;
+                updateTranslations();
+                
+                // Refresh chart if it exists
+                if (statusChart) {
+                    const referrals = getCurrentReferrals();
+                    if (referrals) updateChart(referrals);
+                }
+            });
             
             // Validate phone number
             function validatePhone(phone) {
@@ -439,7 +459,6 @@ options: {<!DOCTYPE html>
                 const formControl = input.closest('.mb-3');
                 const error = formControl.querySelector('.invalid-feedback');
                 
-                formControl.classList.add('was-validated');
                 error.textContent = message;
                 error.style.display = 'block';
                 input.classList.add('is-invalid');
@@ -450,9 +469,21 @@ options: {<!DOCTYPE html>
                 const formControl = input.closest('.mb-3');
                 const error = formControl.querySelector('.invalid-feedback');
                 
-                formControl.classList.remove('was-validated');
                 error.style.display = 'none';
                 input.classList.remove('is-invalid');
+            }
+            
+            // Get referrals for current user
+            function getReferrals(phone, email) {
+                const key = `${phone}:${email}`;
+                return sampleData[key] || [];
+            }
+            
+            // Get current referrals (for chart refresh)
+            function getCurrentReferrals() {
+                const phone = document.getElementById('dashboard-phone').value.trim();
+                const email = document.getElementById('dashboard-email').value.trim();
+                return getReferrals(phone, email);
             }
             
             // Form submission
@@ -461,37 +492,36 @@ options: {<!DOCTYPE html>
                 const email = document.getElementById('dashboard-email').value.trim();
                 let isValid = true;
                 
+                // Reset errors
+                clearError(document.getElementById('dashboard-phone'));
+                clearError(document.getElementById('dashboard-email'));
+                
                 // Validate phone
                 if (!phone) {
                     showError(document.getElementById('dashboard-phone'), 
-                             "Please provide a valid phone number (01XXXXXXXX).");
+                             translations[currentLanguage].phoneError);
                     isValid = false;
                 } else if (!validatePhone(phone)) {
                     showError(document.getElementById('dashboard-phone'), 
-                             "Please provide a valid phone number (01XXXXXXXX).");
+                             translations[currentLanguage].phoneError);
                     isValid = false;
-                } else {
-                    clearError(document.getElementById('dashboard-phone'));
                 }
                 
                 // Validate email
                 if (!email) {
                     showError(document.getElementById('dashboard-email'), 
-                             "Please provide a valid email address.");
+                             translations[currentLanguage].emailError);
                     isValid = false;
                 } else if (!validateEmail(email)) {
                     showError(document.getElementById('dashboard-email'), 
-                             "Please provide a valid email address.");
+                             translations[currentLanguage].emailError);
                     isValid = false;
-                } else {
-                    clearError(document.getElementById('dashboard-email'));
                 }
                 
                 if (!isValid) return;
                 
-                // Get referrals from sample data
-                const key = `${phone}:${email}`;
-                const referrals = sampleData[key] || [];
+                // Get referrals
+                const referrals = getReferrals(phone, email);
                 
                 // Show results
                 showReferralResults(referrals);
@@ -511,9 +541,9 @@ options: {<!DOCTYPE html>
                 // Update stats
                 document.getElementById('total-referrals').textContent = referrals.length;
                 document.getElementById('hired-referrals').textContent = 
-                    referrals.filter(r => r.stage === 'Hired' && r.statusType === 'passed').length;
+                    referrals.filter(r => r.statusType === 'passed' || r.statusType === 'probation').length;
                 document.getElementById('progress-referrals').textContent = 
-                    referrals.filter(r => r.stage !== 'Hired' || r.statusType !== 'passed').length;
+                    referrals.filter(r => !['passed', 'probation'].includes(r.statusType)).length;
                 
                 // Update chart
                 updateChart(referrals);
@@ -525,7 +555,7 @@ options: {<!DOCTYPE html>
                 if (referrals.length === 0) {
                     referralList.innerHTML = `
                         <div class="alert alert-info">
-                            No referrals found with these details.
+                            ${translations[currentLanguage].noReferrals}
                         </div>
                     `;
                     return;
@@ -535,21 +565,9 @@ options: {<!DOCTYPE html>
                     const item = document.createElement('div');
                     item.className = `referral-item status-${referral.statusType}`;
                     
-                    // Action button
-                    let actionButton = '';
-                    if (referral.needsAction) {
-                        actionButton = `
-                            <button class="btn btn-sm btn-primary remind-btn">
-                                Remind
-                            </button>
-                        `;
-                    } else if (referral.stage === 'Hired' && referral.statusType === 'passed') {
-                        actionButton = `
-                            <button class="btn btn-sm btn-success celebrate-btn">
-                                Celebrate!
-                            </button>
-                        `;
-                    }
+                    // Get status translation
+                    const statusKey = `status${referral.statusType.charAt(0).toUpperCase() + referral.statusType.slice(1)}`;
+                    const statusTranslation = translations[currentLanguage][statusKey] || referral.status;
                     
                     item.innerHTML = `
                         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -557,42 +575,25 @@ options: {<!DOCTYPE html>
                                 <h5 class="mb-1">${referral.name}</h5>
                                 <p class="mb-1 text-muted small">${referral.email}</p>
                             </div>
-                            <span class="badge bg-secondary">${referral.status}</span>
+                            <span class="badge bg-secondary">${statusTranslation}</span>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <small class="text-muted">Stage</small>
                                 <p>${referral.stage}</p>
                             </div>
-                            <div class="col-md-3">
-                                <small class="text-muted">Application Date</small>
+                            <div class="col-md-4">
+                                <small class="text-muted">Applied</small>
                                 <p>${new Date(referral.applicationDate).toLocaleDateString()}</p>
                             </div>
-                            <div class="col-md-3">
-                                <small class="text-muted">Days in Stage</small>
+                            <div class="col-md-4">
+                                <small class="text-muted">Days</small>
                                 <p>${referral.daysInStage}</p>
-                            </div>
-                            <div class="col-md-3 text-end">
-                                ${actionButton}
                             </div>
                         </div>
                     `;
                     
                     referralList.appendChild(item);
-                });
-                
-                // Add event listeners to action buttons
-                document.querySelectorAll('.remind-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const name = this.closest('.referral-item').querySelector('h5').textContent;
-                        alert(`Reminder sent to ${name}!`);
-                    });
-                });
-                
-                document.querySelectorAll('.celebrate-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        alert('Congratulations on your successful referral!');
-                    });
                 });
             }
             
@@ -607,9 +608,7 @@ options: {<!DOCTYPE html>
                     talent: 0,
                     operations: 0,
                     probation: 0,
-                    passed: 0,
-                    failed: 0,
-                    unreliable: 0
+                    passed: 0
                 };
                 
                 referrals.forEach(ref => {
@@ -618,16 +617,15 @@ options: {<!DOCTYPE html>
                     }
                 });
                 
-                // Labels for the chart
+                // Get translated labels
+                const t = translations[currentLanguage];
                 const labels = [
-                    "Received Application",
-                    "Endorsed to Assessment",
-                    "Endorsed to Talent Acquisition",
-                    "Endorsed to Operations",
-                    "Hired (in probation period)",
-                    "Hired (passed probation)",
-                    "Failed",
-                    "Unreliable"
+                    t.statusReceived,
+                    t.statusAssessment,
+                    t.statusTalent,
+                    t.statusOperations,
+                    t.statusProbation,
+                    t.statusPassed
                 ];
                 
                 const data = [
@@ -636,9 +634,7 @@ options: {<!DOCTYPE html>
                     statusCounts.talent,
                     statusCounts.operations,
                     statusCounts.probation,
-                    statusCounts.passed,
-                    statusCounts.failed,
-                    statusCounts.unreliable
+                    statusCounts.passed
                 ];
                 
                 // Colors for each status
@@ -648,9 +644,7 @@ options: {<!DOCTYPE html>
                     'rgba(255, 193, 7, 0.7)',    // Talent - yellow
                     'rgba(255, 193, 7, 0.7)',    // Operations - yellow
                     'rgba(32, 201, 151, 0.7)',   // Probation - light green
-                    'rgba(40, 167, 69, 0.7)',    // Passed - green
-                    'rgba(220, 53, 69, 0.7)',    // Failed - red
-                    'rgba(220, 53, 69, 0.7)'     // Unreliable - red
+                    'rgba(40, 167, 69, 0.7)'     // Passed - green
                 ];
                 
                 // Destroy previous chart if exists
@@ -690,6 +684,20 @@ options: {<!DOCTYPE html>
                     }
                 });
             }
+            
+            // Initialize translations
+            updateTranslations();
+            
+            // Add test data button for demonstration
+            const testBtn = document.createElement('button');
+            testBtn.className = 'btn btn-outline-info btn-sm w-100 mb-3';
+            testBtn.textContent = 'Load Test Data';
+            testBtn.onclick = function() {
+                document.getElementById('dashboard-phone').value = '0123456789';
+                document.getElementById('dashboard-email').value = 'test@example.com';
+                document.getElementById('dashboard-submit').click();
+            };
+            document.getElementById('auth-step').appendChild(testBtn);
         });
     </script>
 </body>
