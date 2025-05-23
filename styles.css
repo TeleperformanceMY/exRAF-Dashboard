@@ -7,10 +7,6 @@
     --light-color: #f8f9fa;
     --dark-color: #1a252f;
     --gray-color: #6c757d;
-    --yellow-status: #fff3cd;
-    --light-green-status: #d4edda;
-    --normal-green-status: #28a745;
-    --red-status: #f8d7da;
 }
 
 body {
@@ -25,14 +21,14 @@ body {
 .container {
     max-width: 800px;
     flex: 1;
-    padding-top: 20px;
 }
 
 .logo {
-    max-height: 80px;
+    max-width: 180px;
     height: auto;
     filter: grayscale(100%);
     transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
 .logo:hover {
@@ -98,60 +94,39 @@ body {
     transform: translateY(-2px);
 }
 
-.referral-item {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
+/* Status Colors */
 .status-received {
-    background-color: var(--yellow-status);
+    background-color: #fff3cd;
     border-left: 5px solid #ffc107;
 }
-
 .status-assessment {
-    background-color: var(--yellow-status);
+    background-color: #fff3cd;
     border-left: 5px solid #ffc107;
 }
-
 .status-talent {
-    background-color: var(--yellow-status);
+    background-color: #fff3cd;
     border-left: 5px solid #ffc107;
 }
-
 .status-operations {
-    background-color: var(--yellow-status);
+    background-color: #fff3cd;
     border-left: 5px solid #ffc107;
 }
-
 .status-probation {
-    background-color: var(--light-green-status);
-    border-left: 5px solid #20c997;
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
 }
-
 .status-passed {
-    background-color: var(--normal-green-status);
-    border-left: 5px solid var(--success-color);
+    background-color: #28a745;
+    border-left: 5px solid #218838;
     color: white;
 }
-
 .status-failed {
-    background-color: var(--red-status);
-    border-left: 5px solid var(--danger-color);
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
 }
-
 .status-unreliable {
-    background-color: var(--red-status);
-    border-left: 5px solid var(--danger-color);
-}
-
-.social-media-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
 }
 
 .social-icon {
@@ -182,26 +157,46 @@ footer {
     margin-top: auto;
 }
 
-.phone-hint {
-    font-size: 0.8rem;
-    color: var(--gray-color);
-    margin-top: 5px;
-    display: block;
-}
-
-#statusChart {
+.earnings-table {
     width: 100%;
-    max-height: 300px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.earnings-table th, .earnings-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+.earnings-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+.earnings-table tr:last-child td {
+    border-bottom: none;
 }
 
-.is-invalid {
-    border-color: var(--danger-color) !important;
+.referral-item {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.invalid-feedback {
-    display: none;
-    color: var(--danger-color);
-    font-size: 0.875em;
+.referral-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.friend-to-remind {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.friend-to-remind:hover {
+    background-color: #e9ecef;
 }
 
 @media (max-width: 768px) {
@@ -210,16 +205,12 @@ footer {
     }
     
     .logo {
-        max-height: 70px;
+        max-width: 140px;
     }
 }
 
 @media (max-width: 576px) {
     .container {
         padding: 15px;
-    }
-    
-    .logo {
-        max-height: 60px;
     }
 }
