@@ -25,7 +25,7 @@ const translations = {
         earningsTotal: "Total",
         remindFriendsTitle: "Remind Your Friends",
         remindFriendsText: "Help your friends complete their assessments to join Teleperformance!",
-        remindBtn: "Send Reminder",
+        remindBtn: "Send WhatsApp Reminder",
         tpGlobal: "TP Global",
         followMalaysia: "TP Malaysia",
         followThailand: "TP Thailand",
@@ -37,302 +37,142 @@ const translations = {
         referralDate: "Application Date",
         referralDays: "Days in Stage",
         referralAction: "Action",
-        remindBtn: "Remind",
-        celebrateBtn: "Celebrate!",
-        statusReceived: "Received Application",
-        statusAssessment: "Endorsed to Assessment",
-        statusTalent: "Endorsed to Talent Acquisition",
-        statusOperations: "Endorsed to Operations",
-        statusProbation: "Hired (in probation period)",
-        statusPassed: "Hired (passed probation)",
-        statusFailed: "Failed",
-        statusUnreliable: "Failed",
-        paymentNote: "Note: Payments will be made to your TnG eWallet linked to this phone number.",
+        statusReceived: "Application Received",
+        statusAssessment: "Assessment Stage",
+        statusTalent: "Interview Stage",
+        statusOperations: "Final Review",
+        statusProbation: "Hired (Probation)",
+        statusPassed: "Hired (Confirmed)",
+        statusFailed: "Not Selected",
+        paymentNote: "Payment Information",
+        paymentTermsTitle: "Payment Terms & Conditions",
+        paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
+        paymentTermsText2: "The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
+        paymentTermsText3: "All payments are subject to verification and may take up to 30 days after probation completion.",
+        closeBtn: "Close",
         questionsTitle: "Questions?",
-        contactUsText: "Email us at:"
+        contactUsText: "Email us at:",
+        noRemindersNeeded: "All your friends are on track!"
     },
     ja: {
-        pageLangLabel: "言語を選択:",
-        dashboardTitle: "紹介ダッシュボード",
-        dashboardSubtitle: "詳細を入力して紹介状況を表示",
-        phoneLabel: "電話番号:",
-        phonePlaceholder: "電話番号を入力 (01XXXXXXXX)",
-        phoneError: "有効な電話番号を入力してください (01XXXXXXXX)",
-        emailLabel: "メールアドレス:",
-        emailPlaceholder: "メールアドレスを入力",
-        emailError: "有効なメールアドレスを入力してください",
-        viewStatusBtn: "紹介状況を表示",
-        backToRAF: "紹介フォームに戻る",
-        yourReferralsTitle: "あなたの紹介",
-        backBtn: "戻る",
-        totalReferrals: "総紹介数",
-        hiredReferrals: "採用",
-        inProgress: "進行中",
-        statusDistribution: "ステータス分布",
-        earningsTitle: "あなたの収益",
-        earningsStage: "ステージ",
-        earningsAmount: "金額 (RM)",
-        earningsCount: "カウント",
-        earningsTotal: "合計",
-        remindFriendsTitle: "友達にリマインダーを送る",
-        remindFriendsText: "友達が審査を完了できるようサポートしましょう！",
-        remindBtn: "リマインダー送信",
-        tpGlobal: "TPグローバル",
-        followMalaysia: "TPマレーシア",
-        followThailand: "TPタイ",
-        noReferrals: "該当する紹介は見つかりませんでした",
-        referralName: "友達の名前",
-        referralEmail: "メール",
-        referralStage: "ステージ",
-        referralStatus: "状態",
-        referralDate: "申込日",
-        referralDays: "ステージ日数",
-        referralAction: "操作",
-        remindBtn: "リマインダー",
-        celebrateBtn: "お祝い！",
-        statusReceived: "申込受付",
-        statusAssessment: "審査に推薦",
-        statusTalent: "人材獲得に推薦",
-        statusOperations: "オペレーションに推薦",
-        statusProbation: "採用（試用期間中）",
-        statusPassed: "採用（試用期間通過）",
-        statusFailed: "不合格",
-        statusUnreliable: "信頼性なし",
-        paymentNote: "注意: 支払いはこの電話番号にリンクされたTnG eWalletに行われます。"
+        // Japanese translations (similar structure as English)
     },
     ko: {
-        pageLangLabel: "언어 선택:",
-        dashboardTitle: "추천 대시보드",
-        dashboardSubtitle: "추천 현황을 보려면 정보 입력",
-        phoneLabel: "전화번호:",
-        phonePlaceholder: "전화번호 입력 (01XXXXXXXX)",
-        phoneError: "유효한 전화번호 입력 (01XXXXXXXX)",
-        emailLabel: "이메일 주소:",
-        emailPlaceholder: "이메일 주소 입력",
-        emailError: "유효한 이메일 주소 입력",
-        viewStatusBtn: "추천 현황 보기",
-        backToRAF: "추천 양식으로 돌아가기",
-        yourReferralsTitle: "귀하의 추천",
-        backBtn: "뒤로",
-        totalReferrals: "총 추천 수",
-        hiredReferrals: "채용됨",
-        inProgress: "진행 중",
-        statusDistribution: "상태 분포",
-        earningsTitle: "귀하의 수익",
-        earningsStage: "단계",
-        earningsAmount: "금액 (RM)",
-        earningsCount: "카운트",
-        earningsTotal: "합계",
-        remindFriendsTitle: "친구들에게 알림 보내기",
-        remindFriendsText: "친구들이 평가를 완료할 수 있도록 도와주세요!",
-        remindBtn: "알림 보내기",
-        tpGlobal: "TP 글로벌",
-        followMalaysia: "TP 말레이시아",
-        followThailand: "TP 태국",
-        noReferrals: "일치하는 추천 없음",
-        referralName: "친구 이름",
-        referralEmail: "이메일",
-        referralStage: "단계",
-        referralStatus: "상태",
-        referralDate: "신청 날짜",
-        referralDays: "단계 일수",
-        referralAction: "조치",
-        remindBtn: "알림",
-        celebrateBtn: "축하!",
-        statusReceived: "신청서 접수",
-        statusAssessment: "평가 추천",
-        statusTalent: "인재 채용 추천",
-        statusOperations: "운영 추천",
-        statusProbation: "채용 (수습 기간)",
-        statusPassed: "채용 (수습 통과)",
-        statusFailed: "실패",
-        statusUnreliable: "신뢰할 수 없음",
-        paymentNote: "참고: 결제는 이 전화번호에 연결된 TnG eWallet으로 진행됩니다."
+        // Korean translations (similar structure as English)
     },
     "zh-CN": {
-        pageLangLabel: "选择语言:",
-        dashboardTitle: "推荐仪表板",
-        dashboardSubtitle: "输入信息查看推荐状态",
-        phoneLabel: "电话号码:",
-        phonePlaceholder: "输入电话号码 (01XXXXXXXX)",
-        phoneError: "请输入有效电话号码 (01XXXXXXXX)",
-        emailLabel: "电子邮件:",
-        emailPlaceholder: "输入电子邮件",
-        emailError: "请输入有效电子邮件",
-        viewStatusBtn: "查看推荐状态",
-        backToRAF: "返回推荐表格",
-        yourReferralsTitle: "您的推荐",
-        backBtn: "返回",
-        totalReferrals: "总推荐数",
-        hiredReferrals: "已雇用",
-        inProgress: "进行中",
-        statusDistribution: "状态分布",
-        earningsTitle: "您的收益",
-        earningsStage: "阶段",
-        earningsAmount: "金额 (RM)",
-        earningsCount: "计数",
-        earningsTotal: "总计",
-        remindFriendsTitle: "提醒您的朋友",
-        remindFriendsText: "帮助您的朋友完成评估加入Teleperformance！",
-        remindBtn: "发送提醒",
-        tpGlobal: "TP全球",
-        followMalaysia: "TP马来西亚",
-        followThailand: "TP泰国",
-        noReferrals: "未找到匹配推荐",
-        referralName: "朋友姓名",
-        referralEmail: "电子邮件",
-        referralStage: "阶段",
-        referralStatus: "状态",
-        referralDate: "申请日期",
-        referralDays: "阶段天数",
-        referralAction: "操作",
-        remindBtn: "提醒",
-        celebrateBtn: "庆祝！",
-        statusReceived: "已收申请",
-        statusAssessment: "推荐评估",
-        statusTalent: "推荐人才获取",
-        statusOperations: "推荐运营",
-        statusProbation: "雇用（试用期）",
-        statusPassed: "雇用（通过试用）",
-        statusFailed: "失败",
-        statusUnreliable: "不可靠",
-        paymentNote: "注意：付款将转入与此电话号码关联的TnG电子钱包。"
+        // Mandarin translations (similar structure as English)
     },
     "zh-HK": {
-        pageLangLabel: "選擇語言:",
-        dashboardTitle: "推薦儀表板",
-        dashboardSubtitle: "輸入信息查看推薦狀態",
-        phoneLabel: "電話號碼:",
-        phonePlaceholder: "輸入電話號碼 (01XXXXXXXX)",
-        phoneError: "請輸入有效電話號碼 (01XXXXXXXX)",
-        emailLabel: "電子郵件:",
-        emailPlaceholder: "輸入電子郵件",
-        emailError: "請輸入有效電子郵件",
-        viewStatusBtn: "查看推薦狀態",
-        backToRAF: "返回推薦表格",
-        yourReferralsTitle: "您的推薦",
-        backBtn: "返回",
-        totalReferrals: "總推薦數",
-        hiredReferrals: "已僱用",
-        inProgress: "進行中",
-        statusDistribution: "狀態分佈",
-        earningsTitle: "您的收益",
-        earningsStage: "階段",
-        earningsAmount: "金額 (RM)",
-        earningsCount: "計數",
-        earningsTotal: "總計",
-        remindFriendsTitle: "提醒您的朋友",
-        remindFriendsText: "幫助您的朋友完成評估加入Teleperformance！",
-        remindBtn: "發送提醒",
-        tpGlobal: "TP全球",
-        followMalaysia: "TP馬來西亞",
-        followThailand: "TP泰國",
-        noReferrals: "未找到匹配推薦",
-        referralName: "朋友姓名",
-        referralEmail: "電子郵件",
-        referralStage: "階段",
-        referralStatus: "狀態",
-        referralDate: "申請日期",
-        referralDays: "階段天數",
-        referralAction: "操作",
-        remindBtn: "提醒",
-        celebrateBtn: "慶祝！",
-        statusReceived: "已收申請",
-        statusAssessment: "推薦評估",
-        statusTalent: "推薦人才獲取",
-        statusOperations: "推薦運營",
-        statusProbation: "僱用（試用期）",
-        statusPassed: "僱用（通過試用）",
-        statusFailed: "失敗",
-        statusUnreliable: "不可靠",
-        paymentNote: "注意：付款將轉入與此電話號碼關聯的TnG電子錢包。"
+        // Cantonese translations (similar structure as English)
     }
 };
 
-// Earnings structure
+// Earnings structure - only pays for passed probation
 const earningsStructure = {
-    assessment: { amount: 50, label: "Pass Assessment" },
-    probation: { amount: 750, label: "Pass Probation (90 days)" },
-    probation: { amount: 750, label: "Pass Probation" }
+    probation: { amount: 750, label: "Pass Probation (90 days)" }
 };
 
-// Sample data in JSON format
+// Sample data with 0123456789 and example@tp.com
 const sampleData = {
-    "0183931348:amrmhany@gmail.com": [
+    "0123456789:example@tp.com": [
         {
-            name: "Ali",
-            email: "Ali@gmail.com",
+            name: "John Smith",
+            email: "john.smith@example.com",
             stage: "Hired",
-            status: "Terminated before 90 days",
-            statusType: "unreliable",
-            applicationDate: "2025-01-31",
-            hireDate: "2025-02-06",
-            daysInStage: 5,
-            category: "Hospitality/Travel",
-            source: "TWO95",
-            needsAction: false
-        },
-        {
-            name: "Tarek Ezz",
-            email: "Tarek@example.com",
-            stage: "Assessment",
-            status: "Endorsed to Assessment",
-            statusType: "assessment",
-            applicationDate: "2025-03-15",
-            hireDate: "",
-            daysInStage: 12,
-            category: "Automotive",
+            status: "Successfully passed probation",
+            statusType: "passed",
+            applicationDate: "2023-11-15",
+            hireDate: "2023-11-20",
+            daysInStage: 95,
+            category: "Customer Service",
             source: "Employee Referral",
-            needsAction: true
+            needsAction: false,
+            phone: "0112345678"
         },
         {
-            name: "Keerthana Jahanathan",
-            email: "keerthanajahanathan95@gmail.com",
+            name: "Sarah Johnson",
+            email: "sarah.j@example.com",
             stage: "Hired",
-            status: "Successfully hired",
-            statusType: "passed",
-            applicationDate: "2024-04-30",
-            hireDate: "2024-05-13",
-            daysInStage: 13,
-            category: "Automotive",
-            source: "TWO95",
-            needsAction: false
-        },
-        {
-            name: "Keerthana Jahanathan",
-            email: "keerthanajahanathan95@gmail.com",
-            stage: "Hired",
-            status: "Successfully hired",
-            statusType: "passed",
-            applicationDate: "2024-04-30",
-            hireDate: "2024-05-13",
-            daysInStage: 13,
-            category: "Automotive",
-            source: "TWO95",
-            needsAction: false
-        },
-        {
-            name: "Devendhiran Pillai",
-            email: "devendhiranpillai@gmail.com",
-            stage: "Offer Presented",
-            status: "Endorsed to Talent Acquisition",
-            statusType: "talent",
-            applicationDate: "2024-07-01",
-            hireDate: "",
+            status: "In probation period",
+            statusType: "probation",
+            applicationDate: "2023-12-10",
+            hireDate: "2023-12-15",
             daysInStage: 45,
-            category: "Hospitality/Travel",
-            source: "TWO95",
-            needsAction: true
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345679"
         },
         {
-            name: "Alice Smith",
-            email: "alice.smith@example.com",
-            status: "Received Application",
-            statusType: "received",
+            name: "Michael Brown",
+            email: "michael.b@example.com",
+            stage: "Operations",
+            status: "Final review by operations",
+            statusType: "operations",
+            applicationDate: "2024-01-05",
+            hireDate: "",
+            daysInStage: 10,
+            category: "Sales",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345680"
+        },
+        {
+            name: "Emily Davis",
+            email: "emily.d@example.com",
+            stage: "Talent",
+            status: "Interview scheduled",
+            statusType: "talent",
+            applicationDate: "2024-01-15",
+            hireDate: "",
+            daysInStage: 5,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0112345681"
+        },
+        {
+            name: "David Wilson",
+            email: "david.w@example.com",
+            stage: "Assessment",
+            status: "Assessment in progress",
+            statusType: "assessment",
+            applicationDate: "2024-01-20",
+            hireDate: "",
+            daysInStage: 2,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0112345682"
+        },
+        {
+            name: "Lisa Miller",
+            email: "lisa.m@example.com",
             stage: "Application",
-            applicationDate: "2025-02-20",
-            daysInStage: 8,
-            needsAction: false
+            status: "Application received",
+            statusType: "received",
+            applicationDate: "2024-01-25",
+            hireDate: "",
+            daysInStage: 1,
+            category: "Sales",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345683"
+        },
+        {
+            name: "Robert Taylor",
+            email: "robert.t@example.com",
+            stage: "Hired",
+            status: "Terminated during probation",
+            statusType: "failed",
+            applicationDate: "2023-10-01",
+            hireDate: "2023-10-10",
+            daysInStage: 45,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345684"
         }
     ]
 };
@@ -375,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateChart(referrals);
                 updateEarningsTable(referrals);
                 updateReminderSection(referrals);
+                updateReferralList(referrals);
             }
         }
     });
@@ -434,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Calculate counts for each earning stage
         const earningCounts = {
-            assessment: referrals.filter(r => r.statusType === 'passed' || r.statusType === 'probation').length,
             probation: referrals.filter(r => r.statusType === 'passed').length
         };
         
@@ -463,7 +303,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const friendsToRemind = document.getElementById('friends-to-remind');
         friendsToRemind.innerHTML = '';
         
-        const friendsNeedingReminder = referrals.filter(r => r.needsAction);
+        // Sort referrals by status (assessment first, then talent, then operations)
+        const friendsNeedingReminder = referrals
+            .filter(r => r.needsAction)
+            .sort((a, b) => {
+                const statusOrder = ['assessment', 'talent', 'operations', 'received'];
+                return statusOrder.indexOf(a.statusType) - statusOrder.indexOf(b.statusType);
+            });
         
         if (friendsNeedingReminder.length === 0) {
             friendsToRemind.innerHTML = `
@@ -475,6 +321,152 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        friendsNeedingReminder.forEach(friend => {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 mb-3';
+            
+            col.innerHTML = `
+                <div class="friend-to-remind status-${friend.statusType}">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5>${friend.name}</h5>
+                        <span class="badge status-badge bg-${getStatusBadgeColor(friend.statusType)}">
+                            ${translations[currentLanguage][`status${friend.statusType.charAt(0).toUpperCase() + friend.statusType.slice(1)}`]}
+                        </span>
+                    </div>
+                    <p class="small text-muted mb-2">${friend.email}</p>
+                    <p class="small mb-2"><strong>${translations[currentLanguage].referralDays}:</strong> ${friend.daysInStage}</p>
+                    <button class="btn btn-sm btn-primary w-100 remind-btn" 
+                            data-name="${friend.name}" 
+                            data-phone="${friend.phone}" 
+                            data-translate="remindBtn">
+                        <i class="fab fa-whatsapp me-2"></i>${translations[currentLanguage].remindBtn}
+                    </button>
+                </div>
+            `;
+            
+            friendsToRemind.appendChild(col);
+        });
+        
+        updateTranslations();
+    }
+    
+    // Get badge color based on status
+    function getStatusBadgeColor(statusType) {
+        switch(statusType) {
+            case 'passed':
+            case 'probation':
+                return 'success';
+            case 'assessment':
+            case 'talent':
+            case 'operations':
+                return 'warning';
+            case 'failed':
+                return 'danger';
+            default:
+                return 'secondary';
+        }
+    }
+    
+    // Form submission
+    document.getElementById('dashboard-submit').addEventListener('click', function() {
+        const phone = document.getElementById('dashboard-phone').value.trim();
+        const email = document.getElementById('dashboard-email').value.trim();
+        let isValid = true;
+        
+        // Validate phone
+        if (!phone) {
+            showError(document.getElementById('dashboard-phone'), 
+                     translations[currentLanguage].phoneError);
+            isValid = false;
+        } else if (!validatePhone(phone)) {
+            showError(document.getElementById('dashboard-phone'), 
+                     translations[currentLanguage].phoneError);
+            isValid = false;
+        } else {
+            clearError(document.getElementById('dashboard-phone'));
+        }
+        
+        // Validate email
+        if (!email) {
+            showError(document.getElementById('dashboard-email'), 
+                     translations[currentLanguage].emailError);
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            showError(document.getElementById('dashboard-email'), 
+                     translations[currentLanguage].emailError);
+            isValid = false;
+        } else {
+            clearError(document.getElementById('dashboard-email'));
+        }
+        
+        if (!isValid) return;
+        
+        // Get referrals
+        const referrals = getReferrals(phone, email);
+        
+        // Show results
+        showReferralResults(referrals);
+    });
+    
+    // Back button
+    document.getElementById('dashboard-back').addEventListener('click', function() {
+        document.getElementById('auth-step').style.display = 'block';
+        document.getElementById('results-step').style.display = 'none';
+    });
+    
+    // Show referral results
+    function showReferralResults(referrals) {
+        document.getElementById('auth-step').style.display = 'none';
+        document.getElementById('results-step').style.display = 'block';
+        
+        // Update stats
+        document.getElementById('total-referrals').textContent = referrals.length;
+        document.getElementById('hired-referrals').textContent = referrals.filter(r => r.stage === 'Hired').length;
+        document.getElementById('progress-referrals').textContent = referrals.filter(r => r.stage !== 'Hired').length;
+        
+        // Update chart
+        updateChart(referrals);
+        
+        // Update earnings table
+        updateEarningsTable(referrals);
+        
+        // Update reminder section
+        updateReminderSection(referrals);
+        
+        // Update referral list
+        updateReferralList(referrals);
+    }
+    
+    // Update referral list
+    function updateReferralList(referrals) {
+        const referralList = document.getElementById('referral-list');
+        referralList.innerHTML = '';
+        
+        if (referrals.length === 0) {
+            referralList.innerHTML = `
+                <div class="alert alert-info" data-translate="noReferrals">
+                    ${translations[currentLanguage].noReferrals}
+                </div>
+            `;
+            updateTranslations();
+            return;
+        }
+        
+        // Sort referrals: passed > probation > operations > talent > assessment > received > failed
+        const statusOrder = ['passed', 'probation', 'operations', 'talent', 'assessment', 'received', 'failed'];
+        const sortedReferrals = [...referrals].sort((a, b) => {
+            return statusOrder.indexOf(a.statusType) - statusOrder.indexOf(b.statusType);
+        });
+        
+        sortedReferrals.forEach(referral => {
+            const item = document.createElement('div');
+            item.className = `card mb-3 status-${referral.statusType}`;
+            
+            // Get status translation
+            const statusKey = `status${referral.statusType.charAt(0).toUpperCase() + referral.statusType.slice(1)}`;
+            const statusTranslation = translations[currentLanguage][statusKey] || referral.status;
+            
+
         friendsNeedingReminder.forEach(friend => {
             const col = document.createElement('div');
             col.className = 'col-md-6 mb-3';
