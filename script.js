@@ -296,6 +296,19 @@ const sampleData = {
             needsAction: false
         },
         {
+            name: "Keerthana Jahanathan",
+            email: "keerthanajahanathan95@gmail.com",
+            stage: "Hired",
+            status: "Successfully hired",
+            statusType: "passed",
+            applicationDate: "2024-04-30",
+            hireDate: "2024-05-13",
+            daysInStage: 13,
+            category: "Automotive",
+            source: "TWO95",
+            needsAction: false
+        },
+        {
             name: "Devendhiran Pillai",
             email: "devendhiranpillai@gmail.com",
             stage: "Offer Presented",
