@@ -15,6 +15,21 @@
             <img src="TPLogo11.png" alt="Teleperformance Logo" class="logo img-fluid">
         </div>
         
+        <!-- Contact Info (always visible) -->
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h5 data-translate="questionsTitle">Questions?</h5>
+                <p data-translate="contactUsText">Email us at: <a href="mailto:tpmycareers@teleperformance.com">tpmycareers@teleperformance.com</a></p>
+            </div>
+        </div>
+
+        <!-- TnG Note Button (always visible) -->
+        <div class="mb-4 text-center">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
+                <i class="fas fa-wallet me-2"></i> Payment Information
+            </button>
+        </div>
+
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <div class="mb-3">
@@ -93,34 +108,39 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                            <canvas id="statusChart"></canvas>
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                                <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
+                            </div>
                         </div>
                     </div>
 
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title text-center mb-3" data-translate="earningsTitle">Your Earnings</h5>
-                            <table class="earnings-table">
-                                <thead>
-                                    <tr>
-                                        <th data-translate="earningsStage">Stage</th>
-                                        <th data-translate="earningsAmount">Amount (RM)</th>
-                                        <th data-translate="earningsCount">Count</th>
-                                        <th data-translate="earningsTotal">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="earnings-body">
-                                    <!-- Will be populated by JavaScript -->
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th data-translate="earningsTotal">Total Earnings</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th id="total-earnings">RM 0</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="earnings-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-translate="earningsStage">Stage</th>
+                                            <th data-translate="earningsAmount">Amount (RM)</th>
+                                            <th data-translate="earningsCount">Count</th>
+                                            <th data-translate="earningsTotal">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="earnings-body">
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th data-translate="earningsTotal">Total Earnings</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th id="total-earnings">RM 0</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
@@ -135,13 +155,6 @@
                     </div>
                     
                     <div id="referral-list"></div>
-
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <h5 data-translate="questionsTitle">Questions?</h5>
-                            <p data-translate="contactUsText">Email us at: <a href="mailto:tpmycareers@teleperformance.com">tpmycareers@teleperformance.com</a></p>
-                        </div>
-                    </div>
                     
                     <!-- Social Media -->
                     <div class="mt-4">
@@ -155,12 +168,11 @@
                                     <a href="https://www.tiktok.com/@teleperformance_group" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
                                 </div>
                             </div>
-                           
                             <!-- TP Malaysia -->
                             <div class="col-md-4 mb-3">
                                 <h5 data-translate="followMalaysia">TP Malaysia</h5>
                                 <div class="d-flex justify-content-center gap-3">
-                                    <a href="http://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
                                     <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </div>
                             </div>
@@ -179,6 +191,26 @@
         </div>
     </div>
     
+    <!-- TnG Modal -->
+    <div class="modal fade" id="tngModal" tabindex="-1" aria-labelledby="tngModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tngModalLabel" data-translate="paymentTermsTitle">Payment Terms</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p data-translate="paymentTermsText1">Payments will be made to your TnG eWallet linked to your phone number.</p>
+                    <p data-translate="paymentTermsText2">The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.</p>
+                    <p data-translate="paymentTermsText3">All payments are subject to verification and may take up to 30 days after probation completion.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-translate="closeBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="row">
