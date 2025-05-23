@@ -255,10 +255,10 @@ const earningsStructure = {
 
 // Sample data in JSON format
 const sampleData = {
-    "60123456789:fansheng072799@gmail.com": [
+    "0183931348:amrmhany@gmail.com": [
         {
-            name: "Fan Sheng Chen",
-            email: "fansheng072799@gmail.com",
+            name: "Ali",
+            email: "Ali@gmail.com",
             stage: "Hired",
             status: "Terminated before 90 days",
             statusType: "unreliable",
@@ -270,8 +270,8 @@ const sampleData = {
             needsAction: false
         },
         {
-            name: "John Doe",
-            email: "john.doe@example.com",
+            name: "Tarek Ezz",
+            email: "Tarek@example.com",
             stage: "Assessment",
             status: "Endorsed to Assessment",
             statusType: "assessment",
@@ -281,9 +281,7 @@ const sampleData = {
             category: "Automotive",
             source: "Employee Referral",
             needsAction: true
-        }
-    ],
-    "60123456788:keerthanajahanathan95@gmail.com": [
+        },
         {
             name: "Keerthana Jahanathan",
             email: "keerthanajahanathan95@gmail.com",
