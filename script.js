@@ -46,8 +46,10 @@ const translations = {
         statusProbation: "Hired (in probation period)",
         statusPassed: "Hired (passed probation)",
         statusFailed: "Failed",
-        statusUnreliable: "Unreliable",
-        paymentNote: "Note: Payments will be made to your TnG eWallet linked to this phone number."
+        statusUnreliable: "Failed",
+        paymentNote: "Note: Payments will be made to your TnG eWallet linked to this phone number.",
+        questionsTitle: "Questions?",
+        contactUsText: "Email us at:"
     },
     ja: {
         pageLangLabel: "言語を選択:",
@@ -250,6 +252,7 @@ const translations = {
 // Earnings structure
 const earningsStructure = {
     assessment: { amount: 50, label: "Pass Assessment" },
+    probation: { amount: 750, label: "Pass Probation (90 days)" },
     probation: { amount: 750, label: "Pass Probation" }
 };
 
@@ -644,112 +647,103 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update translations for dynamic content
         updateTranslations();
     }
+  // Update chart with referral data (now as pie chart)
+function updateChart(referrals) {
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    const translation = translations[currentLanguage] || translations.en;
     
-    // Update chart with referral data
-    function updateChart(referrals) {
-        const ctx = document.getElementById('statusChart').getContext('2d');
-        const translation = translations[currentLanguage] || translations.en;
-        
-        // Count status types
-        const statusCounts = {
-            received: referrals.filter(r => r.statusType === 'received').length,
-            assessment: referrals.filter(r => r.statusType === 'assessment').length,
-            talent: referrals.filter(r => r.statusType === 'talent').length,
-            operations: referrals.filter(r => r.statusType === 'operations').length,
-            probation: referrals.filter(r => r.statusType === 'probation').length,
-            passed: referrals.filter(r => r.statusType === 'passed').length,
-            failed: referrals.filter(r => r.statusType === 'failed').length,
-            unreliable: referrals.filter(r => r.statusType === 'unreliable').length
-        };
-        
-        // Prepare data for chart
-        const labels = [
-            translation.statusReceived,
-            translation.statusAssessment,
-            translation.statusTalent,
-            translation.statusOperations,
-            translation.statusProbation,
-            translation.statusPassed,
-            translation.statusFailed,
-            translation.statusUnreliable
-        ];
-        
-        const data = [
-            statusCounts.received,
-            statusCounts.assessment,
-            statusCounts.talent,
-            statusCounts.operations,
-            statusCounts.probation,
-            statusCounts.passed,
-            statusCounts.failed,
-            statusCounts.unreliable
-        ];
-        
-        const backgroundColors = [
-            '#fff3cd', // received
-            '#fff3cd', // assessment
-            '#fff3cd', // talent
-            '#fff3cd', // operations
-            '#d4edda', // probation
-            '#28a745', // passed
-            '#f8d7da', // failed
-            '#f8d7da'  // unreliable
-        ];
-        
-        const borderColors = [
-            '#ffc107', // received
-            '#ffc107', // assessment
-            '#ffc107', // talent
-            '#ffc107', // operations
-            '#28a745', // probation
-            '#218838', // passed
-            '#dc3545', // failed
-            '#dc3545'  // unreliable
-        ];
-        
-        // Destroy previous chart if it exists
-        if (statusChart) {
-            statusChart.destroy();
-        }
-        
-        // Create new chart
-        statusChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: translation.referralStatus,
-                    data: data,
-                    backgroundColor: backgroundColors,
-                    borderColor: borderColors,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.parsed.y} ${context.parsed.y === 1 ? 'referral' : 'referrals'}`;
-                            }
-                        }
-                    }
+    // Count status types
+    const statusCounts = {
+        received: referrals.filter(r => r.statusType === 'received').length,
+        assessment: referrals.filter(r => r.statusType === 'assessment').length,
+        talent: referrals.filter(r => r.statusType === 'talent').length,
+        operations: referrals.filter(r => r.statusType === 'operations').length,
+        probation: referrals.filter(r => r.statusType === 'probation').length,
+        passed: referrals.filter(r => r.statusType === 'passed').length,
+        failed: referrals.filter(r => r.statusType === 'failed' || r.statusType === 'unreliable').length
+    };
+    
+    // Prepare data for chart
+    const labels = [
+        translation.statusReceived,
+        translation.statusAssessment,
+        translation.statusTalent,
+        translation.statusOperations,
+        translation.statusProbation,
+        translation.statusPassed,
+        translation.statusFailed
+    ];
+    
+    const data = [
+        statusCounts.received,
+        statusCounts.assessment,
+        statusCounts.talent,
+        statusCounts.operations,
+        statusCounts.probation,
+        statusCounts.passed,
+        statusCounts.failed
+    ];
+    
+    const backgroundColors = [
+        '#fff3cd', // received
+        '#fff3cd', // assessment
+        '#fff3cd', // talent
+        '#fff3cd', // operations
+        '#d4edda', // probation
+        '#28a745', // passed
+        '#f8d7da'  // failed
+    ];
+    
+    const borderColors = [
+        '#ffc107', // received
+        '#ffc107', // assessment
+        '#ffc107', // talent
+        '#ffc107', // operations
+        '#28a745', // probation
+        '#218838', // passed
+        '#dc3545'  // failed
+    ];
+    
+    // Destroy previous chart if it exists
+    if (statusChart) {
+        statusChart.destroy();
+    }
+    
+    // Create new chart as pie chart
+    statusChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} (${percentage}%)`;
                         }
                     }
                 }
             }
-        });
-    }
+        }
+    });
+}
+
+    
     
     // Handle remind button clicks
     document.addEventListener('click', function(e) {
