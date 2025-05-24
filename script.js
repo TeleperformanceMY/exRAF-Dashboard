@@ -469,181 +469,162 @@ document.addEventListener('DOMContentLoaded', function() {
             item.innerHTML = `
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                        <h5 class="mb-1">${referral.name}</h5>
-                        <p class="mb-1 text-muted small">${referral.email}</p>
+                                            <div>
+                            <h5 class="mb-1">${referral.name}</h5>
+                            <p class="mb-1 text-muted small">${referral.email}</p>
+                        </div>
+                        <span class="badge status-badge bg-${getStatusBadgeColor(referral.statusType)}">
+                            ${statusTranslation}
+                        </span>
                     </div>
-                    <span class="badge status-badge bg-${getStatusBadgeColor(referral.statusType)}">
-                        ${statusTranslation}
-                    </span>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <small class="text-muted" data-translate="referralStage">Stage</small>
+                            <p>${referral.stage}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted" data-translate="referralDate">Application Date</small>
+                            <p>${new Date(referral.applicationDate).toLocaleDateString()}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <small class="text-muted" data-translate="referralDays">Days in Stage</small>
+                            <p>${referral.daysInStage}</p>
+                        </div>
+                        <div class="col-md-3">
+                            ${referral.needsAction ? `
+                            <button class="btn btn-sm btn-primary w-100 remind-btn" 
+                                    data-name="${referral.name}" 
+                                    data-phone="${referral.phone}" 
+                                    data-translate="remindBtn">
+                                <i class="fab fa-whatsapp me-2"></i>${translations[currentLanguage].remindBtn}
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <small class="text-muted" data-translate="referralStage">Stage</small>
-                        <p>${referral.stage}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <small class="text-muted" data-translate="referralDate">Application Date</small>
-                        <p>${new Date(referral.applicationDate).toLocaleDateString()}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <small class="text-muted" data-translate="referralDays">Days in Stage</small>
-                        <p>${referral.daysInStage}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <small class="text-muted">Phone</small>
-                        <p>${referral.phone || 'N/A'}</p>
-                    </div>
-                </div>
-            </div>
-        `;
+            `;
+            
+            referralList.appendChild(item);
+        });
         
-        referralList.appendChild(item);
-    });
-    
-    // Update translations for dynamic content
-    updateTranslations();
-}
-
-// Update chart with referral data as pie chart
-function updateChart(referrals) {
-    const ctx = document.getElementById('statusChart').getContext('2d');
-    const translation = translations[currentLanguage] || translations.en;
-    
-    // Count status types (grouping similar statuses)
-    const statusCounts = {
-        passed: referrals.filter(r => r.statusType === 'passed').length,
-        probation: referrals.filter(r => r.statusType === 'probation').length,
-        operations: referrals.filter(r => r.statusType === 'operations').length,
-        talent: referrals.filter(r => r.statusType === 'talent').length,
-        assessment: referrals.filter(r => r.statusType === 'assessment').length,
-        received: referrals.filter(r => r.statusType === 'received').length,
-        failed: referrals.filter(r => r.statusType === 'failed').length
-    };
-    
-    // Prepare data for chart
-    const labels = [
-        translation.statusPassed,
-        translation.statusProbation,
-        translation.statusOperations,
-        translation.statusTalent,
-        translation.statusAssessment,
-        translation.statusReceived,
-        translation.statusFailed
-    ];
-    
-    const data = [
-        statusCounts.passed,
-        statusCounts.probation,
-        statusCounts.operations,
-        statusCounts.talent,
-        statusCounts.assessment,
-        statusCounts.received,
-        statusCounts.failed
-    ];
-    
-    const backgroundColors = [
-        '#28a745', // passed - green
-        '#7ac142', // probation - light green
-        '#ffc107', // operations - yellow
-        '#fd7e14', // talent - orange
-        '#ff9800', // assessment - dark orange
-        '#6c757d', // received - gray
-        '#dc3545'  // failed - red
-    ];
-    
-    const borderColors = [
-        '#218838', // passed
-        '#5a9e3a', // probation
-        '#d39e00', // operations
-        '#d56712', // talent
-        '#e68a00', // assessment
-        '#5a6268', // received
-        '#bd2130'  // failed
-    ];
-    
-    // Destroy previous chart if it exists
-    if (statusChart) {
-        statusChart.destroy();
+        // Update translations for dynamic content
+        updateTranslations();
     }
     
-    // Create new pie chart with modern styling
-    statusChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
+    // Update chart with referral data (modern doughnut chart with TP logo)
+    function updateChart(referrals) {
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        const translation = translations[currentLanguage] || translations.en;
+        
+        // Simplified status counts
+        const statusCounts = {
+            hired: referrals.filter(r => r.statusType === 'passed').length,
+            probation: referrals.filter(r => r.statusType === 'probation').length,
+            inProgress: referrals.filter(r => ['operations', 'talent', 'assessment'].includes(r.statusType)).length,
+            applied: referrals.filter(r => r.statusType === 'received').length,
+            notSelected: referrals.filter(r => r.statusType === 'failed').length
+        };
+        
+        // Chart data
+        const data = {
+            labels: [
+                translation.statusPassed,
+                translation.statusProbation,
+                'In Progress',
+                translation.statusReceived,
+                translation.statusFailed
+            ],
             datasets: [{
-                data: data,
-                backgroundColor: backgroundColors,
-                borderColor: borderColors,
-                borderWidth: 2,
-                hoverOffset: 15,
-                hoverBorderWidth: 3
+                data: [
+                    statusCounts.hired,
+                    statusCounts.probation,
+                    statusCounts.inProgress,
+                    statusCounts.applied,
+                    statusCounts.notSelected
+                ],
+                backgroundColor: [
+                    '#28a745', // Hired - green
+                    '#7cb342', // Probation - light green
+                    '#ffc107', // In progress - yellow
+                    '#6c757d', // Applied - gray
+                    '#dc3545'  // Not selected - red
+                ],
+                borderWidth: 1,
+                hoverOffset: 20
             }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '65%',
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        padding: 20,
-                        usePointStyle: true,
-                        pointStyle: 'circle',
-                        font: {
-                            size: 12
+        };
+
+        // Destroy previous chart if exists
+        if (statusChart) {
+            statusChart.destroy();
+        }
+
+        // Create new chart
+        statusChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                                size: 11
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
                         }
                     }
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.label || '';
-                            const value = context.raw || 0;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = Math.round((value / total) * 100);
-                            return `${label}: ${value} (${percentage}%)`;
-                        }
-                    },
-                    bodyFont: {
-                        size: 14
-                    },
-                    titleFont: {
-                        size: 16
-                    },
-                    padding: 12
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true
             }
+        });
+    }
+
+    // Handle remind button clicks - opens WhatsApp with template message
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remind-btn') || e.target.closest('.remind-btn')) {
+            const button = e.target.classList.contains('remind-btn') ? e.target : e.target.closest('.remind-btn');
+            const name = button.dataset.name;
+            const phone = button.dataset.phone;
+            
+            const message = `Hi ${name}, this is a reminder to complete your Teleperformance assessment. ` +
+                           `We're excited about your application! Please complete it at your earliest convenience.`;
+            
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
         }
     });
-}
 
-// Handle remind button clicks - opens WhatsApp
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remind-btn') || e.target.closest('.remind-btn')) {
-        const button = e.target.classList.contains('remind-btn') ? e.target : e.target.closest('.remind-btn');
-        const name = button.dataset.name;
-        const phone = button.dataset.phone;
-        const message = `Hi ${name}, this is a reminder to complete your Teleperformance assessment. We're excited about your application!`;
-        
-        // Open WhatsApp with pre-filled message
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-});
+    // Initialize translations
+    updateTranslations();
+    
+    // Auto-focus phone input
+    document.getElementById('dashboard-phone').focus();
+    
+    // Phone number validation - only numbers
+    document.getElementById('dashboard-phone').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
-// Initialize translations
-updateTranslations();
-
-// Auto-focus phone input
-document.getElementById('dashboard-phone').focus();
-
-// Prevent non-numeric input in phone field
-document.getElementById('dashboard-phone').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
+    // Show TnG terms modal
+    const tngModal = new bootstrap.Modal(document.getElementById('tngModal'));
+    document.querySelector('[data-bs-target="#tngModal"]').addEventListener('click', function() {
+        tngModal.show();
+    });
 });
