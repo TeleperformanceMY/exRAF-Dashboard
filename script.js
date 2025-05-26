@@ -864,36 +864,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Sort referrals with new status
-        const statusOrder = ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed
-    
-    // Update referral list
-    function updateReferralList(referrals) {
-        const referralList = document.getElementById('referral-list');
-        referralList.innerHTML = '';
-        
-        if (referrals.length === 0) {
-            referralList.innerHTML = `
-                <div class="alert alert-info" data-translate="noReferrals">
-                    ${translations[currentLanguage].noReferrals}
-                </div>
-            `;
-            updateTranslations();
-            return;
-        }
-        
-        // Sort referrals: passed > probation > operations > talent > assessment > received > failed
-        const statusOrder = ['passed', 'probation', 'operations', 'talent', 'assessment', 'received', 'failed'];
+        const statusOrder = ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed'];
         const sortedReferrals = [...referrals].sort((a, b) => {
             return statusOrder.indexOf(a.statusType) - statusOrder.indexOf(b.statusType);
         });
         
         sortedReferrals.forEach(referral => {
             const item = document.createElement('div');
-            item.className = `card mb-3 status-${referral.statusType}`;
-            
-            // Get status translation
             const statusKey = `status${referral.statusType.charAt(0).toUpperCase() + referral.statusType.slice(1)}`;
             const statusTranslation = translations[currentLanguage][statusKey] || referral.status;
+            
+            // Determine if payment is eligible
+            const isPaymentEligible = referral.statusType === 'passed' && 
+                                      referral.daysInStage >= 90 && 
+                                      !referral.isPreviousCandidate;
+            
+            item.className = `card mb-3 status-${referral.statusType} ${isPaymentEligible ? 'payment-eligible' : ''}`;
             
             item.innerHTML = `
                 <div class="card-body">
@@ -902,7 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h5 class="mb-1">${referral.name}</h5>
                             <p class="mb-1 text-muted small">${referral.email}</p>
                         </div>
-                        <span class="badge status-badge bg-${getStatusBadgeColor(referral.statusType)}">
+                        <span class="badge status-badge bg-${getStatusBadgeColor(referral.statusType, referral.daysInStage, referral.isPreviousCandidate)}">
                             ${statusTranslation}
                         </span>
                     </div>
@@ -940,18 +926,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTranslations();
     }
     
-    // Update chart with referral data (modern doughnut chart with TP logo)
+    // Update chart with referral data
     function updateChart(referrals) {
         const ctx = document.getElementById('statusChart').getContext('2d');
         const translation = translations[currentLanguage] || translations.en;
         
-        // Simplified status counts
+        // Count statuses
         const statusCounts = {
-            hired: referrals.filter(r => r.statusType === 'passed').length,
+            passed: referrals.filter(r => r.statusType === 'passed').length,
             probation: referrals.filter(r => r.statusType === 'probation').length,
-            inProgress: referrals.filter(r => ['operations', 'talent', 'assessment'].includes(r.statusType)).length,
-            applied: referrals.filter(r => r.statusType === 'received').length,
-            notSelected: referrals.filter(r => r.statusType === 'failed').length
+            previouslyApplied: referrals.filter(r => r.statusType === 'previouslyApplied').length,
+            operations: referrals.filter(r => r.statusType === 'operations').length,
+            talent: referrals.filter(r => r.statusType === 'talent').length,
+            assessment: referrals.filter(r => r.statusType === 'assessment').length,
+            received: referrals.filter(r => r.statusType === 'received').length,
+            failed: referrals.filter(r => r.statusType === 'failed').length
         };
         
         // Chart data
@@ -959,24 +948,33 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: [
                 translation.statusPassed,
                 translation.statusProbation,
-                'In Progress',
+                translation.statusPreviouslyApplied,
+                translation.statusOperations,
+                translation.statusTalent,
+                translation.statusAssessment,
                 translation.statusReceived,
                 translation.statusFailed
             ],
             datasets: [{
                 data: [
-                    statusCounts.hired,
+                    statusCounts.passed,
                     statusCounts.probation,
-                    statusCounts.inProgress,
-                    statusCounts.applied,
-                    statusCounts.notSelected
+                    statusCounts.previouslyApplied,
+                    statusCounts.operations,
+                    statusCounts.talent,
+                    statusCounts.assessment,
+                    statusCounts.received,
+                    statusCounts.failed
                 ],
                 backgroundColor: [
-                    '#28a745', // Hired - green
+                    '#28a745', // Passed - green
                     '#7cb342', // Probation - light green
-                    '#ffc107', // In progress - yellow
-                    '#6c757d', // Applied - gray
-                    '#dc3545'  // Not selected - red
+                    '#6c757d', // Previously applied - gray
+                    '#ffc107', // Operations - yellow
+                    '#fd7e14', // Talent - orange
+                    '#17a2b8', // Assessment - teal
+                    '#6c757d', // Received - gray
+                    '#dc3545'  // Failed - red
                 ],
                 borderWidth: 1,
                 hoverOffset: 20
@@ -994,6 +992,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data: data,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 cutout: '65%',
                 plugins: {
                     legend: {
@@ -1057,8 +1056,3 @@ document.addEventListener('DOMContentLoaded', function() {
         tngModal.show();
     });
 });
-
-
-
-
-
