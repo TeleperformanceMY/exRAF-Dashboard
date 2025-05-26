@@ -698,7 +698,7 @@ function updateEarningsTable(referrals) {
         document.getElementById('results-step').style.display = 'block';
         
         // Create results content
-        const resultsContent = `
+        const resultsContent = 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
                 <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
@@ -860,7 +860,7 @@ function updateEarningsTable(referrals) {
                     </div>
                 </div>
             </div>
-        `;
+        ;
         
         document.getElementById('results-step').innerHTML = resultsContent;
         
