@@ -546,49 +546,14 @@ document.addEventListener('DOMContentLoaded', function() {
         earningsBody.innerHTML = '';
         
         let totalEarnings = 0;
-        // Calculate assessment passes (not previously applied)
-        const assessmentPasses = referrals.filter(r => 
-            r.statusType === 'passed' && 
-            !r.isPreviousCandidate
-        );
+        
         // Calculate eligible referrals (passed probation, not previously applied)
         const eligibleReferrals = referrals.filter(r => 
             r.statusType === 'passed' && 
             r.daysInStage >= 90 && 
             !r.isPreviousCandidate
         );
-            // Add rows for each earning type
-    Object.entries(earningsStructure).forEach(([key, earning]) => {
-        const count = key === 'assessment' ? assessmentPasses.length : probationCompletions.length;
-        const total = count * earning.amount;
-        totalEarnings += total;
         
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${translations[currentLanguage][`status${key.charAt(0).toUpperCase() + key.slice(1)}`] || earning.label}</td>
-            <td>RM ${earning.amount}</td>
-            <td>${count}</td>
-            <td>RM ${total}</td>
-            `;
-            earningsBody.appendChild(row);
-        });
-        
-        // Update total earnings
-        document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
-    }
-
-        // In the showReferralResults function, update the chart section:
-        resultsContent += `
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                    <div class="chart-container" style="height: 300px; width: 100%; margin: 0 auto;">
-                        <canvas id="statusChart"></canvas>
-                    </div>
-                    <div class="chart-legend text-center mt-3" id="chartLegend"></div>
-                </div>
-            </div>
-        `;
         // Add row for eligible earnings
         const earning = earningsStructure.probation;
         const count = eligibleReferrals.length;
@@ -1080,7 +1045,8 @@ function updateChart(referrals) {
         `;
         legendContainer.appendChild(legendItem);
     });
-}Y
+}
+
     // Handle remind button clicks - opens WhatsApp with template message
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('remind-btn') || e.target.closest('.remind-btn')) {
