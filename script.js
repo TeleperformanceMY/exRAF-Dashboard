@@ -541,18 +541,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Update earnings table
-    function updateEarningsTable(referrals) {
-        const earningsBody = document.getElementById('earnings-body');
-        earningsBody.innerHTML = '';
+function updateEarningsTable(referrals) {
+    const earningsBody = document.getElementById('earnings-body');
+    earningsBody.innerHTML = '';
+    
+    let totalEarnings = 0;
+    
+    // Calculate assessment passes (not previously applied)
+    const assessmentPasses = referrals.filter(r => 
+        r.statusType === 'passed' && 
+        !r.isPreviousCandidate
+    );
+    
+    // Calculate probation completions (not previously applied)
+    const probationCompletions = referrals.filter(r => 
+        r.statusType === 'passed' && 
+        r.daysInStage >= 90 && 
+        !r.isPreviousCandidate
+    );
+    
+    // Add rows for each earning type
+    Object.entries(earningsStructure).forEach(([key, earning]) => {
+        const count = key === 'assessment' ? assessmentPasses.length : probationCompletions.length;
+        const total = count * earning.amount;
+        totalEarnings += total;
         
-        let totalEarnings = 0;
-        
-        // Calculate eligible referrals (passed probation, not previously applied)
-        const eligibleReferrals = referrals.filter(r => 
-            r.statusType === 'passed' && 
-            r.daysInStage >= 90 && 
-            !r.isPreviousCandidate
-        );
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${translations[currentLanguage][`status${key.charAt(0).toUpperCase() + key.slice(1)}`] || earning.label}</td>
+            <td>RM ${earning.amount}</td>
+            <td>${count}</td>
+            <td>RM ${total}</td>
+        `;
+        earningsBody.appendChild(row);
+    });
+    
+    // Update total earnings
+    document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
+}
         
         // Add row for eligible earnings
         const earning = earningsStructure.probation;
@@ -707,16 +733,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
+            
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                    <div class="chart-container">
+                    <div class="chart-container" style="height: 300px; width: 100%; margin: 0 auto;">
                         <canvas id="statusChart"></canvas>
-                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
                     </div>
+                    <div class="chart-legend text-center mt-3" id="chartLegend"></div>
                 </div>
             </div>
 
+            
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="earningsTitle">Your Earnings</h5>
