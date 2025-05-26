@@ -280,6 +280,21 @@ footer a {
     }
 }
 
+.chart-legend {
+    font-size: 0.9rem;
+}
+
+.chart-legend span {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.chart-container {
+    position: relative;
+    margin: 0 auto;
+    height: 300px;
+    width: 80%;
+}
 @media (max-width: 576px) {
     .container {
         padding: 15px;
