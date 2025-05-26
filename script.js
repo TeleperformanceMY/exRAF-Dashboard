@@ -53,6 +53,8 @@ const translations = {
         closeBtn: "Close",
         questionsTitle: "Questions?",
         contactUsText: "Email us at:",
+        statusAssessmentPassed: "Assessment Passed (RM50)",
+        paymentTermsText2: "RM50 will be paid when candidate passes assessment. RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
         noRemindersNeeded: "All your friends are on track!"
     },
     ja: {
@@ -108,6 +110,8 @@ const translations = {
         closeBtn: "閉じる",
         questionsTitle: "質問がありますか？",
         contactUsText: "メールでお問い合わせ:",
+        statusAssessmentPassed: "審査通過 (RM50)",
+        paymentTermsText2: "候補者が審査を通過するとRM50が支払われます。RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
         noRemindersNeeded: "すべての友達が順調です！"
     },
     ko: {
@@ -163,6 +167,8 @@ const translations = {
         closeBtn: "닫기",
         questionsTitle: "질문이 있으신가요?",
         contactUsText: "이메일로 문의:",
+        statusAssessmentPassed: "평가 통과 (RM50)",
+        paymentTermsText2: "후보자가 평가를 통과하면 RM50이 지급됩니다. RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
         noRemindersNeeded: "모든 친구들이 순조롭게 진행 중입니다!"
     },
     "zh-CN": {
@@ -218,6 +224,8 @@ const translations = {
         closeBtn: "关闭",
         questionsTitle: "有问题吗？",
         contactUsText: "发送邮件至:",
+        statusAssessmentPassed: "评估通过 (RM50)",
+        paymentTermsText2: "候选人通过评估后将支付RM50。RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
         noRemindersNeeded: "您的朋友们都在正常进行中！"
     },
     "zh-HK": {
@@ -273,12 +281,19 @@ const translations = {
         closeBtn: "關閉",
         questionsTitle: "有問題嗎？",
         contactUsText: "發送郵件至:",
+        statusAssessmentPassed: "評估通過 (RM50)",
+        paymentTermsText2: "候選人通過評估後將支付RM50。RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
         noRemindersNeeded: "您的朋友們都在正常進行中！"
     }
 };
 
 // Earnings structure
 const earningsStructure = {
+    assessment: {
+        amount: 50,
+        label: "Pass Assessment",
+        description: "Paid when candidate passes assessment"
+    },
     probation: { 
         amount: 750, 
         label: "Pass Probation (90 days)",
@@ -288,7 +303,7 @@ const earningsStructure = {
 
 // Sample data with all status examples
 const sampleData = {
-    "0123456789:amr@TP.com": [
+    "0123456789:amr@tp.com": [
         {
             name: "John Smith (Passed Probation)",
             email: "john.smith@example.com",
