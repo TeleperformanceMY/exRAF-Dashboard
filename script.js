@@ -44,6 +44,7 @@ const translations = {
         statusProbation: "Hired (Probation)",
         statusPassed: "Hired (Confirmed)",
         statusFailed: "Not Selected",
+        statusPreviouslyApplied: "Previously Applied (No Payment)",
         paymentNote: "Payment Information",
         paymentTermsTitle: "Payment Terms & Conditions",
         paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
@@ -98,6 +99,7 @@ const translations = {
         statusProbation: "採用（試用期間中）",
         statusPassed: "採用（確定）",
         statusFailed: "不採用",
+        statusPreviouslyApplied: "以前に応募済み（支払い対象外）",
         paymentNote: "支払い情報",
         paymentTermsTitle: "支払い条件",
         paymentTermsText1: "支払いは登録された電話番号にリンクされたTnG電子財布に行われます。",
@@ -152,6 +154,7 @@ const translations = {
         statusProbation: "채용 (수습 기간)",
         statusPassed: "채용 (확정)",
         statusFailed: "미채용",
+        statusPreviouslyApplied: "이전 지원자 (지급 불가)",
         paymentNote: "결제 정보",
         paymentTermsTitle: "결제 조건",
         paymentTermsText1: "결제는 등록된 전화번호에 연결된 TnG 전자지갑으로 진행됩니다.",
@@ -206,6 +209,7 @@ const translations = {
         statusProbation: "雇用（试用期）",
         statusPassed: "雇用（确定）",
         statusFailed: "未通过",
+        statusPreviouslyApplied: "之前申请过 (不支付)",
         paymentNote: "支付信息",
         paymentTermsTitle: "支付条款",
         paymentTermsText1: "款项将支付至与您电话号码关联的TnG电子钱包。",
@@ -260,6 +264,7 @@ const translations = {
         statusProbation: "僱用（試用期）",
         statusPassed: "僱用（確定）",
         statusFailed: "未通過",
+        statusPreviouslyApplied: "之前申請過 (不支付)",
         paymentNote: "支付信息",
         paymentTermsTitle: "支付條款",
         paymentTermsText1: "款項將支付至與您電話號碼關聯的TnG電子錢包。",
@@ -272,16 +277,20 @@ const translations = {
     }
 };
 
-// Earnings structure - only pays for passed probation
+// Earnings structure
 const earningsStructure = {
-    probation: { amount: 750, label: "Pass Probation (90 days)" }
+    probation: { 
+        amount: 750, 
+        label: "Pass Probation (90 days)",
+        description: "Paid only for new candidates who complete 90 days"
+    }
 };
 
-// Sample data with 0123456789 and example@tp.com
+// Sample data with all status examples
 const sampleData = {
-    "0123456789:example@tp.com": [
+    "0123456789:amr@TP.com": [
         {
-            name: "John Smith",
+            name: "John Smith (Passed Probation)",
             email: "john.smith@example.com",
             stage: "Hired",
             status: "Successfully passed probation",
@@ -292,10 +301,11 @@ const sampleData = {
             category: "Customer Service",
             source: "Employee Referral",
             needsAction: false,
-            phone: "0112345678"
+            phone: "0112345678",
+            isPreviousCandidate: false
         },
         {
-            name: "Sarah Johnson",
+            name: "Sarah Johnson (In Probation)",
             email: "sarah.j@example.com",
             stage: "Hired",
             status: "In probation period",
@@ -306,10 +316,11 @@ const sampleData = {
             category: "Technical Support",
             source: "Employee Referral",
             needsAction: false,
-            phone: "0112345679"
+            phone: "0112345679",
+            isPreviousCandidate: false
         },
         {
-            name: "Michael Brown",
+            name: "Michael Brown (Operations Review)",
             email: "michael.b@example.com",
             stage: "Operations",
             status: "Final review by operations",
@@ -320,10 +331,11 @@ const sampleData = {
             category: "Sales",
             source: "Employee Referral",
             needsAction: false,
-            phone: "0112345680"
+            phone: "0112345680",
+            isPreviousCandidate: false
         },
         {
-            name: "Emily Davis",
+            name: "Emily Davis (Interview Stage)",
             email: "emily.d@example.com",
             stage: "Talent",
             status: "Interview scheduled",
@@ -334,10 +346,11 @@ const sampleData = {
             category: "Customer Service",
             source: "Employee Referral",
             needsAction: true,
-            phone: "0112345681"
+            phone: "0112345681",
+            isPreviousCandidate: false
         },
         {
-            name: "David Wilson",
+            name: "David Wilson (Assessment)",
             email: "david.w@example.com",
             stage: "Assessment",
             status: "Assessment in progress",
@@ -348,10 +361,11 @@ const sampleData = {
             category: "Technical Support",
             source: "Employee Referral",
             needsAction: true,
-            phone: "0112345682"
+            phone: "0112345682",
+            isPreviousCandidate: false
         },
         {
-            name: "Lisa Miller",
+            name: "Lisa Miller (Application Received)",
             email: "lisa.m@example.com",
             stage: "Application",
             status: "Application received",
@@ -362,10 +376,11 @@ const sampleData = {
             category: "Sales",
             source: "Employee Referral",
             needsAction: false,
-            phone: "0112345683"
+            phone: "0112345683",
+            isPreviousCandidate: false
         },
         {
-            name: "Robert Taylor",
+            name: "Robert Taylor (Not Selected)",
             email: "robert.t@example.com",
             stage: "Hired",
             status: "Terminated during probation",
@@ -376,7 +391,23 @@ const sampleData = {
             category: "Customer Service",
             source: "Employee Referral",
             needsAction: false,
-            phone: "0112345684"
+            phone: "0112345684",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Previous Candidate (No Payment)",
+            email: "previous@example.com",
+            stage: "Application",
+            status: "Applied to TP before",
+            statusType: "previouslyApplied",
+            applicationDate: "2023-01-10",
+            hireDate: "",
+            daysInStage: 400,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345685",
+            isPreviousCandidate: true
         }
     ]
 };
@@ -433,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validate email
     function validateEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
+        return regex.test(email) && email.length <= 254;
     }
     
     // Show error message
@@ -470,6 +501,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return getReferrals(phone, email);
     }
     
+    // Get status badge color with payment eligibility check
+    function getStatusBadgeColor(statusType, daysInStage = 0, isPreviousCandidate = false) {
+        if (isPreviousCandidate) {
+            return 'previously-applied';
+        }
+        
+        switch(statusType) {
+            case 'passed':
+                return daysInStage >= 90 ? 'success' : 'warning';
+            case 'probation':
+                return 'warning';
+            case 'previouslyApplied':
+                return 'previously-applied';
+            case 'assessment':
+            case 'talent':
+            case 'operations':
+                return 'warning';
+            case 'failed':
+                return 'danger';
+            default:
+                return 'secondary';
+        }
+    }
+    
     // Update earnings table
     function updateEarningsTable(referrals) {
         const earningsBody = document.getElementById('earnings-body');
@@ -477,26 +532,27 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let totalEarnings = 0;
         
-        // Calculate counts for each earning stage
-        const earningCounts = {
-            probation: referrals.filter(r => r.statusType === 'passed').length
-        };
+        // Calculate eligible referrals (passed probation, not previously applied)
+        const eligibleReferrals = referrals.filter(r => 
+            r.statusType === 'passed' && 
+            r.daysInStage >= 90 && 
+            !r.isPreviousCandidate
+        );
         
-        // Add rows for each earning type
-        Object.entries(earningsStructure).forEach(([key, earning]) => {
-            const count = earningCounts[key] || 0;
-            const total = count * earning.amount;
-            totalEarnings += total;
-            
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${translations[currentLanguage][`status${key.charAt(0).toUpperCase() + key.slice(1)}`] || earning.label}</td>
-                <td>RM ${earning.amount}</td>
-                <td>${count}</td>
-                <td>RM ${total}</td>
-            `;
-            earningsBody.appendChild(row);
-        });
+        // Add row for eligible earnings
+        const earning = earningsStructure.probation;
+        const count = eligibleReferrals.length;
+        const total = count * earning.amount;
+        totalEarnings += total;
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${translations[currentLanguage][`statusPassed`] || earning.label}</td>
+            <td>RM ${earning.amount}</td>
+            <td>${count}</td>
+            <td>RM ${total}</td>
+        `;
+        earningsBody.appendChild(row);
         
         // Update total earnings
         document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
@@ -507,9 +563,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const friendsToRemind = document.getElementById('friends-to-remind');
         friendsToRemind.innerHTML = '';
         
-        // Sort referrals by status (assessment first, then talent, then operations)
+        // Filter out previously applied candidates
         const friendsNeedingReminder = referrals
-            .filter(r => r.needsAction)
+            .filter(r => r.needsAction && !r.isPreviousCandidate)
             .sort((a, b) => {
                 const statusOrder = ['assessment', 'talent', 'operations', 'received'];
                 return statusOrder.indexOf(a.statusType) - statusOrder.indexOf(b.statusType);
@@ -554,23 +610,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTranslations();
     }
     
-    // Get badge color based on status
-    function getStatusBadgeColor(statusType) {
-        switch(statusType) {
-            case 'passed':
-            case 'probation':
-                return 'success';
-            case 'assessment':
-            case 'talent':
-            case 'operations':
-                return 'warning';
-            case 'failed':
-                return 'danger';
-            default:
-                return 'secondary';
-        }
-    }
-    
     // Form submission
     document.getElementById('dashboard-submit').addEventListener('click', function() {
         const phone = document.getElementById('dashboard-phone').value.trim();
@@ -610,12 +649,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show results
         showReferralResults(referrals);
-    });
-    
-    // Back button
-    document.getElementById('dashboard-back').addEventListener('click', function() {
-        document.getElementById('auth-step').style.display = 'block';
-        document.getElementById('results-step').style.display = 'none';
     });
     
     // Show referral results
@@ -664,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
                     <div class="chart-container">
                         <canvas id="statusChart"></canvas>
-                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
+                        <img src="TPLogo.png" class="chart-logo" alt="TP Logo">
                     </div>
                 </div>
             </div>
@@ -682,9 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <th data-translate="earningsTotal">Total</th>
                                 </tr>
                             </thead>
-                            <tbody id="earnings-body">
-                                <!-- Will be populated by JavaScript -->
-                            </tbody>
+                            <tbody id="earnings-body"></tbody>
                             <tfoot>
                                 <tr>
                                     <th data-translate="earningsTotal">Total Earnings</th>
@@ -695,6 +726,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </tfoot>
                         </table>
                     </div>
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
+                            Payment Terms & Conditions
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -702,13 +738,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="remindFriendsTitle">Remind Your Friends</h5>
                     <p class="text-center" data-translate="remindFriendsText">Help your friends complete their assessments to join Teleperformance!</p>
-                    <div id="friends-to-remind" class="row">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
+                    <div id="friends-to-remind" class="row"></div>
                 </div>
             </div>
             
             <div id="referral-list"></div>
+            
+            <!-- Status Examples Section -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Status Examples</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="status-example status-passed">
+                                <h5>Passed Probation</h5>
+                                <p>Candidate completed 90+ days</p>
+                                <span class="badge bg-success">${translations[currentLanguage].statusPassed}</span>
+                            </div>
+                            <div class="status-example status-probation">
+                                <h5>In Probation</h5>
+                                <p>Candidate hired but under 90 days</p>
+                                <span class="badge bg-warning text-dark">${translations[currentLanguage].statusProbation}</span>
+                            </div>
+                            <div class="status-example status-operations">
+                                <h5>Final Review</h5>
+                                <p>Operations team finalizing</p>
+                                <span class="badge bg-warning text-dark">${translations[currentLanguage].statusOperations}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="status-example status-previously-applied">
+                                <h5>Previously Applied</h5>
+                                <p>No payment will be made</p>
+                                <span class="badge bg-previously-applied">${translations[currentLanguage].statusPreviouslyApplied}</span>
+                            </div>
+                            <div class="status-example status-failed">
+                                <h5>Not Selected</h5>
+                                <p>Candidate not hired</p>
+                                <span class="badge bg-danger">${translations[currentLanguage].statusFailed}</span>
+                            </div>
+                            <div class="status-example status-received">
+                                <h5>Application Received</h5>
+                                <p>Initial application stage</p>
+                                <span class="badge bg-secondary">${translations[currentLanguage].statusReceived}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <!-- Social Media -->
             <div class="mt-4">
@@ -770,6 +847,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update translations
         updateTranslations();
     }
+    
+    // Update referral list
+    function updateReferralList(referrals) {
+        const referralList = document.getElementById('referral-list');
+        referralList.innerHTML = '';
+        
+        if (referrals.length === 0) {
+            referralList.innerHTML = `
+                <div class="alert alert-info" data-translate="noReferrals">
+                    ${translations[currentLanguage].noReferrals}
+                </div>
+            `;
+            updateTranslations();
+            return;
+        }
+        
+        // Sort referrals with new status
+        const statusOrder = ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed
     
     // Update referral list
     function updateReferralList(referrals) {
