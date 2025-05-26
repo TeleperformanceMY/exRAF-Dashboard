@@ -16,6 +16,7 @@
             --light-color: #f8f9fa;
             --dark-color: #1a252f;
             --gray-color: #6c757d;
+            --tng-blue: #0F5CBF; /* TnG dark blue color */
         }
 
         body {
@@ -33,15 +34,14 @@
         }
 
         .logo {
-            max-width: 180px;
-            height: auto;
-            filter: grayscale(100%);
+            height: 80px; /* Fixed height to match exRAF page */
+            width: auto;
+            object-fit: contain;
             transition: all 0.3s ease;
             margin-top: 10px;
         }
 
         .logo:hover {
-            filter: grayscale(0%);
             transform: scale(1.05);
         }
 
@@ -104,14 +104,14 @@
             transform: translateY(-2px);
         }
 
-        .btn-info {
-            background-color: #17a2b8;
-            border-color: #17a2b8;
+        .btn-tng {
+            background-color: var(--tng-blue);
+            border-color: var(--tng-blue);
             color: white;
         }
 
-        .btn-info:hover {
-            background-color: #138496;
+        .btn-tng:hover {
+            background-color: #0c4da3;
             transform: translateY(-2px);
             color: white;
         }
@@ -265,6 +265,10 @@
             .earnings-table td {
                 padding: 8px;
             }
+
+            .chart-container {
+                height: 250px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -272,12 +276,17 @@
                 padding: 15px;
             }
             
-            .chart-container {
-                height: 250px;
-            }
-            
             .earnings-table {
                 font-size: 0.8rem;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .referral-item {
+                padding: 1rem;
             }
         }
     </style>
@@ -285,9 +294,7 @@
 <body>
     <div class="container py-4">
         <div class="text-center mb-4">
-            <div class="logo img-fluid d-flex align-items-center justify-content-center" style="height: 100px; background: linear-gradient(45deg, #2c3e50, #3498db); color: white; border-radius: 12px; font-size: 24px; font-weight: bold;">
-                Teleperformance
-            </div>
+            <img src="https://teleperformancemy.github.io/exRAF/logo.png" alt="Teleperformance Logo" class="logo">
         </div>
         
         <!-- Contact Info (always visible) -->
@@ -300,7 +307,7 @@
 
         <!-- TnG Note Button (always visible) -->
         <div class="mb-4 text-center">
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
+            <button type="button" class="btn btn-tng" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
                 <i class="fas fa-wallet me-2"></i> Payment Information
             </button>
         </div>
@@ -475,8 +482,9 @@
                 </div>
                 <div class="modal-body">
                     <p data-translate="paymentTermsText1">Payments will be made to your TnG eWallet linked to your phone number.</p>
-                    <p data-translate="paymentTermsText2">The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.</p>
-                    <p data-translate="paymentTermsText3">All payments are subject to verification and may take up to 30 days after probation completion.</p>
+                    <p data-translate="paymentTermsText2">The RM50 bonus will be paid when your referred candidate successfully completes the assessment.</p>
+                    <p data-translate="paymentTermsText3">The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.</p>
+                    <p data-translate="paymentTermsText4">All payments are subject to verification and may take up to 30 days after each stage completion.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-translate="closeBtn">Close</button>
@@ -500,58 +508,29 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="translations.js"></script>
     <script>
         // Sample data and functionality
         let currentUser = null;
         let statusChart = null;
 
-        // Sample referral data
+        // Sample referral data - consistent for demo purposes
         const sampleReferrals = {
             'user1@example.com': {
                 phone: '0123456789',
                 referrals: [
-                    { name: 'John Doe', email: 'john@example.com', status: 'passed', date: '2024-01-15' },
-                    { name: 'Jane Smith', email: 'jane@example.com', status: 'probation', date: '2024-02-01' },
-                    { name: 'Bob Wilson', email: 'bob@example.com', status: 'assessment', date: '2024-02-15' },
-                    { name: 'Alice Brown', email: 'alice@example.com', status: 'failed', date: '2024-01-30' }
+                    { name: 'John Doe', email: 'john@example.com', phone: '0123456781', status: 'passed', date: '2024-01-15' },
+                    { name: 'Jane Smith', email: 'jane@example.com', phone: '0123456782', status: 'probation', date: '2024-02-01' },
+                    { name: 'Bob Wilson', email: 'bob@example.com', phone: '0123456783', status: 'assessment', date: '2024-02-15' },
+                    { name: 'Alice Brown', email: 'alice@example.com', phone: '0123456784', status: 'failed', date: '2024-01-30' }
                 ]
-            }
-        };
-
-        // Translations
-        const translations = {
-            en: {
-                questionsTitle: "Questions?",
-                contactUsText: "Email us at: ",
-                paymentNote: "Payment Information",
-                pageLangLabel: "Choose Your Language:",
-                dashboardTitle: "Referral Dashboard",
-                dashboardSubtitle: "Enter your details to view your referral status",
-                phoneLabel: "Phone Number:",
-                emailLabel: "Email Address:",
-                viewStatusBtn: "View Referral Status",
-                backToRAF: "Back to Referral Form",
-                yourReferralsTitle: "Your Referrals",
-                backBtn: "Back",
-                totalReferrals: "Total Referrals",
-                hiredReferrals: "Hired",
-                inProgress: "In Progress",
-                statusDistribution: "Status Distribution",
-                earningsTitle: "Your Earnings",
-                earningsStage: "Stage",
-                earningsAmount: "Amount (RM)",
-                earningsCount: "Count",
-                earningsTotal: "Total",
-                remindFriendsTitle: "Remind Your Friends",
-                remindFriendsText: "Help your friends complete their assessments to join Teleperformance!",
-                tpGlobal: "TP Global",
-                followMalaysia: "TP Malaysia",
-                followThailand: "TP Thailand",
-                paymentTermsTitle: "Payment Terms",
-                paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
-                paymentTermsText2: "The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
-                paymentTermsText3: "All payments are subject to verification and may take up to 30 days after probation completion.",
-                closeBtn: "Close"
+            },
+            'user2@example.com': {
+                phone: '0123456790',
+                referrals: [
+                    { name: 'Michael Johnson', email: 'michael@example.com', phone: '0123456785', status: 'passed', date: '2024-01-20' },
+                    { name: 'Sarah Williams', email: 'sarah@example.com', phone: '0123456786', status: 'probation', date: '2024-02-10' }
+                ]
             }
         };
 
@@ -602,11 +581,14 @@
                 document.getElementById('auth-step').style.display = 'block';
             });
 
-            // Language selector (placeholder)
+            // Language selector
             document.getElementById('lang-select').addEventListener('change', function() {
-                // Language switching would be implemented here
-                console.log('Language changed to:', this.value);
+                const lang = this.value;
+                updateTranslations(lang);
             });
+
+            // Initialize with English translations
+            updateTranslations('en');
         });
 
         function validateInputs(phone, email) {
@@ -614,11 +596,19 @@
             const phoneValid = phone.startsWith('01') && phone.length >= 10 && phone.length <= 11;
             const emailValid = emailRegex.test(email);
             
+            if (!phoneValid) {
+                document.getElementById('dashboard-phone').classList.add('is-invalid');
+            }
+            
+            if (!emailValid) {
+                document.getElementById('dashboard-email').classList.add('is-invalid');
+            }
+            
             return phoneValid && emailValid;
         }
 
         function showResults(email) {
-            // For demo purposes, use sample data or generate random data
+            // For demo purposes, use sample data
             const userData = sampleReferrals[email] || generateSampleData();
             
             document.getElementById('auth-step').style.display = 'none';
@@ -632,21 +622,8 @@
         }
 
         function generateSampleData() {
-            const statuses = ['passed', 'probation', 'assessment', 'talent', 'operations', 'received', 'failed'];
-            const names = ['John Smith', 'Jane Doe', 'Mike Johnson', 'Sarah Wilson', 'David Brown'];
-            const referrals = [];
-            
-            const count = Math.floor(Math.random() * 8) + 1;
-            for (let i = 0; i < count; i++) {
-                referrals.push({
-                    name: names[Math.floor(Math.random() * names.length)],
-                    email: `user${i}@example.com`,
-                    status: statuses[Math.floor(Math.random() * statuses.length)],
-                    date: new Date(2024, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1).toISOString().split('T')[0]
-                });
-            }
-            
-            return { referrals };
+            // Return empty array for users not in our sample data
+            return { referrals: [] };
         }
 
         function updateStats(referrals) {
@@ -660,7 +637,16 @@
         }
 
         function updateChart(referrals) {
-            const statusCounts = {};
+            const statusCounts = {
+                'passed': 0,
+                'probation': 0,
+                'assessment': 0,
+                'talent': 0,
+                'operations': 0,
+                'received': 0,
+                'failed': 0
+            };
+
             referrals.forEach(r => {
                 statusCounts[r.status] = (statusCounts[r.status] || 0) + 1;
             });
@@ -671,15 +657,26 @@
                 statusChart.destroy();
             }
 
+            // Only show statuses that have counts > 0
+            const labels = [];
+            const data = [];
+            const backgroundColors = [];
+            
+            Object.entries(statusCounts).forEach(([status, count]) => {
+                if (count > 0) {
+                    labels.push(status.charAt(0).toUpperCase() + status.slice(1));
+                    data.push(count);
+                    backgroundColors.push(getStatusColor(status));
+                }
+            });
+
             statusChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(statusCounts).map(status => status.charAt(0).toUpperCase() + status.slice(1)),
+                    labels: labels,
                     datasets: [{
-                        data: Object.values(statusCounts),
-                        backgroundColor: [
-                            '#28a745', '#20c997', '#ffc107', '#fd7e14', '#6f42c1', '#6c757d', '#dc3545'
-                        ],
+                        data: data,
+                        backgroundColor: backgroundColors,
                         borderWidth: 2,
                         borderColor: '#fff'
                     }]
@@ -703,21 +700,15 @@
         function updateEarnings(referrals) {
             const earnings = {
                 'Assessment Completed': { amount: 50, count: 0 },
-                'Hired': { amount: 200, count: 0 },
-                'Probation Completed': { amount: 500, count: 0 }
+                'Probation Completed': { amount: 750, count: 0 }
             };
 
             referrals.forEach(r => {
-                if (['assessment', 'talent', 'operations'].includes(r.status)) {
-                    earnings['Assessment Completed'].count++;
-                }
                 if (r.status === 'passed') {
                     earnings['Assessment Completed'].count++;
-                    earnings['Hired'].count++;
                 }
                 if (r.status === 'probation') {
                     earnings['Assessment Completed'].count++;
-                    earnings['Hired'].count++;
                     earnings['Probation Completed'].count++;
                 }
             });
@@ -764,7 +755,7 @@
                             <small class="text-muted">${referral.email}</small>
                         </div>
                         <div class="col-md-4 text-center">
-                            <span class="badge bg-secondary status-badge">${statusText}</span>
+                            <span class="badge ${getStatusBadgeClass(referral.status)} status-badge">${statusText}</span>
                         </div>
                         <div class="col-md-4 text-end">
                             <small class="text-muted">Referred: ${new Date(referral.date).toLocaleDateString()}</small>
@@ -798,8 +789,8 @@
                     <div class="friend-to-remind">
                         <h6>${friend.name}</h6>
                         <p class="mb-2 small text-muted">${friend.email}</p>
-                        <button class="btn btn-sm btn-outline-primary" onclick="remindFriend('${friend.email}')">
-                            <i class="fas fa-paper-plane me-1"></i> Send Reminder
+                        <button class="btn btn-sm btn-outline-primary" onclick="sendWhatsAppReminder('${friend.phone}', '${friend.name}')">
+                            <i class="fas fa-paper-plane me-1"></i> Send WhatsApp Reminder
                         </button>
                     </div>
                 `;
@@ -808,21 +799,51 @@
             });
         }
 
-        function remindFriend(email) {
-            // Simulate sending reminder
-            alert(`Reminder sent to ${email}!`);
+        function sendWhatsAppReminder(phone, name) {
+            const message = `Hi ${name}, this is a friendly reminder to complete your Teleperformance assessment. Your journey to an exciting career is just one step away! Please check your email for the assessment link or contact us if you need assistance.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/6${phone}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
         }
 
-        // Status color mapping
-        const statusColors = {
-            'passed': '#28a745',
-            'probation': '#20c997',
-            'assessment': '#ffc107',
-            'talent': '#fd7e14',
-            'operations': '#6f42c1',
-            'received': '#6c757d',
-            'failed': '#dc3545'
-        };
+        function getStatusColor(status) {
+            const colors = {
+                'passed': '#28a745',
+                'probation': '#20c997',
+                'assessment': '#ffc107',
+                'talent': '#fd7e14',
+                'operations': '#6f42c1',
+                'received': '#6c757d',
+                'failed': '#dc3545'
+            };
+            return colors[status] || '#6c757d';
+        }
+
+        function getStatusBadgeClass(status) {
+            const classes = {
+                'passed': 'bg-success',
+                'probation': 'bg-success',
+                'assessment': 'bg-warning text-dark',
+                'talent': 'bg-warning text-dark',
+                'operations': 'bg-warning text-dark',
+                'received': 'bg-secondary',
+                'failed': 'bg-danger'
+            };
+            return classes[status] || 'bg-secondary';
+        }
+
+        function updateTranslations(lang) {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                } else if (translations['en'][key]) {
+                    el.textContent = translations['en'][key];
+                }
+            });
+        }
     </script>
 </body>
 </html>
