@@ -3,843 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referral Dashboard - Teleperformance</title>
+    <title>TP Referral Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --light-color: #f8f9fa;
-            --dark-color: #1a252f;
-            --gray-color: #6c757d;
-            --tng-blue: #0F5CBF; /* TnG dark blue color */
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 800px;
-            flex: 1;
-        }
-
-        .logo {
-            height: 80px; /* Fixed height to match exRAF page */
-            width: auto;
-            object-fit: contain;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-box {
-            background-color: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .section-title {
-            color: var(--primary-color);
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
-        }
-
-        .form-control, .form-select {
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--dark-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-tng {
-            background-color: var(--tng-blue);
-            border-color: var(--tng-blue);
-            color: white;
-        }
-
-        .btn-tng:hover {
-            background-color: #0c4da3;
-            transform: translateY(-2px);
-            color: white;
-        }
-
-        /* Status Colors */
-        .status-passed {
-            background-color: rgba(40, 167, 69, 0.1);
-            border-left: 5px solid var(--success-color);
-        }
-        .status-probation {
-            background-color: rgba(40, 167, 69, 0.05);
-            border-left: 5px solid var(--success-color);
-        }
-        .status-assessment, 
-        .status-talent, 
-        .status-operations {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-left: 5px solid var(--warning-color);
-        }
-        .status-received {
-            background-color: rgba(108, 117, 125, 0.1);
-            border-left: 5px solid var(--gray-color);
-        }
-        .status-failed {
-            background-color: rgba(220, 53, 69, 0.1);
-            border-left: 5px solid var(--danger-color);
-        }
-
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            font-size: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 0.25rem;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: var(--dark-color);
-            color: var(--light-color);
-            padding: 2rem 0;
-            margin-top: auto;
-        }
-
-        .earnings-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .earnings-table th, .earnings-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .earnings-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
-        .earnings-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .referral-item {
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .referral-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .friend-to-remind {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-
-        .friend-to-remind:hover {
-            background-color: #e9ecef;
-        }
-
-        .chart-container {
-            position: relative;
-            margin: auto;
-            height: 300px;
-            width: 100%;
-        }
-
-        .chart-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            opacity: 0.2;
-            pointer-events: none;
-            display: none; /* Hidden since we don't have the actual logo */
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .status-badge {
-            font-size: 0.8rem;
-            padding: 0.35rem 0.65rem;
-        }
-
-        .payment-note {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .payment-note:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .logo {
-                max-width: 140px;
-            }
-            
-            .earnings-table {
-                font-size: 0.9rem;
-            }
-            
-            .earnings-table th, 
-            .earnings-table td {
-                padding: 8px;
-            }
-
-            .chart-container {
-                height: 250px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .earnings-table {
-                font-size: 0.8rem;
-            }
-
-            .btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            .referral-item {
-                padding: 1rem;
-            }
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="container py-4">
         <div class="text-center mb-4">
-            <img src="https://teleperformancemy.github.io/exRAF/TPLogo11.png" alt="TP Logo" class="logo">
+            <img src="TPLogo11.png" alt="TP Logo" class="logo">
         </div>
-        
-        <!-- Contact Info (always visible) -->
-        <div class="card mb-4">
-            <div class="card-body text-center">
-                <h5 data-translate="questionsTitle">Questions?</h5>
-                <p data-translate="contactUsText">Email us at: <a href="mailto:tpmycareers@teleperformance.com">tpmycareers@teleperformance.com</a></p>
+
+        <!-- Language Selection -->
+        <div class="row justify-content-end mb-3">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="lang-select" class="form-label" data-translate="pageLangLabel">Choose Your Language:</label>
+                    <select class="form-select" id="lang-select">
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="zh-CN">中文 (简体)</option>
+                        <option value="zh-HK">中文 (繁體)</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <!-- TnG Note Button (always visible) -->
-        <div class="mb-4 text-center">
-            <button type="button" class="btn btn-tng" data-bs-toggle="modal" data-bs-target="#tngModal" data-translate="paymentNote">
-                <i class="fas fa-wallet me-2"></i> Payment Information
-            </button>
-        </div>
-
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <div class="mb-3">
-                    <label for="lang-select" class="form-label" data-translate="pageLangLabel">Choose Your Language:</label>
-                    <select id="lang-select" class="form-select">
-                        <option value="en">English</option>
-                        <option value="ja">Japanese</option>
-                        <option value="ko">Korean</option>
-                        <option value="zh-CN">Mandarin</option>
-                        <option value="zh-HK">Cantonese</option>
-                    </select>
-                </div>
-                
-                <div id="auth-step">
-                    <h4 class="text-center mb-4" data-translate="dashboardTitle">Referral Dashboard</h4>
-                    <p class="text-center mb-4" data-translate="dashboardSubtitle">Enter your details to view your referral status</p>
+        <!-- Authentication Step -->
+        <div id="auth-step">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title text-center" data-translate="dashboardTitle">Referral Dashboard</h2>
+                    <p class="card-text text-center mb-4" data-translate="dashboardSubtitle">Enter your details to view your referral status</p>
                     
-                    <div class="section-box mb-4">
+                    <form id="dashboard-form">
                         <div class="mb-3">
                             <label for="dashboard-phone" class="form-label" data-translate="phoneLabel">Phone Number:</label>
-                            <input type="tel" id="dashboard-phone" class="form-control" placeholder="01XXXXXXXX" required>
+                            <input type="tel" class="form-control" id="dashboard-phone" placeholder="Enter your phone number (01XXXXXXXX)" data-translate-placeholder="phonePlaceholder" required>
                             <div class="invalid-feedback" data-translate="phoneError">Please provide a valid phone number (01XXXXXXXX).</div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="dashboard-email" class="form-label" data-translate="emailLabel">Email Address:</label>
-                            <input type="email" id="dashboard-email" class="form-control" placeholder="your.email@example.com" required>
+                            <input type="email" class="form-control" id="dashboard-email" placeholder="Enter your email address" data-translate-placeholder="emailPlaceholder" required>
                             <div class="invalid-feedback" data-translate="emailError">Please provide a valid email address.</div>
                         </div>
                         
-                        <button id="dashboard-submit" class="btn btn-primary w-100" data-translate="viewStatusBtn">View Referral Status</button>
-                    </div>
-                    
-                    <div class="text-center mt-3">
-                        <a href="https://teleperformancemy.github.io/exRAF/" class="btn btn-outline-secondary" data-translate="backToRAF">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Referral Form
-                        </a>
-                    </div>
-                </div>
-                
-                <div id="results-step" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
-                        <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
-                            <i class="fas fa-arrow-left me-2"></i> Back
-                        </button>
-                    </div>
-                    
-                    <div id="referral-stats" class="row mb-4">
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title" data-translate="totalReferrals">Total Referrals</h5>
-                                    <h3 class="text-primary" id="total-referrals">0</h3>
-                                </div>
-                            </div>
+                        <div class="d-grid gap-2">
+                            <button type="button" id="dashboard-submit" class="btn btn-primary" data-translate="viewStatusBtn">View Referral Status</button>
+                            <a href="referral-form.html" class="btn btn-outline-secondary" data-translate="backToRAF">Back to Referral Form</a>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title" data-translate="hiredReferrals">Hired</h5>
-                                    <h3 class="text-success" id="hired-referrals">0</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title" data-translate="inProgress">In Progress</h5>
-                                    <h3 class="text-warning" id="progress-referrals">0</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                            <div class="chart-container">
-                                <canvas id="statusChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-3" data-translate="earningsTitle">Your Earnings</h5>
-                            <div class="table-responsive">
-                                <table class="earnings-table">
-                                    <thead>
-                                        <tr>
-                                            <th data-translate="earningsStage">Stage</th>
-                                            <th data-translate="earningsAmount">Amount (RM)</th>
-                                            <th data-translate="earningsCount">Count</th>
-                                            <th data-translate="earningsTotal">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="earnings-body">
-                                        <!-- Will be populated by JavaScript -->
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th data-translate="earningsTotal">Total Earnings</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th id="total-earnings">RM 0</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="reminder-section" class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-3" data-translate="remindFriendsTitle">Remind Your Friends</h5>
-                            <p class="text-center" data-translate="remindFriendsText">Help your friends complete their assessments to join Teleperformance!</p>
-                            <div id="friends-to-remind" class="row">
-                                <!-- Will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="referral-list"></div>
-                    
-                    <!-- Social Media -->
-                    <div class="mt-4">
-                        <div class="row text-center">
-                            <!-- TP Global -->
-                            <div class="col-md-4 mb-3">
-                                <h5 data-translate="tpGlobal">TP Global</h5>
-                                <div class="d-flex justify-content-center gap-3">
-                                    <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
-                                    <a href="https://www.tiktok.com/@teleperformance_group" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
-                                </div>
-                            </div>
-                            <!-- TP Malaysia -->
-                            <div class="col-md-4 mb-3">
-                                <h5 data-translate="followMalaysia">TP Malaysia</h5>
-                                <div class="d-flex justify-content-center gap-3">
-                                    <a href="https://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <!-- TP Thailand -->
-                            <div class="col-md-4 mb-3">
-                                <h5 data-translate="followThailand">TP Thailand</h5>
-                                <div class="d-flex justify-content-center gap-3">
-                                    <a href="http://www.facebook.com/TPinThailand/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="http://www.instagram.com/tpinthailand/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+        <!-- Results Step (initially hidden) -->
+        <div id="results-step" style="display: none;">
+            <!-- Content will be dynamically inserted here by JavaScript -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-5">
+            <div class="text-center py-3">
+                <p class="mb-1">© <span id="current-year"></span> Teleperformance. All rights reserved.</p>
+                <p class="mb-1 small" data-translate="questionsTitle">Questions?</p>
+                <p class="mb-0 small">
+                    <span data-translate="contactUsText">Email us at:</span>
+                    <a href="mailto:referrals@teleperformance.com" class="text-white">referrals@teleperformance.com</a>
+                </p>
+            </div>
+        </footer>
     </div>
-    
-    <!-- TnG Modal -->
-    <div class="modal fade" id="tngModal" tabindex="-1" aria-labelledby="tngModalLabel" aria-hidden="true">
+
+    <!-- TnG Terms Modal -->
+    <div class="modal fade" id="tngModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="tngModalLabel" data-translate="paymentTermsTitle">Payment Terms</h5>
+                    <h5 class="modal-title" data-translate="paymentTermsTitle">Payment Terms & Conditions</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p data-translate="paymentTermsText1">Payments will be made to your TnG eWallet linked to your phone number.</p>
-                    <p data-translate="paymentTermsText2">The RM50 bonus will be paid when your referred candidate successfully completes the assessment.</p>
-                    <p data-translate="paymentTermsText3">The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.</p>
-                    <p data-translate="paymentTermsText4">All payments are subject to verification and may take up to 30 days after each stage completion.</p>
+                    <p data-translate="paymentTermsText2">The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.</p>
+                    <p data-translate="paymentTermsText3">All payments are subject to verification and may take up to 30 days after probation completion.</p>
+                    <p><strong>New Condition:</strong> No payment will be made if the candidate had previously applied to Teleperformance.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-translate="closeBtn">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-translate="closeBtn">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0">© <span id="current-year"></span> TP.COM All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">#MoreTogether</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="translations.js"></script>
-    <script>
-        // Sample data and functionality
-        let currentUser = null;
-        let statusChart = null;
-
-        // Sample referral data - consistent for demo purposes
-        const sampleReferrals = {
-            'amrmhany@gmail.com': {
-                phone: '0183931348',
-                referrals: [
-                    { name: 'John Doe', email: 'john@example.com', phone: '0123456781', status: 'passed', date: '2024-01-15' },
-                    { name: 'Jane Smith', email: 'jane@example.com', phone: '0123456782', status: 'probation', date: '2024-02-01' },
-                    { name: 'Loai', email: 'loai@example.com', phone: '0174669871', status: 'assessment', date: '2024-03-28' },
-                    { name: 'Tarek Ezz', email: 'tarek@example.com', phone: '0182708243', status: 'assessment', date: '2024-02-15' },
-                    { name: 'Alice Brown', email: 'alice@example.com', phone: '0123456784', status: 'failed', date: '2024-01-30' },
-                    { name: 'Michael Johnson', email: 'michael@example.com', phone: '0123456785', status: 'passed', date: '2024-01-20' },
-                    { name: 'Sarah Williams', email: 'sarah@example.com', phone: '0123456786', status: 'probation', date: '2024-02-10' }
-                ]
-            }
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set current year
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Phone validation
-            const phoneInput = document.getElementById('dashboard-phone');
-            phoneInput.addEventListener('input', function() {
-                const phone = this.value.replace(/\D/g, '');
-                if (phone.startsWith('01') && phone.length >= 10 && phone.length <= 11) {
-                    this.classList.remove('is-invalid');
-                    this.classList.add('is-valid');
-                } else {
-                    this.classList.remove('is-valid');
-                    this.classList.add('is-invalid');
-                }
-            });
-
-            // Email validation
-            const emailInput = document.getElementById('dashboard-email');
-            emailInput.addEventListener('input', function() {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (emailRegex.test(this.value)) {
-                    this.classList.remove('is-invalid');
-                    this.classList.add('is-valid');
-                } else {
-                    this.classList.remove('is-valid');
-                    this.classList.add('is-invalid');
-                }
-            });
-
-            // Submit button
-            document.getElementById('dashboard-submit').addEventListener('click', function() {
-                const phone = phoneInput.value.replace(/\D/g, '');
-                const email = emailInput.value;
-                
-                if (validateInputs(phone, email)) {
-                    showResults(email);
-                }
-            });
-
-            // Back button
-            document.getElementById('dashboard-back').addEventListener('click', function() {
-                document.getElementById('results-step').style.display = 'none';
-                document.getElementById('auth-step').style.display = 'block';
-            });
-
-            // Language selector
-            document.getElementById('lang-select').addEventListener('change', function() {
-                const lang = this.value;
-                updateTranslations(lang);
-            });
-
-            // Initialize with English translations
-            updateTranslations('en');
-        });
-
-        function validateInputs(phone, email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const phoneValid = phone.startsWith('01') && phone.length >= 10 && phone.length <= 11;
-            const emailValid = emailRegex.test(email);
-            
-            if (!phoneValid) {
-                document.getElementById('dashboard-phone').classList.add('is-invalid');
-            }
-            
-            if (!emailValid) {
-                document.getElementById('dashboard-email').classList.add('is-invalid');
-            }
-            
-            return phoneValid && emailValid;
-        }
-
-        function showResults(email) {
-            // For demo purposes, use sample data
-            const userData = sampleReferrals[email] || generateSampleData();
-            
-            document.getElementById('auth-step').style.display = 'none';
-            document.getElementById('results-step').style.display = 'block';
-            
-            updateStats(userData.referrals);
-            updateChart(userData.referrals);
-            updateEarnings(userData.referrals);
-            updateReferralList(userData.referrals);
-            updateReminders(userData.referrals);
-        }
-
-        function generateSampleData() {
-            // Return empty array for users not in our sample data
-            return { referrals: [] };
-        }
-
-        function updateStats(referrals) {
-            const total = referrals.length;
-            const hired = referrals.filter(r => r.status === 'passed' || r.status === 'probation').length;
-            const inProgress = referrals.filter(r => ['assessment', 'talent', 'operations', 'received'].includes(r.status)).length;
-            
-            document.getElementById('total-referrals').textContent = total;
-            document.getElementById('hired-referrals').textContent = hired;
-            document.getElementById('progress-referrals').textContent = inProgress;
-        }
-
-        function updateChart(referrals) {
-            const statusCounts = {
-                'passed': 0,
-                'probation': 0,
-                'assessment': 0,
-                'talent': 0,
-                'operations': 0,
-                'received': 0,
-                'failed': 0
-            };
-
-            referrals.forEach(r => {
-                statusCounts[r.status] = (statusCounts[r.status] || 0) + 1;
-            });
-
-            const ctx = document.getElementById('statusChart').getContext('2d');
-            
-            if (statusChart) {
-                statusChart.destroy();
-            }
-
-            // Only show statuses that have counts > 0
-            const labels = [];
-            const data = [];
-            const backgroundColors = [];
-            
-            Object.entries(statusCounts).forEach(([status, count]) => {
-                if (count > 0) {
-                    labels.push(status.charAt(0).toUpperCase() + status.slice(1));
-                    data.push(count);
-                    backgroundColors.push(getStatusColor(status));
-                }
-            });
-
-            statusChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: backgroundColors,
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function updateEarnings(referrals) {
-            const earnings = {
-                'Assessment Completed': { amount: 50, count: 0 },
-                'Probation Completed': { amount: 750, count: 0 }
-            };
-
-            referrals.forEach(r => {
-                if (r.status === 'passed') {
-                    earnings['Assessment Completed'].count++;
-                }
-                if (r.status === 'probation') {
-                    earnings['Assessment Completed'].count++;
-                    earnings['Probation Completed'].count++;
-                }
-            });
-
-            const tbody = document.getElementById('earnings-body');
-            tbody.innerHTML = '';
-            let totalEarnings = 0;
-
-            Object.entries(earnings).forEach(([stage, data]) => {
-                const total = data.amount * data.count;
-                totalEarnings += total;
-                
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>${stage}</td>
-                    <td>RM ${data.amount}</td>
-                    <td>${data.count}</td>
-                    <td>RM ${total}</td>
-                `;
-            });
-
-            document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
-        }
-
-        function updateReferralList(referrals) {
-            const container = document.getElementById('referral-list');
-            container.innerHTML = '';
-
-            if (referrals.length === 0) {
-                container.innerHTML = '<div class="text-center text-muted">No referrals found.</div>';
-                return;
-            }
-
-            referrals.forEach(referral => {
-                const statusClass = `status-${referral.status}`;
-                const statusText = referral.status.charAt(0).toUpperCase() + referral.status.slice(1);
-                
-                const referralCard = document.createElement('div');
-                referralCard.className = `referral-item ${statusClass}`;
-                referralCard.innerHTML = `
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                            <h6 class="mb-1">${referral.name}</h6>
-                            <small class="text-muted">${referral.email}</small>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <span class="badge ${getStatusBadgeClass(referral.status)} status-badge">${statusText}</span>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <small class="text-muted">Referred: ${new Date(referral.date).toLocaleDateString()}</small>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(referralCard);
-            });
-        }
-
-        function updateReminders(referrals) {
-            const friendsToRemind = referrals.filter(r => 
-                ['received', 'assessment'].includes(r.status)
-            );
-
-            const container = document.getElementById('friends-to-remind');
-            container.innerHTML = '';
-
-            if (friendsToRemind.length === 0) {
-                document.getElementById('reminder-section').style.display = 'none';
-                return;
-            }
-
-            document.getElementById('reminder-section').style.display = 'block';
-
-            friendsToRemind.forEach(friend => {
-                const reminderCard = document.createElement('div');
-                reminderCard.className = 'col-md-6 mb-3';
-                reminderCard.innerHTML = `
-                    <div class="friend-to-remind">
-                        <h6>${friend.name}</h6>
-                        <p class="mb-2 small text-muted">${friend.email}</p>
-                        <button class="btn btn-sm btn-outline-primary" onclick="sendWhatsAppReminder('${friend.phone}', '${friend.name}')">
-                            <i class="fas fa-paper-plane me-1"></i> Send WhatsApp Reminder
-                        </button>
-                    </div>
-                `;
-                
-                container.appendChild(reminderCard);
-            });
-        }
-
-        function sendWhatsAppReminder(phone, name) {
-            const message = `Hi ${name}, this is a friendly reminder to complete your Teleperformance assessment. Your journey to an exciting career is just one step away! Please check your email for the assessment link or contact us if you need assistance.`;
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/6${phone}?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-        }
-
-        function getStatusColor(status) {
-            const colors = {
-                'passed': '#28a745',
-                'probation': '#20c997',
-                'assessment': '#ffc107',
-                'talent': '#fd7e14',
-                'operations': '#6f42c1',
-                'received': '#6c757d',
-                'failed': '#dc3545'
-            };
-            return colors[status] || '#6c757d';
-        }
-
-        function getStatusBadgeClass(status) {
-            const classes = {
-                'passed': 'bg-success',
-                'probation': 'bg-success',
-                'assessment': 'bg-warning text-dark',
-                'talent': 'bg-warning text-dark',
-                'operations': 'bg-warning text-dark',
-                'received': 'bg-secondary',
-                'failed': 'bg-danger'
-            };
-            return classes[status] || 'bg-secondary';
-        }
-
-        function updateTranslations(lang) {
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                } else if (translations['en'][key]) {
-                    el.textContent = translations['en'][key];
-                }
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
