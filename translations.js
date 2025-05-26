@@ -42,7 +42,10 @@ const translations = {
         statusOperations: "Operations",
         statusReceived: "Received",
         statusFailed: "Failed",
-        noReferrals: "No referrals found."
+        noReferrals: "No referrals found.",
+        statusReapplied: "Applied Before (No Payment)",
+        paymentTermsText4: "No payment will be made for candidates who have previously applied to Teleperformance."
+
     },
     ja: {
         questionsTitle: "質問がありますか？",
