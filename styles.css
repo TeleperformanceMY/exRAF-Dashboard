@@ -219,6 +219,47 @@ footer a {
     background-color: #e9ecef;
 }
 
+/* Footer styles */
+.footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+}
+
+.footer a {
+    color: var(--light-color);
+    text-decoration: underline;
+}
+
+.footer .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Email contact section */
+.contact-email-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+}
+
+/* Status examples styling */
+.status-example {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.status-example h5 {
+    margin-bottom: 0.5rem;
+}
+
+.status-example .badge {
+    font-size: 0.9rem;
+}
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .container {
