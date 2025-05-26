@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
                     <div class="chart-container">
                         <canvas id="statusChart"></canvas>
-                        <img src="TPLogo.png" class="chart-logo" alt="TP Logo">
+                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
                     </div>
                 </div>
             </div>
