@@ -1076,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = button.dataset.name;
             const phone = button.dataset.phone;
             
-            const message = `Hi ${name}, this is a reminder to complete your Teleperformance assessment. ` +
+            const message = `Hi ${name}, this is a reminder to complete your TP assessment. ` +
                            `We're excited about your application! Please complete it at your earliest convenience.`;
             
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
