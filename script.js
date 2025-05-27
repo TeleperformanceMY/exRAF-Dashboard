@@ -541,59 +541,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Update earnings table
-function updateEarningsTable(referrals) {
-    const earningsBody = document.getElementById('earnings-body');
-    earningsBody.innerHTML = '';
-    
-    let totalEarnings = 0;
-    
-    // Calculate assessment passes (not previously applied)
-    const assessmentPasses = referrals.filter(r => 
-        r.statusType === 'passed' && 
-        !r.isPreviousCandidate
-    );
-    
-    // Calculate probation completions (not previously applied)
-    const probationCompletions = referrals.filter(r => 
-        r.statusType === 'passed' && 
-        r.daysInStage >= 90 && 
-        !r.isPreviousCandidate
-    );
-    
-    // Add rows for each earning type
-    Object.entries(earningsStructure).forEach(([key, earning]) => {
-        const count = key === 'assessment' ? assessmentPasses.length : probationCompletions.length;
-        const total = count * earning.amount;
-        totalEarnings += total;
+    function updateEarningsTable(referrals) {
+        const earningsBody = document.getElementById('earnings-body');
+        earningsBody.innerHTML = '';
         
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${translations[currentLanguage][`status${key.charAt(0).toUpperCase() + key.slice(1)}`] || earning.label}</td>
-            <td>RM ${earning.amount}</td>
-            <td>${count}</td>
-            <td>RM ${total}</td>
-        `;
-        earningsBody.appendChild(row);
-    });
-    
-    // Update total earnings
-    document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
-}
+        let totalEarnings = 0;
         
-        // Add row for eligible earnings
-        const earning = earningsStructure.probation;
-        const count = eligibleReferrals.length;
-        const total = count * earning.amount;
-        totalEarnings += total;
+        // Calculate assessment passes (not previously applied)
+        const assessmentPasses = referrals.filter(r => 
+            r.statusType === 'passed' && 
+            !r.isPreviousCandidate
+        );
         
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${translations[currentLanguage][`statusPassed`] || earning.label}</td>
-            <td>RM ${earning.amount}</td>
-            <td>${count}</td>
-            <td>RM ${total}</td>
-        `;
-        earningsBody.appendChild(row);
+        // Calculate probation completions (not previously applied)
+        const probationCompletions = referrals.filter(r => 
+            r.statusType === 'passed' && 
+            r.daysInStage >= 90 && 
+            !r.isPreviousCandidate
+        );
+        
+        // Add rows for each earning type
+        Object.entries(earningsStructure).forEach(([key, earning]) => {
+            const count = key === 'assessment' ? assessmentPasses.length : probationCompletions.length;
+            const total = count * earning.amount;
+            totalEarnings += total;
+            
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${translations[currentLanguage][`status${key.charAt(0).toUpperCase() + key.slice(1)}`] || earning.label}</td>
+                <td>RM ${earning.amount}</td>
+                <td>${count}</td>
+                <td>RM ${total}</td>
+            `;
+            earningsBody.appendChild(row);
+        });
         
         // Update total earnings
         document.getElementById('total-earnings').textContent = `RM ${totalEarnings}`;
@@ -698,7 +679,7 @@ function updateEarningsTable(referrals) {
         document.getElementById('results-step').style.display = 'block';
         
         // Create results content
-        const resultsContent = 
+        const resultsContent = `
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
                 <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
@@ -733,7 +714,6 @@ function updateEarningsTable(referrals) {
                 </div>
             </div>
             
-            
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
@@ -744,7 +724,6 @@ function updateEarningsTable(referrals) {
                 </div>
             </div>
 
-            
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="earningsTitle">Your Earnings</h5>
@@ -860,7 +839,7 @@ function updateEarningsTable(referrals) {
                     </div>
                 </div>
             </div>
-        ;
+        `;
         
         document.getElementById('results-step').innerHTML = resultsContent;
         
@@ -970,110 +949,110 @@ function updateEarningsTable(referrals) {
     }
     
     // Update chart with referral data
-function updateChart(referrals) {
-    const ctx = document.getElementById('statusChart').getContext('2d');
-    const translation = translations[currentLanguage] || translations.en;
-    
-    // Count statuses
-    const statusCounts = {
-        passed: referrals.filter(r => r.statusType === 'passed').length,
-        probation: referrals.filter(r => r.statusType === 'probation').length,
-        previouslyApplied: referrals.filter(r => r.statusType === 'previouslyApplied').length,
-        operations: referrals.filter(r => r.statusType === 'operations').length,
-        talent: referrals.filter(r => r.statusType === 'talent').length,
-        assessment: referrals.filter(r => r.statusType === 'assessment').length,
-        received: referrals.filter(r => r.statusType === 'received').length,
-        failed: referrals.filter(r => r.statusType === 'failed').length
-    };
-    
-    // Chart data
-    const data = {
-        labels: [
-            translation.statusPassed,
-            translation.statusProbation,
-            translation.statusPreviouslyApplied,
-            translation.statusOperations,
-            translation.statusTalent,
-            translation.statusAssessment,
-            translation.statusReceived,
-            translation.statusFailed
-        ],
-        datasets: [{
-            data: [
-                statusCounts.passed,
-                statusCounts.probation,
-                statusCounts.previouslyApplied,
-                statusCounts.operations,
-                statusCounts.talent,
-                statusCounts.assessment,
-                statusCounts.received,
-                statusCounts.failed
+    function updateChart(referrals) {
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        const translation = translations[currentLanguage] || translations.en;
+        
+        // Count statuses
+        const statusCounts = {
+            passed: referrals.filter(r => r.statusType === 'passed').length,
+            probation: referrals.filter(r => r.statusType === 'probation').length,
+            previouslyApplied: referrals.filter(r => r.statusType === 'previouslyApplied').length,
+            operations: referrals.filter(r => r.statusType === 'operations').length,
+            talent: referrals.filter(r => r.statusType === 'talent').length,
+            assessment: referrals.filter(r => r.statusType === 'assessment').length,
+            received: referrals.filter(r => r.statusType === 'received').length,
+            failed: referrals.filter(r => r.statusType === 'failed').length
+        };
+        
+        // Chart data
+        const data = {
+            labels: [
+                translation.statusPassed,
+                translation.statusProbation,
+                translation.statusPreviouslyApplied,
+                translation.statusOperations,
+                translation.statusTalent,
+                translation.statusAssessment,
+                translation.statusReceived,
+                translation.statusFailed
             ],
-            backgroundColor: [
-                '#28a745', // Passed - green
-                '#7cb342', // Probation - light green
-                '#6c757d', // Previously applied - gray
-                '#ffc107', // Operations - yellow
-                '#fd7e14', // Talent - orange
-                '#17a2b8', // Assessment - teal
-                '#6c757d', // Received - gray
-                '#dc3545'  // Failed - red
-            ],
-            borderWidth: 1,
-            hoverOffset: 20
-        }]
-    };
+            datasets: [{
+                data: [
+                    statusCounts.passed,
+                    statusCounts.probation,
+                    statusCounts.previouslyApplied,
+                    statusCounts.operations,
+                    statusCounts.talent,
+                    statusCounts.assessment,
+                    statusCounts.received,
+                    statusCounts.failed
+                ],
+                backgroundColor: [
+                    '#28a745', // Passed - green
+                    '#7cb342', // Probation - light green
+                    '#6c757d', // Previously applied - gray
+                    '#ffc107', // Operations - yellow
+                    '#fd7e14', // Talent - orange
+                    '#17a2b8', // Assessment - teal
+                    '#6c757d', // Received - gray
+                    '#dc3545'  // Failed - red
+                ],
+                borderWidth: 1,
+                hoverOffset: 20
+            }]
+        };
 
-    // Destroy previous chart if exists
-    if (statusChart) {
-        statusChart.destroy();
-    }
+        // Destroy previous chart if exists
+        if (statusChart) {
+            statusChart.destroy();
+        }
 
-    // Create new chart
-    statusChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '65%',
-            plugins: {
-                legend: {
-                    display: false // We'll create custom legend below
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.label || '';
-                            const value = context.raw || 0;
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = Math.round((value / total) * 100);
-                            return `${label}: ${value} (${percentage}%)`;
+        // Create new chart
+        statusChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        display: false // We'll create custom legend below
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
                         }
                     }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true
             }
-        }
-    });
+        });
 
-    // Create custom legend below chart
-    const legendContainer = document.getElementById('chartLegend');
-    legendContainer.innerHTML = '';
-    
-    data.labels.forEach((label, i) => {
-        const legendItem = document.createElement('span');
-        legendItem.className = 'd-inline-block mx-2';
-        legendItem.innerHTML = `
-            <span class="d-inline-block mr-1" style="width: 12px; height: 12px; background-color: ${data.datasets[0].backgroundColor[i]};"></span>
-            ${label}
-        `;
-        legendContainer.appendChild(legendItem);
-    });
-}
+        // Create custom legend below chart
+        const legendContainer = document.getElementById('chartLegend');
+        legendContainer.innerHTML = '';
+        
+        data.labels.forEach((label, i) => {
+            const legendItem = document.createElement('span');
+            legendItem.className = 'd-inline-block mx-2';
+            legendItem.innerHTML = `
+                <span class="d-inline-block mr-1" style="width: 12px; height: 12px; background-color: ${data.datasets[0].backgroundColor[i]};"></span>
+                ${label}
+            `;
+            legendContainer.appendChild(legendItem);
+        });
+    }
 
     // Handle remind button clicks - opens WhatsApp with template message
     document.addEventListener('click', function(e) {
