@@ -350,8 +350,8 @@ const sampleData = {
             isPreviousCandidate: false
         },
         {
-            name: "Emily Davis (Interview Stage)",
-            email: "emily.d@example.com",
+            name: "LOai (Interview Stage)",
+            email: "loai.d@example.com",
             stage: "Talent",
             status: "Interview scheduled",
             statusType: "talent",
@@ -361,12 +361,12 @@ const sampleData = {
             category: "Customer Service",
             source: "Employee Referral",
             needsAction: true,
-            phone: "0112345681",
+            phone: "0174669871",
             isPreviousCandidate: false
         },
         {
-            name: "David Wilson (Assessment)",
-            email: "david.w@example.com",
+            name: "Tarek (Assessment)",
+            email: "tarek@example.com",
             stage: "Assessment",
             status: "Assessment in progress",
             statusType: "assessment",
@@ -376,7 +376,7 @@ const sampleData = {
             category: "Technical Support",
             source: "Employee Referral",
             needsAction: true,
-            phone: "0112345682",
+            phone: "0182708243",
             isPreviousCandidate: false
         },
         {
