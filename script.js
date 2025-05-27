@@ -380,6 +380,21 @@ const sampleData = {
             isPreviousCandidate: false
         },
         {
+            name: "Pourya (Assessment)",
+            email: "Pourya@example.com",
+            stage: "Assessment",
+            status: "Assessment in progress",
+            statusType: "assessment",
+            applicationDate: "2024-01-20",
+            hireDate: "",
+            daysInStage: 2,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0173890590",
+            isPreviousCandidate: false
+        },
+        {
             name: "Lisa Miller (Application Received)",
             email: "lisa.m@example.com",
             stage: "Application",
