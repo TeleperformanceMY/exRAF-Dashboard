@@ -1078,8 +1078,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const message = `Hi ${name}, this is a reminder to complete your TP assessment. ` +
                            `We're excited about your application! Please complete it at your earliest convenience.`;
-            phone = '+6' + phone;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/+6${phone}?text=${encodeURIComponent(message)}`, '_blank');
         }
     });
 
