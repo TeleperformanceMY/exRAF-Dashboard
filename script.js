@@ -1060,7 +1060,7 @@ const sampleData = {
             isPreviousCandidate: false
         },
         {
-            name: "LOai (Interview Stage)",
+            name: "Loai (Interview Stage)",
             email: "loai.d@example.com",
             stage: "Talent",
             status: "Interview scheduled",
