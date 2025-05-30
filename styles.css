@@ -312,7 +312,11 @@ footer a {
     height: 300px;
     width: 80%;
 }
-
+#user-full-name-display {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
 @media (max-width: 576px) {
     .container {
         padding: 15px;
