@@ -677,7 +677,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     logo.style.top = '50%';
                 }
             }
-            }
         });
 
         // Create custom legend below chart
