@@ -233,15 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTranslations();
     }
     
-    // Show user info
-    function showUserInfo(user) {
-        const userInfoDisplay = document.getElementById('user-info-display');
-        document.getElementById('user-full-name').textContent = user.fullName;
-        document.getElementById('user-email-display').textContent = `Email: ${user.email}`;
-        document.getElementById('user-phone-display').textContent = `Phone: ${user.phone}`;
-        userInfoDisplay.classList.remove('d-none');
-    }
-    
     // Form submission
     document.getElementById('dashboard-submit').addEventListener('click', function() {
         const phone = document.getElementById('dashboard-phone').value.trim();
@@ -276,12 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!isValid) return;
         
-        // Check if user exists
-        const userInfo = getUserInfo(phone, email);
-        if (userInfo) {
-            showUserInfo(userInfo);
-        }
-        
         // Get referrals
         const referrals = getReferrals(phone, email);
         
@@ -293,28 +278,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show results
-        showReferralResults(referrals);
+        showReferralResults(referrals, phone, email);
     });
     
     // Show referral results
-    function showReferralResults(referrals) {
+    function showReferralResults(referrals, phone, email) {
         document.getElementById('auth-step').style.display = 'none';
         document.getElementById('results-step').style.display = 'block';
         
-            // Get user info
-            const phone = document.getElementById('dashboard-phone').value.trim();
-            const email = document.getElementById('dashboard-email').value.trim();
-            const userInfo = getUserInfo(phone, email);
-            
-            // Display user name above "Your Referrals"
-            if (userInfo) {
-                document.getElementById('user-full-name-display').textContent = userInfo.fullName;
-            }
-
+        // Get user info
+        const userInfo = getUserInfo(phone, email);
+        
         // Create results content
         const resultsContent = `
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    ${userInfo ? `<h3 class="user-name-display">${userInfo.fullName}</h3>` : ''}
+                    <h4 data-translate="yourReferralsTitle">Your Referrals</h4>
+                </div>
                 <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
                     <i class="fas fa-arrow-left me-2"></i> Back
                 </button>
@@ -352,6 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
                     <div class="chart-container" style="height: 300px; width: 100%; margin: 0 auto;">
                         <canvas id="statusChart"></canvas>
+                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
                     </div>
                     <div class="chart-legend text-center mt-3" id="chartLegend"></div>
                 </div>
@@ -535,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                       !referral.isPreviousCandidate;
             
             item.className = `card mb-3 status-${referral.statusType} ${isPaymentEligible ? 'payment-eligible' : ''}`;
+                                  
             
             item.innerHTML = `
                 <div class="card-body">
