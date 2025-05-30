@@ -12,7 +12,7 @@
 <body>
     <div class="container py-4">
         <div class="text-center mb-4">
-            <img src="TPLogo11.png" alt="TP Logo" class="logo" style="width: 180px; height: auto;">
+            <img src="TPLogo11.png" alt="TP Logo" class="logo">
         </div>
 
         <!-- Language Selection -->
@@ -35,22 +35,10 @@
         <div id="auth-step">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
-                    <div class="chart-container" style="height: 300px; width: 100%; margin: 0 auto;">
-                        <canvas id="statusChart"></canvas>
-                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
-                    </div>
-                    <div class="chart-legend text-center mt-3" id="chartLegend"></div>
                     <h2 class="card-title text-center" data-translate="dashboardTitle">Referral Dashboard</h2>
                     <p class="card-text text-center mb-4" data-translate="dashboardSubtitle">Enter your details to view your referral status</p>
                     
                     <form id="dashboard-form">
-                        <div id="user-info-display" class="mb-4 p-3 bg-light rounded d-none">
-                            <h5 id="user-full-name"></h5>
-                            <p class="mb-1" id="user-email-display"></p>
-                            <p class="mb-0" id="user-phone-display"></p>
-                        </div>
-                        
                         <div class="mb-3">
                             <label for="dashboard-phone" class="form-label" data-translate="phoneLabel">Phone Number:</label>
                             <input type="tel" class="form-control" id="dashboard-phone" placeholder="Enter your phone number (01XXXXXXXX)" data-translate-placeholder="phonePlaceholder" required>
@@ -65,7 +53,7 @@
                         
                         <div class="d-grid gap-2">
                             <button type="button" id="dashboard-submit" class="btn btn-primary" data-translate="viewStatusBtn">View Referral Status</button>
-                            <a href="exRAF" class="btn btn-outline-secondary" data-translate="backToRAF">Back to Referral Form</a>
+                            <a href="https://teleperformancemy.github.io/exRAF/" class="btn btn-outline-secondary" data-translate="backToRAF">Back to Referral Form</a>
                         </div>
                     </form>
                 </div>
@@ -84,20 +72,13 @@
 
         <!-- Results Step (initially hidden) -->
         <div id="results-step" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h3 id="user-full-name-display" class="mb-0" style="font-size: 1.75rem;"></h3>
-                    <h4 class="mt-2" data-translate="yourReferralsTitle">Your Referrals</h4>
-                </div>
-                <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
-                    <i class="fas fa-arrow-left me-2"></i> Back
-                </button>
-            </div>
+            <!-- Content will be dynamically inserted here by JavaScript -->
+        </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-dark text-white">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-1">© <span id="current-year"></span> TP. All rights reserved.</p>
