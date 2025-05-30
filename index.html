@@ -12,7 +12,7 @@
 <body>
     <div class="container py-4">
         <div class="text-center mb-4">
-            <img src="TPLogo11.png" alt="TP Logo" class="logo">
+            <img src="TPLogo11.png" alt="TP Logo" class="logo" style="width: 180px; height: auto;">
         </div>
 
         <!-- Language Selection -->
@@ -35,6 +35,12 @@
         <div id="auth-step">
             <div class="card mb-4">
                 <div class="card-body">
+                    <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
+                    <div class="chart-container" style="height: 300px; width: 100%; margin: 0 auto;">
+                        <canvas id="statusChart"></canvas>
+                        <img src="TPLogo11.png" class="chart-logo" alt="TP Logo">
+                    </div>
+                    <div class="chart-legend text-center mt-3" id="chartLegend"></div>
                     <h2 class="card-title text-center" data-translate="dashboardTitle">Referral Dashboard</h2>
                     <p class="card-text text-center mb-4" data-translate="dashboardSubtitle">Enter your details to view your referral status</p>
                     
@@ -78,8 +84,15 @@
 
         <!-- Results Step (initially hidden) -->
         <div id="results-step" style="display: none;">
-            <!-- Content will be dynamically inserted here by JavaScript -->
-        </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 id="user-full-name-display" class="mb-0" style="font-size: 1.75rem;"></h3>
+                    <h4 class="mt-2" data-translate="yourReferralsTitle">Your Referrals</h4>
+                </div>
+                <button id="dashboard-back" class="btn btn-outline-secondary" data-translate="backBtn">
+                    <i class="fas fa-arrow-left me-2"></i> Back
+                </button>
+            </div>
     </div>
 
     <!-- Footer -->
