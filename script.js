@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // User database (mock data)
     const userDatabase = {
         "0123456789:amr@tp.com": {
-            fullName: "Amr Elsayed",
+            fullName: "Amr EzZ",
             email: "amr@tp.com",
             phone: "0123456789"
         },
