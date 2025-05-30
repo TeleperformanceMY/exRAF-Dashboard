@@ -301,6 +301,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('auth-step').style.display = 'none';
         document.getElementById('results-step').style.display = 'block';
         
+            // Get user info
+            const phone = document.getElementById('dashboard-phone').value.trim();
+            const email = document.getElementById('dashboard-email').value.trim();
+            const userInfo = getUserInfo(phone, email);
+            
+            // Display user name above "Your Referrals"
+            if (userInfo) {
+                document.getElementById('user-full-name-display').textContent = userInfo.fullName;
+            }
+
         // Create results content
         const resultsContent = `
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -659,6 +669,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     animateScale: true,
                     animateRotate: true
                 }
+            onResize: function(chart, size) {
+                // Keep logo centered when chart resizes
+                const logo = document.querySelector('.chart-logo');
+                if (logo) {
+                    logo.style.left = '50%';
+                    logo.style.top = '50%';
+                }
+            }
             }
         });
 
