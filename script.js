@@ -1,453 +1,33 @@
-// Translations for all languages
-const translations = {
-    en: {
-        pageLangLabel: "Choose Your Language:",
-        dashboardTitle: "Referral Dashboard",
-        dashboardSubtitle: "Enter your details to view your referral status",
-        phoneLabel: "Phone Number:",
-        phonePlaceholder: "Enter your phone number (01XXXXXXXX)",
-        phoneError: "Please provide a valid phone number (01XXXXXXXX).",
-        emailLabel: "Email Address:",
-        emailPlaceholder: "Enter your email address",
-        emailError: "Please provide a valid email address.",
-        viewStatusBtn: "View Referral Status",
-        backToRAF: "Back to Referral Form",
-        yourReferralsTitle: "Your Referrals",
-        backBtn: "Back",
-        totalReferrals: "Total Referrals",
-        hiredReferrals: "Hired",
-        inProgress: "In Progress",
-        statusDistribution: "Status Distribution",
-        earningsTitle: "Your Earnings",
-        earningsStage: "Stage",
-        earningsAmount: "Amount (RM)",
-        earningsCount: "Count",
-        earningsTotal: "Total",
-        remindFriendsTitle: "Remind Your Friends",
-        remindFriendsText: "Help your friends complete their assessments to join Teleperformance!",
-        remindBtn: "Send WhatsApp Reminder",
-        tpGlobal: "TP Global",
-        followMalaysia: "TP Malaysia",
-        followThailand: "TP Thailand",
-        noReferrals: "No referrals found with these details.",
-        referralName: "Friend's Name",
-        referralEmail: "Email",
-        referralStage: "Stage",
-        referralStatus: "Status",
-        referralDate: "Application Date",
-        referralDays: "Days in Stage",
-        referralAction: "Action",
-        statusReceived: "Application Received",
-        statusAssessment: "Assessment Stage",
-        statusTalent: "Interview Stage",
-        statusOperations: "Final Review",
-        statusProbation: "Hired (Probation)",
-        statusPassed: "Hired (Confirmed)",
-        statusFailed: "Not Selected",
-        statusPreviouslyApplied: "Previously Applied (No Payment)",
-        paymentNote: "Payment Information",
-        paymentTermsTitle: "Payment Terms & Conditions",
-        paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
-        paymentTermsText2: "The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
-        paymentTermsText3: "All payments are subject to verification and may take up to 30 days after probation completion.",
-        closeBtn: "Close",
-        questionsTitle: "Questions?",
-        contactUsText: "Email us at:",
-        statusAssessmentPassed: "Assessment Passed (RM50)",
-        paymentTermsText2: "RM50 will be paid when candidate passes assessment. RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
-        noRemindersNeeded: "All your friends are on track!"
-    },
-    ja: {
-        pageLangLabel: "言語を選択:",
-        dashboardTitle: "紹介ダッシュボード",
-        dashboardSubtitle: "詳細を入力して紹介状況を表示",
-        phoneLabel: "電話番号:",
-        phonePlaceholder: "電話番号を入力 (01XXXXXXXX)",
-        phoneError: "有効な電話番号を入力してください (01XXXXXXXX)",
-        emailLabel: "メールアドレス:",
-        emailPlaceholder: "メールアドレスを入力",
-        emailError: "有効なメールアドレスを入力してください",
-        viewStatusBtn: "紹介状況を表示",
-        backToRAF: "紹介フォームに戻る",
-        yourReferralsTitle: "あなたの紹介",
-        backBtn: "戻る",
-        totalReferrals: "総紹介数",
-        hiredReferrals: "採用",
-        inProgress: "進行中",
-        statusDistribution: "ステータス分布",
-        earningsTitle: "あなたの収益",
-        earningsStage: "ステージ",
-        earningsAmount: "金額 (RM)",
-        earningsCount: "カウント",
-        earningsTotal: "合計",
-        remindFriendsTitle: "友達にリマインダーを送る",
-        remindFriendsText: "友達が審査を完了できるようサポートしましょう！",
-        remindBtn: "WhatsAppリマインダーを送る",
-        tpGlobal: "TPグローバル",
-        followMalaysia: "TPマレーシア",
-        followThailand: "TPタイ",
-        noReferrals: "該当する紹介は見つかりませんでした",
-        referralName: "友達の名前",
-        referralEmail: "メール",
-        referralStage: "ステージ",
-        referralStatus: "状態",
-        referralDate: "申込日",
-        referralDays: "ステージ日数",
-        referralAction: "操作",
-        statusReceived: "申込受付",
-        statusAssessment: "審査ステージ",
-        statusTalent: "面接ステージ",
-        statusOperations: "最終レビュー",
-        statusProbation: "採用（試用期間中）",
-        statusPassed: "採用（確定）",
-        statusFailed: "不採用",
-        statusPreviouslyApplied: "以前に応募済み（支払い対象外）",
-        paymentNote: "支払い情報",
-        paymentTermsTitle: "支払い条件",
-        paymentTermsText1: "支払いは登録された電話番号にリンクされたTnG電子財布に行われます。",
-        paymentTermsText2: "RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
-        paymentTermsText3: "すべての支払いは確認が必要であり、試用期間完了後最大30日かかる場合があります。",
-        closeBtn: "閉じる",
-        questionsTitle: "質問がありますか？",
-        contactUsText: "メールでお問い合わせ:",
-        statusAssessmentPassed: "審査通過 (RM50)",
-        paymentTermsText2: "候補者が審査を通過するとRM50が支払われます。RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
-        noRemindersNeeded: "すべての友達が順調です！"
-    },
-    ko: {
-        pageLangLabel: "언어 선택:",
-        dashboardTitle: "추천 대시보드",
-        dashboardSubtitle: "추천 현황을 보려면 정보 입력",
-        phoneLabel: "전화번호:",
-        phonePlaceholder: "전화번호 입력 (01XXXXXXXX)",
-        phoneError: "유효한 전화번호 입력 (01XXXXXXXX)",
-        emailLabel: "이메일 주소:",
-        emailPlaceholder: "이메일 주소 입력",
-        emailError: "유효한 이메일 주소 입력",
-        viewStatusBtn: "추천 현황 보기",
-        backToRAF: "추천 양식으로 돌아가기",
-        yourReferralsTitle: "귀하의 추천",
-        backBtn: "뒤로",
-        totalReferrals: "총 추천 수",
-        hiredReferrals: "채용됨",
-        inProgress: "진행 중",
-        statusDistribution: "상태 분포",
-        earningsTitle: "귀하의 수익",
-        earningsStage: "단계",
-        earningsAmount: "금액 (RM)",
-        earningsCount: "카운트",
-        earningsTotal: "합계",
-        remindFriendsTitle: "친구들에게 알림 보내기",
-        remindFriendsText: "친구들이 평가를 완료할 수 있도록 도와주세요!",
-        remindBtn: "WhatsApp 알림 보내기",
-        tpGlobal: "TP 글로벌",
-        followMalaysia: "TP 말레이시아",
-        followThailand: "TP 태국",
-        noReferrals: "일치하는 추천 없음",
-        referralName: "친구 이름",
-        referralEmail: "이메일",
-        referralStage: "단계",
-        referralStatus: "상태",
-        referralDate: "신청 날짜",
-        referralDays: "단계 일수",
-        referralAction: "조치",
-        statusReceived: "신청서 접수",
-        statusAssessment: "평가 단계",
-        statusTalent: "면접 단계",
-        statusOperations: "최종 검토",
-        statusProbation: "채용 (수습 기간)",
-        statusPassed: "채용 (확정)",
-        statusFailed: "미채용",
-        statusPreviouslyApplied: "이전 지원자 (지급 불가)",
-        paymentNote: "결제 정보",
-        paymentTermsTitle: "결제 조건",
-        paymentTermsText1: "결제는 등록된 전화번호에 연결된 TnG 전자지갑으로 진행됩니다.",
-        paymentTermsText2: "RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
-        paymentTermsText3: "모든 결제는 확인이 필요하며 수습 기간 완료 후 최대 30일이 소요될 수 있습니다.",
-        closeBtn: "닫기",
-        questionsTitle: "질문이 있으신가요?",
-        contactUsText: "이메일로 문의:",
-        statusAssessmentPassed: "평가 통과 (RM50)",
-        paymentTermsText2: "후보자가 평가를 통과하면 RM50이 지급됩니다. RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
-        noRemindersNeeded: "모든 친구들이 순조롭게 진행 중입니다!"
-    },
-    "zh-CN": {
-        pageLangLabel: "选择语言:",
-        dashboardTitle: "推荐仪表板",
-        dashboardSubtitle: "输入信息查看推荐状态",
-        phoneLabel: "电话号码:",
-        phonePlaceholder: "输入电话号码 (01XXXXXXXX)",
-        phoneError: "请输入有效电话号码 (01XXXXXXXX)",
-        emailLabel: "电子邮件:",
-        emailPlaceholder: "输入电子邮件",
-        emailError: "请输入有效电子邮件",
-        viewStatusBtn: "查看推荐状态",
-        backToRAF: "返回推荐表格",
-        yourReferralsTitle: "您的推荐",
-        backBtn: "返回",
-        totalReferrals: "总推荐数",
-        hiredReferrals: "已雇用",
-        inProgress: "进行中",
-        statusDistribution: "状态分布",
-        earningsTitle: "您的收益",
-        earningsStage: "阶段",
-        earningsAmount: "金额 (RM)",
-        earningsCount: "计数",
-        earningsTotal: "总计",
-        remindFriendsTitle: "提醒您的朋友",
-        remindFriendsText: "帮助您的朋友完成评估加入Teleperformance！",
-        remindBtn: "发送WhatsApp提醒",
-        tpGlobal: "TP全球",
-        followMalaysia: "TP马来西亚",
-        followThailand: "TP泰国",
-        noReferrals: "未找到匹配推荐",
-        referralName: "朋友姓名",
-        referralEmail: "电子邮件",
-        referralStage: "阶段",
-        referralStatus: "状态",
-        referralDate: "申请日期",
-        referralDays: "阶段天数",
-        referralAction: "操作",
-        statusReceived: "已收申请",
-        statusAssessment: "评估阶段",
-        statusTalent: "面试阶段",
-        statusOperations: "最终审核",
-        statusProbation: "雇用（试用期）",
-        statusPassed: "雇用（确定）",
-        statusFailed: "未通过",
-        statusPreviouslyApplied: "之前申请过 (不支付)",
-        paymentNote: "支付信息",
-        paymentTermsTitle: "支付条款",
-        paymentTermsText1: "款项将支付至与您电话号码关联的TnG电子钱包。",
-        paymentTermsText2: "RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
-        paymentTermsText3: "所有付款需经核实，可能在试用期完成后最多30天内完成。",
-        closeBtn: "关闭",
-        questionsTitle: "有问题吗？",
-        contactUsText: "发送邮件至:",
-        statusAssessmentPassed: "评估通过 (RM50)",
-        paymentTermsText2: "候选人通过评估后将支付RM50。RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
-        noRemindersNeeded: "您的朋友们都在正常进行中！"
-    },
-    "zh-HK": {
-        pageLangLabel: "選擇語言:",
-        dashboardTitle: "推薦儀表板",
-        dashboardSubtitle: "輸入信息查看推薦狀態",
-        phoneLabel: "電話號碼:",
-        phonePlaceholder: "輸入電話號碼 (01XXXXXXXX)",
-        phoneError: "請輸入有效電話號碼 (01XXXXXXXX)",
-        emailLabel: "電子郵件:",
-        emailPlaceholder: "輸入電子郵件",
-        emailError: "請輸入有效電子郵件",
-        viewStatusBtn: "查看推薦狀態",
-        backToRAF: "返回推薦表格",
-        yourReferralsTitle: "您的推薦",
-        backBtn: "返回",
-        totalReferrals: "總推薦數",
-        hiredReferrals: "已僱用",
-        inProgress: "進行中",
-        statusDistribution: "狀態分佈",
-        earningsTitle: "您的收益",
-        earningsStage: "階段",
-        earningsAmount: "金額 (RM)",
-        earningsCount: "計數",
-        earningsTotal: "總計",
-        remindFriendsTitle: "提醒您的朋友",
-        remindFriendsText: "幫助您的朋友完成評估加入Teleperformance！",
-        remindBtn: "發送WhatsApp提醒",
-        tpGlobal: "TP全球",
-        followMalaysia: "TP馬來西亞",
-        followThailand: "TP泰國",
-        noReferrals: "未找到匹配推薦",
-        referralName: "朋友姓名",
-        referralEmail: "電子郵件",
-        referralStage: "階段",
-        referralStatus: "狀態",
-        referralDate: "申請日期",
-        referralDays: "階段天數",
-        referralAction: "操作",
-        statusReceived: "已收申請",
-        statusAssessment: "評估階段",
-        statusTalent: "面試階段",
-        statusOperations: "最終審核",
-        statusProbation: "僱用（試用期）",
-        statusPassed: "僱用（確定）",
-        statusFailed: "未通過",
-        statusPreviouslyApplied: "之前申請過 (不支付)",
-        paymentNote: "支付信息",
-        paymentTermsTitle: "支付條款",
-        paymentTermsText1: "款項將支付至與您電話號碼關聯的TnG電子錢包。",
-        paymentTermsText2: "RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
-        paymentTermsText3: "所有付款需經核實，可能在試用期完成後最多30天內完成。",
-        closeBtn: "關閉",
-        questionsTitle: "有問題嗎？",
-        contactUsText: "發送郵件至:",
-        statusAssessmentPassed: "評估通過 (RM50)",
-        paymentTermsText2: "候選人通過評估後將支付RM50。RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
-        noRemindersNeeded: "您的朋友們都在正常進行中！"
-    }
-};
-
-// Earnings structure
-const earningsStructure = {
-    assessment: {
-        amount: 50,
-        label: "Pass Assessment",
-        description: "Paid when candidate passes assessment"
-    },
-    probation: { 
-        amount: 750, 
-        label: "Pass Probation (90 days)",
-        description: "Paid only for new candidates who complete 90 days"
-    }
-};
-
-// Sample data with all status examples
-const sampleData = {
-    "0123456789:amr@tp.com": [
-        {
-            name: "John Smith (Passed Probation)",
-            email: "john.smith@example.com",
-            stage: "Hired",
-            status: "Successfully passed probation",
-            statusType: "passed",
-            applicationDate: "2023-11-15",
-            hireDate: "2023-11-20",
-            daysInStage: 95,
-            category: "Customer Service",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345678",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Sarah Johnson (In Probation)",
-            email: "sarah.j@example.com",
-            stage: "Hired",
-            status: "In probation period",
-            statusType: "probation",
-            applicationDate: "2023-12-10",
-            hireDate: "2023-12-15",
-            daysInStage: 45,
-            category: "Technical Support",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345679",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Michael Brown (Operations Review)",
-            email: "michael.b@example.com",
-            stage: "Operations",
-            status: "Final review by operations",
-            statusType: "operations",
-            applicationDate: "2024-01-05",
-            hireDate: "",
-            daysInStage: 10,
-            category: "Sales",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345680",
-            isPreviousCandidate: false
-        },
-        {
-            name: "LOai (Interview Stage)",
-            email: "loai.d@example.com",
-            stage: "Talent",
-            status: "Interview scheduled",
-            statusType: "talent",
-            applicationDate: "2024-01-15",
-            hireDate: "",
-            daysInStage: 5,
-            category: "Customer Service",
-            source: "Employee Referral",
-            needsAction: true,
-            phone: "0174669871",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Tarek (Assessment)",
-            email: "tarek@example.com",
-            stage: "Assessment",
-            status: "Assessment in progress",
-            statusType: "assessment",
-            applicationDate: "2024-01-20",
-            hireDate: "",
-            daysInStage: 2,
-            category: "Technical Support",
-            source: "Employee Referral",
-            needsAction: true,
-            phone: "0182708243",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Pourya (Assessment)",
-            email: "Pourya@example.com",
-            stage: "Assessment",
-            status: "Assessment in progress",
-            statusType: "assessment",
-            applicationDate: "2024-01-20",
-            hireDate: "",
-            daysInStage: 2,
-            category: "Technical Support",
-            source: "Employee Referral",
-            needsAction: true,
-            phone: "0173890590",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Lisa Miller (Application Received)",
-            email: "lisa.m@example.com",
-            stage: "Application",
-            status: "Application received",
-            statusType: "received",
-            applicationDate: "2024-01-25",
-            hireDate: "",
-            daysInStage: 1,
-            category: "Sales",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345683",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Robert Taylor (Not Selected)",
-            email: "robert.t@example.com",
-            stage: "Hired",
-            status: "Terminated during probation",
-            statusType: "failed",
-            applicationDate: "2023-10-01",
-            hireDate: "2023-10-10",
-            daysInStage: 45,
-            category: "Customer Service",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345684",
-            isPreviousCandidate: false
-        },
-        {
-            name: "Previous Candidate (No Payment)",
-            email: "previous@example.com",
-            stage: "Application",
-            status: "Applied to TP before",
-            statusType: "previouslyApplied",
-            applicationDate: "2023-01-10",
-            hireDate: "",
-            daysInStage: 400,
-            category: "Customer Service",
-            source: "Employee Referral",
-            needsAction: false,
-            phone: "0112345685",
-            isPreviousCandidate: true
-        }
-    ]
-};
-
 document.addEventListener('DOMContentLoaded', function() {
     // Set current year
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
     let currentLanguage = 'en';
     let statusChart = null;
+    
+    // User database (mock data)
+    const userDatabase = {
+        "0123456789:amr@tp.com": {
+            fullName: "Amr Elsayed",
+            email: "amr@tp.com",
+            phone: "0123456789"
+        },
+        "0174669871:loai@example.com": {
+            fullName: "Loai Doe",
+            email: "loai@example.com",
+            phone: "0174669871"
+        },
+        "0182708243:tarek@example.com": {
+            fullName: "Tarek Smith",
+            email: "tarek@example.com",
+            phone: "0182708243"
+        },
+        "0173890590:pourya@example.com": {
+            fullName: "Pourya Johnson",
+            email: "pourya@example.com",
+            phone: "0173890590"
+        }
+    };
     
     // Update translations
     function updateTranslations() {
@@ -491,9 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return regex.test(phone);
     }
     
-    // Validate email
+    // Validate email (case insensitive)
     function validateEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
         return regex.test(email) && email.length <= 254;
     }
     
@@ -520,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Get referrals for current user
     function getReferrals(phone, email) {
-        const key = `${phone}:${email}`;
-        return sampleData[key] || [];
+        const key = `${phone}:${email.toLowerCase()}`; // Case insensitive email matching
+        return sampleData[key] || null;
     }
     
     // Get current referrals (for chart refresh)
@@ -529,6 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = document.getElementById('dashboard-phone').value.trim();
         const email = document.getElementById('dashboard-email').value.trim();
         return getReferrals(phone, email);
+    }
+    
+    // Get user info
+    function getUserInfo(phone, email) {
+        const key = `${phone}:${email.toLowerCase()}`;
+        return userDatabase[key] || null;
     }
     
     // Get status badge color with payment eligibility check
@@ -647,6 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTranslations();
     }
     
+    // Show user info
+    function showUserInfo(user) {
+        const userInfoDisplay = document.getElementById('user-info-display');
+        document.getElementById('user-full-name').textContent = user.fullName;
+        document.getElementById('user-email-display').textContent = `Email: ${user.email}`;
+        document.getElementById('user-phone-display').textContent = `Phone: ${user.phone}`;
+        userInfoDisplay.classList.remove('d-none');
+    }
+    
     // Form submission
     document.getElementById('dashboard-submit').addEventListener('click', function() {
         const phone = document.getElementById('dashboard-phone').value.trim();
@@ -681,8 +276,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!isValid) return;
         
+        // Check if user exists
+        const userInfo = getUserInfo(phone, email);
+        if (userInfo) {
+            showUserInfo(userInfo);
+        }
+        
         // Get referrals
         const referrals = getReferrals(phone, email);
+        
+        if (!referrals) {
+            // Show user not found modal
+            const userNotFoundModal = new bootstrap.Modal(document.getElementById('userNotFoundModal'));
+            userNotFoundModal.show();
+            return;
+        }
         
         // Show results
         showReferralResults(referrals);
@@ -1099,3 +707,498 @@ document.addEventListener('DOMContentLoaded', function() {
         tngModal.show();
     });
 });
+
+// Translations for all languages
+const translations = {
+    en: {
+        pageLangLabel: "Choose Your Language:",
+        dashboardTitle: "Referral Dashboard",
+        dashboardSubtitle: "Enter your details to view your referral status",
+        phoneLabel: "Phone Number:",
+        phonePlaceholder: "Enter your phone number (01XXXXXXXX)",
+        phoneError: "Please provide a valid phone number (01XXXXXXXX).",
+        emailLabel: "Email Address:",
+        emailPlaceholder: "Enter your email address",
+        emailError: "Please provide a valid email address.",
+        viewStatusBtn: "View Referral Status",
+        backToRAF: "Back to Referral Form",
+        yourReferralsTitle: "Your Referrals",
+        backBtn: "Back",
+        totalReferrals: "Total Referrals",
+        hiredReferrals: "Hired",
+        inProgress: "In Progress",
+        statusDistribution: "Status Distribution",
+        earningsTitle: "Your Earnings",
+        earningsStage: "Stage",
+        earningsAmount: "Amount (RM)",
+        earningsCount: "Count",
+        earningsTotal: "Total",
+        remindFriendsTitle: "Remind Your Friends",
+        remindFriendsText: "Help your friends complete their assessments to join Teleperformance!",
+        remindBtn: "Send WhatsApp Reminder",
+        tpGlobal: "TP Global",
+        followMalaysia: "TP Malaysia",
+        followThailand: "TP Thailand",
+        noReferrals: "No referrals found with these details.",
+        referralName: "Friend's Name",
+        referralEmail: "Email",
+        referralStage: "Stage",
+        referralStatus: "Status",
+        referralDate: "Application Date",
+        referralDays: "Days in Stage",
+        referralAction: "Action",
+        statusReceived: "Application Received",
+        statusAssessment: "Assessment Stage",
+        statusTalent: "Interview Stage",
+        statusOperations: "Final Review",
+        statusProbation: "Hired (Probation)",
+        statusPassed: "Hired (Confirmed)",
+        statusFailed: "Not Selected",
+        statusPreviouslyApplied: "Previously Applied (No Payment)",
+        paymentNote: "Payment Information",
+        paymentTermsTitle: "Payment Terms & Conditions",
+        paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
+        paymentTermsText2: "The RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
+        paymentTermsText3: "All payments are subject to verification and may take up to 30 days after probation completion.",
+        closeBtn: "Close",
+        questionsTitle: "Questions?",
+        contactUsText: "Email us at:",
+        statusAssessmentPassed: "Assessment Passed (RM50)",
+        paymentTermsText2: "RM50 will be paid when candidate passes assessment. RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
+        noRemindersNeeded: "All your friends are on track!"
+    },
+    ja: {
+        pageLangLabel: "言語を選択:",
+        dashboardTitle: "紹介ダッシュボード",
+        dashboardSubtitle: "詳細を入力して紹介状況を表示",
+        phoneLabel: "電話番号:",
+        phonePlaceholder: "電話番号を入力 (01XXXXXXXX)",
+        phoneError: "有効な電話番号を入力してください (01XXXXXXXX)",
+        emailLabel: "メールアドレス:",
+        emailPlaceholder: "メールアドレスを入力",
+        emailError: "有効なメールアドレスを入力してください",
+        viewStatusBtn: "紹介状況を表示",
+        backToRAF: "紹介フォームに戻る",
+        yourReferralsTitle: "あなたの紹介",
+        backBtn: "戻る",
+        totalReferrals: "総紹介数",
+        hiredReferrals: "採用",
+        inProgress: "進行中",
+        statusDistribution: "ステータス分布",
+        earningsTitle: "あなたの収益",
+        earningsStage: "ステージ",
+        earningsAmount: "金額 (RM)",
+        earningsCount: "カウント",
+        earningsTotal: "合計",
+        remindFriendsTitle: "友達にリマインダーを送る",
+        remindFriendsText: "友達が審査を完了できるようサポートしましょう！",
+        remindBtn: "WhatsAppリマインダーを送る",
+        tpGlobal: "TPグローバル",
+        followMalaysia: "TPマレーシア",
+        followThailand: "TPタイ",
+        noReferrals: "該当する紹介は見つかりませんでした",
+        referralName: "友達の名前",
+        referralEmail: "メール",
+        referralStage: "ステージ",
+        referralStatus: "状態",
+        referralDate: "申込日",
+        referralDays: "ステージ日数",
+        referralAction: "操作",
+        statusReceived: "申込受付",
+        statusAssessment: "審査ステージ",
+        statusTalent: "面接ステージ",
+        statusOperations: "最終レビュー",
+        statusProbation: "採用（試用期間中）",
+        statusPassed: "採用（確定）",
+        statusFailed: "不採用",
+        statusPreviouslyApplied: "以前に応募済み（支払い対象外）",
+        paymentNote: "支払い情報",
+        paymentTermsTitle: "支払い条件",
+        paymentTermsText1: "支払いは登録された電話番号にリンクされたTnG電子財布に行われます。",
+        paymentTermsText2: "RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
+        paymentTermsText3: "すべての支払いは確認が必要であり、試用期間完了後最大30日かかる場合があります。",
+        closeBtn: "閉じる",
+        questionsTitle: "質問がありますか？",
+        contactUsText: "メールでお問い合わせ:",
+        statusAssessmentPassed: "審査通過 (RM50)",
+        paymentTermsText2: "候補者が審査を通過するとRM50が支払われます。RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
+        noRemindersNeeded: "すべての友達が順調です！"
+    },
+    ko: {
+        pageLangLabel: "언어 선택:",
+        dashboardTitle: "추천 대시보드",
+        dashboardSubtitle: "추천 현황을 보려면 정보 입력",
+        phoneLabel: "전화번호:",
+        phonePlaceholder: "전화번호 입력 (01XXXXXXXX)",
+        phoneError: "유효한 전화번호 입력 (01XXXXXXXX)",
+        emailLabel: "이메일 주소:",
+        emailPlaceholder: "이메일 주소 입력",
+        emailError: "유효한 이메일 주소 입력",
+        viewStatusBtn: "추천 현황 보기",
+        backToRAF: "추천 양식으로 돌아가기",
+        yourReferralsTitle: "귀하의 추천",
+        backBtn: "뒤로",
+        totalReferrals: "총 추천 수",
+        hiredReferrals: "채용됨",
+        inProgress: "진행 중",
+        statusDistribution: "상태 분포",
+        earningsTitle: "귀하의 수익",
+        earningsStage: "단계",
+        earningsAmount: "금액 (RM)",
+        earningsCount: "카운트",
+        earningsTotal: "합계",
+        remindFriendsTitle: "친구들에게 알림 보내기",
+        remindFriendsText: "친구들이 평가를 완료할 수 있도록 도와주세요!",
+        remindBtn: "WhatsApp 알림 보내기",
+        tpGlobal: "TP 글로벌",
+        followMalaysia: "TP 말레이시아",
+        followThailand: "TP 태국",
+        noReferrals: "일치하는 추천 없음",
+        referralName: "친구 이름",
+        referralEmail: "이메일",
+        referralStage: "단계",
+        referralStatus: "상태",
+        referralDate: "신청 날짜",
+        referralDays: "단계 일수",
+        referralAction: "조치",
+        statusReceived: "신청서 접수",
+        statusAssessment: "평가 단계",
+        statusTalent: "면접 단계",
+        statusOperations: "최종 검토",
+        statusProbation: "채용 (수습 기간)",
+        statusPassed: "채용 (확정)",
+        statusFailed: "미채용",
+        statusPreviouslyApplied: "이전 지원자 (지급 불가)",
+        paymentNote: "결제 정보",
+        paymentTermsTitle: "결제 조건",
+        paymentTermsText1: "결제는 등록된 전화번호에 연결된 TnG 전자지갑으로 진행됩니다.",
+        paymentTermsText2: "RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
+        paymentTermsText3: "모든 결제는 확인이 필요하며 수습 기간 완료 후 최대 30일이 소요될 수 있습니다.",
+        closeBtn: "닫기",
+        questionsTitle: "질문이 있으신가요?",
+        contactUsText: "이메일로 문의:",
+        statusAssessmentPassed: "평가 통과 (RM50)",
+        paymentTermsText2: "후보자가 평가를 통과하면 RM50이 지급됩니다。RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
+        noRemindersNeeded: "모든 친구들이 순조롭게 진행 중입니다!"
+    },
+    "zh-CN": {
+        pageLangLabel: "选择语言:",
+        dashboardTitle: "推荐仪表板",
+        dashboardSubtitle: "输入信息查看推荐状态",
+        phoneLabel: "电话号码:",
+        phonePlaceholder: "输入电话号码 (01XXXXXXXX)",
+        phoneError: "请输入有效电话号码 (01XXXXXXXX)",
+        emailLabel: "电子邮件:",
+        emailPlaceholder: "输入电子邮件",
+        emailError: "请输入有效电子邮件",
+        viewStatusBtn: "查看推荐状态",
+        backToRAF: "返回推荐表格",
+        yourReferralsTitle: "您的推荐",
+        backBtn: "返回",
+        totalReferrals: "总推荐数",
+        hiredReferrals: "已雇用",
+        inProgress: "进行中",
+        statusDistribution: "状态分布",
+        earningsTitle: "您的收益",
+        earningsStage: "阶段",
+        earningsAmount: "金额 (RM)",
+        earningsCount: "计数",
+        earningsTotal: "总计",
+        remindFriendsTitle: "提醒您的朋友",
+        remindFriendsText: "帮助您的朋友完成评估加入Teleperformance！",
+        remindBtn: "发送WhatsApp提醒",
+        tpGlobal: "TP全球",
+        followMalaysia: "TP马来西亚",
+        followThailand: "TP泰国",
+        noReferrals: "未找到匹配推荐",
+        referralName: "朋友姓名",
+        referralEmail: "电子邮件",
+        referralStage: "阶段",
+        referralStatus: "状态",
+        referralDate: "申请日期",
+        referralDays: "阶段天数",
+        referralAction: "操作",
+        statusReceived: "已收申请",
+        statusAssessment: "评估阶段",
+        statusTalent: "面试阶段",
+        statusOperations: "最终审核",
+        statusProbation: "雇用（试用期）",
+        statusPassed: "雇用（确定）",
+        statusFailed: "未通过",
+        statusPreviouslyApplied: "之前申请过 (不支付)",
+        paymentNote: "支付信息",
+        paymentTermsTitle: "支付条款",
+        paymentTermsText1: "款项将支付至与您电话号码关联的TnG电子钱包。",
+        paymentTermsText2: "RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
+        paymentTermsText3: "所有付款需经核实，可能在试用期完成后最多30天内完成。",
+        closeBtn: "关闭",
+        questionsTitle: "有问题吗？",
+        contactUsText: "发送邮件至:",
+        statusAssessmentPassed: "评估通过 (RM50)",
+        paymentTermsText2: "候选人通过评估后将支付RM50。RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
+        noRemindersNeeded: "您的朋友们都在正常进行中！"
+    },
+    "zh-HK": {
+        pageLangLabel: "選擇語言:",
+        dashboardTitle: "推薦儀表板",
+        dashboardSubtitle: "輸入信息查看推薦狀態",
+        phoneLabel: "電話號碼:",
+        phonePlaceholder: "輸入電話號碼 (01XXXXXXXX)",
+        phoneError: "請輸入有效電話號碼 (01XXXXXXXX)",
+        emailLabel: "電子郵件:",
+        emailPlaceholder: "輸入電子郵件",
+        emailError: "請輸入有效電子郵件",
+        viewStatusBtn: "查看推薦狀態",
+        backToRAF: "返回推薦表格",
+        yourReferralsTitle: "您的推薦",
+        backBtn: "返回",
+        totalReferrals: "總推薦數",
+        hiredReferrals: "已僱用",
+        inProgress: "進行中",
+        statusDistribution: "狀態分佈",
+        earningsTitle: "您的收益",
+        earningsStage: "階段",
+        earningsAmount: "金額 (RM)",
+        earningsCount: "計數",
+        earningsTotal: "總計",
+        remindFriendsTitle: "提醒您的朋友",
+        remindFriendsText: "幫助您的朋友完成評估加入Teleperformance！",
+        remindBtn: "發送WhatsApp提醒",
+        tpGlobal: "TP全球",
+        followMalaysia: "TP馬來西亞",
+        followThailand: "TP泰國",
+        noReferrals: "未找到匹配推薦",
+        referralName: "朋友姓名",
+        referralEmail: "電子郵件",
+        referralStage: "階段",
+        referralStatus: "狀態",
+        referralDate: "申請日期",
+        referralDays: "階段天數",
+        referralAction: "操作",
+        statusReceived: "已收申請",
+        statusAssessment: "評估階段",
+        statusTalent: "面試階段",
+        statusOperations: "最終審核",
+        statusProbation: "僱用（試用期）",
+        statusPassed: "僱用（確定）",
+        statusFailed: "未通過",
+        statusPreviouslyApplied: "之前申請過 (不支付)",
+        paymentNote: "支付信息",
+        paymentTermsTitle: "支付條款",
+        paymentTermsText1: "款項將支付至與您電話號碼關聯的TnG電子錢包。",
+        paymentTermsText2: "RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
+        paymentTermsText3: "所有付款需經核實，可能在試用期完成後最多30天內完成。",
+        closeBtn: "關閉",
+        questionsTitle: "有問題嗎？",
+        contactUsText: "發送郵件至:",
+        statusAssessmentPassed: "評估通過 (RM50)",
+        paymentTermsText2: "候選人通過評估後將支付RM50。RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
+        noRemindersNeeded: "您的朋友們都在正常進行中！"
+    }
+};
+
+// Earnings structure
+const earningsStructure = {
+    assessment: {
+        amount: 50,
+        label: "Pass Assessment",
+        description: "Paid when candidate passes assessment"
+    },
+    probation: { 
+        amount: 750, 
+        label: "Pass Probation (90 days)",
+        description: "Paid only for new candidates who complete 90 days"
+    }
+};
+
+// Sample data with all status examples
+const sampleData = {
+    "0123456789:amr@tp.com": [
+        {
+            name: "John Smith (Passed Probation)",
+            email: "john.smith@example.com",
+            stage: "Hired",
+            status: "Successfully passed probation",
+            statusType: "passed",
+            applicationDate: "2023-11-15",
+            hireDate: "2023-11-20",
+            daysInStage: 95,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345678",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Sarah Johnson (In Probation)",
+            email: "sarah.j@example.com",
+            stage: "Hired",
+            status: "In probation period",
+            statusType: "probation",
+            applicationDate: "2023-12-10",
+            hireDate: "2023-12-15",
+            daysInStage: 45,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345679",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Michael Brown (Operations Review)",
+            email: "michael.b@example.com",
+            stage: "Operations",
+            status: "Final review by operations",
+            statusType: "operations",
+            applicationDate: "2024-01-05",
+            hireDate: "",
+            daysInStage: 10,
+            category: "Sales",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345680",
+            isPreviousCandidate: false
+        },
+        {
+            name: "LOai (Interview Stage)",
+            email: "loai.d@example.com",
+            stage: "Talent",
+            status: "Interview scheduled",
+            statusType: "talent",
+            applicationDate: "2024-01-15",
+            hireDate: "",
+            daysInStage: 5,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0174669871",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Tarek (Assessment)",
+            email: "tarek@example.com",
+            stage: "Assessment",
+            status: "Assessment in progress",
+            statusType: "assessment",
+            applicationDate: "2024-01-20",
+            hireDate: "",
+            daysInStage: 2,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0182708243",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Pourya (Assessment)",
+            email: "Pourya@example.com",
+            stage: "Assessment",
+            status: "Assessment in progress",
+            statusType: "assessment",
+            applicationDate: "2024-01-20",
+            hireDate: "",
+            daysInStage: 2,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0173890590",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Lisa Miller (Application Received)",
+            email: "lisa.m@example.com",
+            stage: "Application",
+            status: "Application received",
+            statusType: "received",
+            applicationDate: "2024-01-25",
+            hireDate: "",
+            daysInStage: 1,
+            category: "Sales",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345683",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Robert Taylor (Not Selected)",
+            email: "robert.t@example.com",
+            stage: "Hired",
+            status: "Terminated during probation",
+            statusType: "failed",
+            applicationDate: "2023-10-01",
+            hireDate: "2023-10-10",
+            daysInStage: 45,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345684",
+            isPreviousCandidate: false
+        },
+        {
+            name: "Previous Candidate (No Payment)",
+            email: "previous@example.com",
+            stage: "Application",
+            status: "Applied to TP before",
+            statusType: "previouslyApplied",
+            applicationDate: "2023-01-10",
+            hireDate: "",
+            daysInStage: 400,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345685",
+            isPreviousCandidate: true
+        }
+    ],
+    "0174669871:loai@example.com": [
+        {
+            name: "Jane Doe (Assessment)",
+            email: "jane.doe@example.com",
+            stage: "Assessment",
+            status: "Assessment in progress",
+            statusType: "assessment",
+            applicationDate: "2024-01-18",
+            hireDate: "",
+            daysInStage: 3,
+            category: "Customer Service",
+            source: "Employee Referral",
+            needsAction: true,
+            phone: "0112345686",
+            isPreviousCandidate: false
+        }
+    ],
+    "0182708243:tarek@example.com": [
+        {
+            name: "Mike Johnson (Probation)",
+            email: "mike.j@example.com",
+            stage: "Hired",
+            status: "In probation period",
+            statusType: "probation",
+            applicationDate: "2023-12-05",
+            hireDate: "2023-12-10",
+            daysInStage: 60,
+            category: "Technical Support",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345687",
+            isPreviousCandidate: false
+        }
+    ],
+    "0173890590:pourya@example.com": [
+        {
+            name: "Sarah Williams (Operations)",
+            email: "sarah.w@example.com",
+            stage: "Operations",
+            status: "Final review by operations",
+            statusType: "operations",
+            applicationDate: "2024-01-10",
+            hireDate: "",
+            daysInStage: 15,
+            category: "Sales",
+            source: "Employee Referral",
+            needsAction: false,
+            phone: "0112345688",
+            isPreviousCandidate: false
+        }
+    ]
+};
