@@ -25,7 +25,7 @@ body {
 }
 
 .logo {
-    max-width: 180px;
+    width: 180px;
     height: auto;
     filter: grayscale(100%);
     transition: all 0.3s ease;
@@ -194,14 +194,15 @@ body {
 }
 
 /* Footer */
-footer {
+.footer {
     background-color: var(--dark-color);
     color: var(--light-color);
     padding: 1rem 0;
-    margin-top: 2rem;
+    margin-top: auto;
+    width: 100%;
 }
 
-footer a {
+.footer a {
     color: var(--light-color);
     text-decoration: underline;
 }
@@ -219,62 +220,12 @@ footer a {
     background-color: #e9ecef;
 }
 
-/* Footer styles */
-.footer {
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    padding: 1.5rem 0;
-    margin-top: 3rem;
-}
-
-.footer a {
-    color: var(--light-color);
-    text-decoration: underline;
-}
-
-.footer .container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Email contact section */
-.contact-email-section {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 8px;
-}
-
-/* Status examples styling */
-.status-example {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-.status-example h5 {
-    margin-bottom: 0.5rem;
-}
-
-.status-example .badge {
-    font-size: 0.9rem;
-}
-
-/* User info display */
-#user-info-display {
-    background-color: #f8f9fa;
-    border-left: 4px solid var(--secondary-color);
-}
-
-#user-info-display h5 {
+/* User name display in results */
+.user-name-display {
     color: var(--primary-color);
+    font-size: 1.75rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
-}
-
-#user-info-display p {
-    font-size: 0.9rem;
-    color: var(--gray-color);
 }
 
 /* Responsive Adjustments */
@@ -306,17 +257,6 @@ footer a {
     white-space: nowrap;
 }
 
-.chart-container {
-    position: relative;
-    margin: 0 auto;
-    height: 300px;
-    width: 80%;
-}
-#user-full-name-display {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
 @media (max-width: 576px) {
     .container {
         padding: 15px;
