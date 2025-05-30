@@ -39,6 +39,12 @@
                     <p class="card-text text-center mb-4" data-translate="dashboardSubtitle">Enter your details to view your referral status</p>
                     
                     <form id="dashboard-form">
+                        <div id="user-info-display" class="mb-4 p-3 bg-light rounded d-none">
+                            <h5 id="user-full-name"></h5>
+                            <p class="mb-1" id="user-email-display"></p>
+                            <p class="mb-0" id="user-phone-display"></p>
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="dashboard-phone" class="form-label" data-translate="phoneLabel">Phone Number:</label>
                             <input type="tel" class="form-control" id="dashboard-phone" placeholder="Enter your phone number (01XXXXXXXX)" data-translate-placeholder="phonePlaceholder" required>
@@ -106,6 +112,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-translate="closeBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Not Found Modal -->
+    <div class="modal fade" id="userNotFoundModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">User Not Found</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>We couldn't find an account with the provided email and phone number.</p>
+                    <p>Please double-check your information or contact us at <a href="mailto:tpmycareers@teleperformance.com">tpmycareers@teleperformance.com</a> for assistance.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    <a href="mailto:tpmycareers@teleperformance.com" class="btn btn-outline-primary">
+                        <i class="fas fa-envelope me-2"></i>Contact Us
+                    </a>
                 </div>
             </div>
         </div>
