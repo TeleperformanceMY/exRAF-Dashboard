@@ -260,6 +260,23 @@ footer a {
 .status-example .badge {
     font-size: 0.9rem;
 }
+
+/* User info display */
+#user-info-display {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--secondary-color);
+}
+
+#user-info-display h5 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+#user-info-display p {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .container {
@@ -295,6 +312,7 @@ footer a {
     height: 300px;
     width: 80%;
 }
+
 @media (max-width: 576px) {
     .container {
         padding: 15px;
