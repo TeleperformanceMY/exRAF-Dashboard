@@ -996,7 +996,61 @@ const translations = {
         noRemindersNeeded: "您的朋友們都在正常進行中！"
     }
 };
+// Load status mapping
+let statusMapping = {};
 
+async function loadStatusMapping() {
+    try {
+        const response = await fetch('statusMapping.json');
+        statusMapping = await response.json();
+    } catch (error) {
+        console.error('Error loading status mapping:', error);
+        // Fallback mapping if the file fails to load
+        statusMapping = {
+            statusGroups: {
+                "Hired (Confirmed)": ["Hired (Confirmed)"],
+                "Hired (Probation)": ["Hired (Probation)"],
+                "Previously Applied (No Payment)": ["Previously Applied (No Payment)"],
+                "Final Review": ["Final Review"],
+                "Interview Stage": ["Interview Stage"],
+                "Assessment Stage": ["Assessment Stage"],
+                "Application Received": ["Application Received"],
+                "Not Selected": ["Not Selected"]
+            },
+            displayOrder: [
+                "Hired (Confirmed)",
+                "Hired (Probation)",
+                "Previously Applied (No Payment)",
+                "Final Review",
+                "Interview Stage",
+                "Assessment Stage",
+                "Application Received",
+                "Not Selected"
+            ]
+        };
+    }
+}
+
+// Call this when your page loads
+loadStatusMapping();
+
+// Function to map a status to its simplified group
+function mapStatusToGroup(status) {
+    if (!statusMapping.statusGroups) return status;
+    
+    for (const [group, statuses] of Object.entries(statusMapping.statusGroups)) {
+        if (statuses.includes(status)) {
+            return group;
+        }
+    }
+    
+    // If not found in any group, check if it starts with "Eliminated" or "Withdrew"
+    if (status.startsWith("Eliminated") || status.startsWith("Withdrew") || status.startsWith("Legacy")) {
+        return "Not Selected";
+    }
+    
+    return status;
+}
 // Earnings structure
 const earningsStructure = {
     assessment: {
