@@ -29,6 +29,107 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
+    // Status mapping configuration
+    const statusMapping = {
+        "statusGroups": {
+            "Hired (Confirmed)": ["Hired (Confirmed)", "New Starter (Hired)", "Graduate"],
+            "Hired (Probation)": ["Hired (Probation)"],
+            "Previously Applied (No Payment)": ["Previously Applied (No Payment)"],
+            "Final Review": ["Final Review", "Ready to Offer", "Job Offer Presented", "Onboarding Started", "Cleared to Start"],
+            "Interview Stage": ["Interview Stage", "Interview Scheduled", "Interview Complete / Offer Requested", "Second Interview Scheduled", "Second Interview Complete / Offer Requested", "Third Interview Scheduled", "Third Interview Complete / Offer Requested"],
+            "Assessment Stage": ["Assessment Stage", "SHL Assessment: Conversational Multichat ENG", "SHL Assessment: Sales Competency ENG", "SHL Assessment: System Diagnostic ENG", "SHL Assessment: Typing ENG", "SHL Assessment: WriteX E-mail ENG", "Contact Attempt 1", "Contact Attempt 2", "Contact Attempt 3"],
+            "Application Received": ["Application Received", "TextApply", "External Portal", "Internal Portal", "Recruiter Submitted", "Agency Submissions", "Employee Referral"],
+            "Not Selected": [
+                "Eliminated - Age", "Eliminated - Availability", "Eliminated - CV/Resume Analysis", "Eliminated - Did not start Assessment", 
+                "Eliminated - Incomplete Assessment", "Eliminated - Language", "Eliminated - Location/Country", "Eliminated - No Hire List/Not Rehireable", 
+                "Eliminated - Processed on another Requisition", "Eliminated - Unprocessed Candidate", "Eliminated - Unreachable/Unresponsive", 
+                "Eliminated - WAH - Connectivity Requirements", "Eliminated - WAH - Technical Requirements", "Eliminated - Assessment Results Did Not Meet Criteria",
+                "Eliminated - No Show", "Eliminated - No Show (Interview 1)", "Eliminated - No Show (Interview 2)", "Eliminated - No Show (Interview 3)",
+                "Eliminated - Interview 1 Complete (Reject)", "Eliminated - Interview 2 Complete (Reject)", "Eliminated - Interview 3 Complete (Reject)",
+                "Eliminated - Availability (Interview 1)", "Eliminated - Age (Pre-Offer)", "Eliminated - Age (Post Offer)", 
+                "Eliminated - Employment Eligibility Verification", "Eliminated - Falsified Application", "Eliminated - Ineligible (Background)", 
+                "Eliminated - Ineligible (Drug Test)", "Eliminated - Offer Rescinded (Pre-Offer)", "Eliminated - Offer Rescinded (Post Offer)", 
+                "Eliminated - Unreachable/Unresponsive (Pre-Offer)", "Eliminated - Unreachable/Unresponsive (Post Offer)",
+                "Withdrew - Country", "Withdrew - Location", "Withdrew - Long-Term Commitment", "Withdrew - No Reason Given", 
+                "Withdrew - Other Job Offer", "Withdrew - Salary", "Withdrew - Schedule", "Withdrew - Job Fit (Interview 1)", 
+                "Withdrew - Job Fit (Interview 2)", "Withdrew - Job Fit (Interview 3)", "Withdrew - Other Job Offer (Interview 1)", 
+                "Withdrew - Other Job Offer (Interview 2)", "Withdrew - Other Job Offer (Interview 3)", "Withdrew - Personal/Family (Interview 1)",
+                "Withdrew - Personal/Family (Interview 2)", "Withdrew - Personal/Family (Interview 3)", "Withdrew - Salary (Interview 1)",
+                "Withdrew - Salary (Interview 2)", "Withdrew - Salary (Interview 3)", "Withdrew - Schedule (Interview 1)",
+                "Withdrew - Schedule (Interview 2)", "Withdrew - Schedule (Interview 3)", "Withdrew - Medical (Pre-Offer)",
+                "Withdrew - Medical (Post Offer)", "Withdrew - Offer Declined/Rejected", "Withdrew - Onboarding Incomplete",
+                "Withdrew - Other Job Offer (Pre-Offer)", "Withdrew - Other Job Offer (Post Offer)", "Withdrew - Personal/Family (Pre-Offer)",
+                "Withdrew - Personal/Family (Post Offer)", "Withdrew - Role (Pre-Offer)", "Withdrew - Role (Post Offer)",
+                "Withdrew - Salary (Pre-Offer)", "Withdrew - Salary (Post Offer)", "Withdrew - Schedule (Pre-Offer)",
+                "Withdrew - Schedule (Post Offer)", "Legacy - Age", "Legacy - Anonymous by GDPR", "Legacy - Availability",
+                "Legacy - Behavior", "Legacy - Communication Skills", "Legacy - Criminal Record", "Legacy - CV Analysis",
+                "Legacy - Education", "Legacy - Falsified Application", "Legacy - Invalid Phone Number", "Legacy - Language",
+                "Legacy - Long-term Commitment", "Legacy - Motivation", "Legacy - No Hire List", "Legacy - No Show",
+                "Legacy - Not Re-hirable", "Legacy - Recording Denied", "Legacy - Reference Check", "Legacy - Salary Expectation",
+                "Legacy - Soft Skills", "Legacy - Unreachable", "Legacy - WAH - Connectivity Requirements", "Legacy - WAH - Contract",
+                "Legacy - WAH - Technical Requirements", "Legacy - Work Permit", "Legacy - Country", "Legacy - Did Not Apply",
+                "Legacy - Incomplete Assessment", "Legacy - Location", "Legacy - Medical", "Legacy - Negative Review of TP",
+                "Legacy - No Reason Given", "Legacy - Other Job Offer", "Legacy - Personal/Family", "Legacy - Project",
+                "Legacy - Role", "Legacy - Salary Conditions", "Legacy - Schedule", "Legacy - Security Condition",
+                "Self-Withdrew (Recruiter)", "Self-Withdrew (Portal)"
+            ]
+        },
+        "displayOrder": [
+            "Hired (Confirmed)",
+            "Hired (Probation)",
+            "Previously Applied (No Payment)",
+            "Final Review",
+            "Interview Stage",
+            "Assessment Stage",
+            "Application Received",
+            "Not Selected"
+        ]
+    };
+
+    // Function to map a status to its simplified group
+    function mapStatusToGroup(status) {
+        if (!statusMapping.statusGroups) return status;
+        
+        for (const [group, statuses] of Object.entries(statusMapping.statusGroups)) {
+            if (statuses.includes(status)) {
+                return group;
+            }
+        }
+        
+        // If not found in any group, check if it starts with "Eliminated" or "Withdrew"
+        if (status.startsWith("Eliminated") || status.startsWith("Withdrew") || status.startsWith("Legacy")) {
+            return "Not Selected";
+        }
+        
+        return status;
+    }
+
+    // Helper function to get simplified status type
+    function getSimplifiedStatusType(status) {
+        const mappedStatus = mapStatusToGroup(status);
+        
+        switch(mappedStatus) {
+            case "Hired (Confirmed)":
+                return "passed";
+            case "Hired (Probation)":
+                return "probation";
+            case "Previously Applied (No Payment)":
+                return "previouslyApplied";
+            case "Final Review":
+                return "operations";
+            case "Interview Stage":
+                return "talent";
+            case "Assessment Stage":
+                return "assessment";
+            case "Application Received":
+                return "received";
+            case "Not Selected":
+                return "failed";
+            default:
+                return "received";
+        }
+    }
+
     // Update translations
     function updateTranslations() {
         const translation = translations[currentLanguage] || translations.en;
@@ -328,6 +429,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="filteredViewToggle">
+                        <label class="form-check-label" for="filteredViewToggle" data-translate="filteredViewLabel">Simplified Status View</label>
+                    </div>
+                </div>
+            </div>
+            
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title text-center mb-3" data-translate="statusDistribution">Status Distribution</h5>
@@ -481,6 +591,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('results-step').style.display = 'none';
         });
         
+        // Add event listener for filtered view toggle
+        document.getElementById('filteredViewToggle').addEventListener('change', function() {
+            updateChart(referrals);
+            updateReferralList(referrals);
+        });
+        
         // Update translations
         updateTranslations();
     }
@@ -500,9 +616,27 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Check if filtered view is enabled
+        const filteredView = document.getElementById('filteredViewToggle')?.checked || false;
+        
+        // Process referrals based on view mode
+        const processedReferrals = referrals.map(r => {
+            if (filteredView) {
+                return {
+                    ...r,
+                    status: mapStatusToGroup(r.status),
+                    statusType: getSimplifiedStatusType(r.status)
+                };
+            }
+            return r;
+        });
+        
         // Sort referrals with new status
-        const statusOrder = ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed'];
-        const sortedReferrals = [...referrals].sort((a, b) => {
+        const statusOrder = filteredView ? 
+            statusMapping.displayOrder || ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed'] :
+            ['passed', 'probation', 'previouslyApplied', 'operations', 'talent', 'assessment', 'received', 'failed'];
+            
+        const sortedReferrals = [...processedReferrals].sort((a, b) => {
             return statusOrder.indexOf(a.statusType) - statusOrder.indexOf(b.statusType);
         });
         
@@ -568,20 +702,55 @@ document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('statusChart').getContext('2d');
         const translation = translations[currentLanguage] || translations.en;
         
-        // Count statuses
-        const statusCounts = {
-            passed: referrals.filter(r => r.statusType === 'passed').length,
-            probation: referrals.filter(r => r.statusType === 'probation').length,
-            previouslyApplied: referrals.filter(r => r.statusType === 'previouslyApplied').length,
-            operations: referrals.filter(r => r.statusType === 'operations').length,
-            talent: referrals.filter(r => r.statusType === 'talent').length,
-            assessment: referrals.filter(r => r.statusType === 'assessment').length,
-            received: referrals.filter(r => r.statusType === 'received').length,
-            failed: referrals.filter(r => r.statusType === 'failed').length
-        };
+        // Check if filtered view is enabled
+        const filteredView = document.getElementById('filteredViewToggle')?.checked || false;
         
-        // Chart data
-        const data = {
+        // Count statuses
+        let statusCounts = {};
+        
+        if (filteredView) {
+            // Use the simplified status groups
+            statusMapping.displayOrder.forEach(group => {
+                statusCounts[group] = referrals.filter(r => mapStatusToGroup(r.status) === group).length;
+            });
+        } else {
+            // Original status counting
+            statusCounts = {
+                passed: referrals.filter(r => r.statusType === 'passed').length,
+                probation: referrals.filter(r => r.statusType === 'probation').length,
+                previouslyApplied: referrals.filter(r => r.statusType === 'previouslyApplied').length,
+                operations: referrals.filter(r => r.statusType === 'operations').length,
+                talent: referrals.filter(r => r.statusType === 'talent').length,
+                assessment: referrals.filter(r => r.statusType === 'assessment').length,
+                received: referrals.filter(r => r.statusType === 'received').length,
+                failed: referrals.filter(r => r.statusType === 'failed').length
+            };
+        }
+        
+        // Chart data - different setup for filtered vs unfiltered
+        const data = filteredView ? {
+            labels: statusMapping.displayOrder.map(group => {
+                // Try to find a translation, fallback to group name
+                const translationKey = `status${group.replace(/\s+/g, '').replace(/[()]/g, '')}`;
+                return translation[translationKey] || group;
+            }),
+            datasets: [{
+                data: statusMapping.displayOrder.map(group => statusCounts[group]),
+                backgroundColor: [
+                    '#28a745', // Hired (Confirmed) - green
+                    '#7cb342', // Hired (Probation) - light green
+                    '#6c757d', // Previously Applied - gray
+                    '#ffc107', // Final Review - yellow
+                    '#fd7e14', // Interview Stage - orange
+                    '#17a2b8', // Assessment Stage - teal
+                    '#6c757d', // Application Received - gray
+                    '#dc3545'  // Not Selected - red
+                ],
+                borderWidth: 1,
+                hoverOffset: 20
+            }]
+        } : {
+            // Original chart data setup
             labels: [
                 translation.statusPassed,
                 translation.statusProbation,
@@ -765,7 +934,9 @@ const translations = {
         contactUsText: "Email us at:",
         statusAssessmentPassed: "Assessment Passed (RM50)",
         paymentTermsText2: "RM50 will be paid when candidate passes assessment. RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
-        noRemindersNeeded: "All your friends are on track!"
+        noRemindersNeeded: "All your friends are on track!",
+        filteredViewLabel: "Simplified Status View"
+
     },
     ja: {
         pageLangLabel: "言語を選択:",
