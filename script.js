@@ -924,6 +924,14 @@ const translations = {
         statusPassed: "Hired (Confirmed)",
         statusFailed: "Not Selected",
         statusPreviouslyApplied: "Previously Applied (No Payment)",
+        statusHiredConfirmed: "Hired (Confirmed)",
+        statusHiredProbation: "Hired (Probation)",
+        statusPreviouslyAppliedNoPayment: "Previously Applied (No Payment)",
+        statusFinalReview: "Final Review",
+        statusInterviewStage: "Interview Stage",
+        statusAssessmentStage: "Assessment Stage",
+        statusApplicationReceived: "Application Received",
+        statusNotSelected: "Not Selected",
         paymentNote: "Payment Information",
         paymentTermsTitle: "Payment Terms & Conditions",
         paymentTermsText1: "Payments will be made to your TnG eWallet linked to your phone number.",
@@ -936,7 +944,6 @@ const translations = {
         paymentTermsText2: "RM50 will be paid when candidate passes assessment. RM750 bonus will be paid only after your referred candidate successfully completes the 90-day probation period.",
         noRemindersNeeded: "All your friends are on track!",
         filteredViewLabel: "Simplified Status View"
-
     },
     ja: {
         pageLangLabel: "言語を選択:",
@@ -983,6 +990,14 @@ const translations = {
         statusPassed: "採用（確定）",
         statusFailed: "不採用",
         statusPreviouslyApplied: "以前に応募済み（支払い対象外）",
+        statusHiredConfirmed: "採用（確定）",
+        statusHiredProbation: "採用（試用期間中）",
+        statusPreviouslyAppliedNoPayment: "以前に応募済み（支払い対象外）",
+        statusFinalReview: "最終レビュー",
+        statusInterviewStage: "面接ステージ",
+        statusAssessmentStage: "審査ステージ",
+        statusApplicationReceived: "申込受付",
+        statusNotSelected: "不採用",
         paymentNote: "支払い情報",
         paymentTermsTitle: "支払い条件",
         paymentTermsText1: "支払いは登録された電話番号にリンクされたTnG電子財布に行われます。",
@@ -993,7 +1008,8 @@ const translations = {
         contactUsText: "メールでお問い合わせ:",
         statusAssessmentPassed: "審査通過 (RM50)",
         paymentTermsText2: "候補者が審査を通過するとRM50が支払われます。RM750のボーナスは、紹介された候補者が90日の試用期間を無事に完了した後にのみ支払われます。",
-        noRemindersNeeded: "すべての友達が順調です！"
+        noRemindersNeeded: "すべての友達が順調です！",
+        filteredViewLabel: "簡易ステータス表示"
     },
     ko: {
         pageLangLabel: "언어 선택:",
@@ -1040,6 +1056,14 @@ const translations = {
         statusPassed: "채용 (확정)",
         statusFailed: "미채용",
         statusPreviouslyApplied: "이전 지원자 (지급 불가)",
+        statusHiredConfirmed: "채용 (확정)",
+        statusHiredProbation: "채용 (수습 기간)",
+        statusPreviouslyAppliedNoPayment: "이전 지원자 (지급 불가)",
+        statusFinalReview: "최종 검토",
+        statusInterviewStage: "면접 단계",
+        statusAssessmentStage: "평가 단계",
+        statusApplicationReceived: "신청서 접수",
+        statusNotSelected: "미채용",
         paymentNote: "결제 정보",
         paymentTermsTitle: "결제 조건",
         paymentTermsText1: "결제는 등록된 전화번호에 연결된 TnG 전자지갑으로 진행됩니다.",
@@ -1050,7 +1074,8 @@ const translations = {
         contactUsText: "이메일로 문의:",
         statusAssessmentPassed: "평가 통과 (RM50)",
         paymentTermsText2: "후보자가 평가를 통과하면 RM50이 지급됩니다。RM750 보너스는 추천한 후보자가 90일 수습 기간을 성공적으로 완료한 후에만 지급됩니다.",
-        noRemindersNeeded: "모든 친구들이 순조롭게 진행 중입니다!"
+        noRemindersNeeded: "모든 친구들이 순조롭게 진행 중입니다!",
+        filteredViewLabel: "간략한 상태 보기"
     },
     "zh-CN": {
         pageLangLabel: "选择语言:",
@@ -1097,6 +1122,14 @@ const translations = {
         statusPassed: "雇用（确定）",
         statusFailed: "未通过",
         statusPreviouslyApplied: "之前申请过 (不支付)",
+        statusHiredConfirmed: "雇用（确定）",
+        statusHiredProbation: "雇用（试用期）",
+        statusPreviouslyAppliedNoPayment: "之前申请过 (不支付)",
+        statusFinalReview: "最终审核",
+        statusInterviewStage: "面试阶段",
+        statusAssessmentStage: "评估阶段",
+        statusApplicationReceived: "已收申请",
+        statusNotSelected: "未通过",
         paymentNote: "支付信息",
         paymentTermsTitle: "支付条款",
         paymentTermsText1: "款项将支付至与您电话号码关联的TnG电子钱包。",
@@ -1107,7 +1140,8 @@ const translations = {
         contactUsText: "发送邮件至:",
         statusAssessmentPassed: "评估通过 (RM50)",
         paymentTermsText2: "候选人通过评估后将支付RM50。RM750奖金仅在您推荐的候选人成功完成90天试用期后支付。",
-        noRemindersNeeded: "您的朋友们都在正常进行中！"
+        noRemindersNeeded: "您的朋友们都在正常进行中！",
+        filteredViewLabel: "简化状态视图"
     },
     "zh-HK": {
         pageLangLabel: "選擇語言:",
@@ -1154,6 +1188,14 @@ const translations = {
         statusPassed: "僱用（確定）",
         statusFailed: "未通過",
         statusPreviouslyApplied: "之前申請過 (不支付)",
+        statusHiredConfirmed: "僱用（確定）",
+        statusHiredProbation: "僱用（試用期）",
+        statusPreviouslyAppliedNoPayment: "之前申請過 (不支付)",
+        statusFinalReview: "最終審核",
+        statusInterviewStage: "面試階段",
+        statusAssessmentStage: "評估階段",
+        statusApplicationReceived: "已收申請",
+        statusNotSelected: "未通過",
         paymentNote: "支付信息",
         paymentTermsTitle: "支付條款",
         paymentTermsText1: "款項將支付至與您電話號碼關聯的TnG電子錢包。",
@@ -1164,64 +1206,11 @@ const translations = {
         contactUsText: "發送郵件至:",
         statusAssessmentPassed: "評估通過 (RM50)",
         paymentTermsText2: "候選人通過評估後將支付RM50。RM750獎金僅在您推薦的候選人成功完成90天試用期後支付。",
-        noRemindersNeeded: "您的朋友們都在正常進行中！"
+        noRemindersNeeded: "您的朋友們都在正常進行中！",
+        filteredViewLabel: "簡化狀態視圖"
     }
 };
-// Load status mapping
-let statusMapping = {};
 
-async function loadStatusMapping() {
-    try {
-        const response = await fetch('statusMapping.json');
-        statusMapping = await response.json();
-    } catch (error) {
-        console.error('Error loading status mapping:', error);
-        // Fallback mapping if the file fails to load
-        statusMapping = {
-            statusGroups: {
-                "Hired (Confirmed)": ["Hired (Confirmed)"],
-                "Hired (Probation)": ["Hired (Probation)"],
-                "Previously Applied (No Payment)": ["Previously Applied (No Payment)"],
-                "Final Review": ["Final Review"],
-                "Interview Stage": ["Interview Stage"],
-                "Assessment Stage": ["Assessment Stage"],
-                "Application Received": ["Application Received"],
-                "Not Selected": ["Not Selected"]
-            },
-            displayOrder: [
-                "Hired (Confirmed)",
-                "Hired (Probation)",
-                "Previously Applied (No Payment)",
-                "Final Review",
-                "Interview Stage",
-                "Assessment Stage",
-                "Application Received",
-                "Not Selected"
-            ]
-        };
-    }
-}
-
-// Call this when your page loads
-loadStatusMapping();
-
-// Function to map a status to its simplified group
-function mapStatusToGroup(status) {
-    if (!statusMapping.statusGroups) return status;
-    
-    for (const [group, statuses] of Object.entries(statusMapping.statusGroups)) {
-        if (statuses.includes(status)) {
-            return group;
-        }
-    }
-    
-    // If not found in any group, check if it starts with "Eliminated" or "Withdrew"
-    if (status.startsWith("Eliminated") || status.startsWith("Withdrew") || status.startsWith("Legacy")) {
-        return "Not Selected";
-    }
-    
-    return status;
-}
 // Earnings structure
 const earningsStructure = {
     assessment: {
