@@ -20,9 +20,7 @@ const StatusMapping = {
         
         // Hired (Confirmed) - hired status with 90+ days
         if (statusStr.includes('hired') || statusStr.includes('graduate')) {
-            if (assessmentResult && assessmentResult.days >= 90) {
-                return 'Hired (Confirmed)';
-            }
+            // Without assessment data, we can't check days, so default to probation
             return 'Hired (Probation)';
         }
         
@@ -36,20 +34,10 @@ const StatusMapping = {
             return 'Assessment Stage';
         }
         
-        // Assessment Stage - if assessment exists and score >= 70
-        if (assessmentResult && assessmentResult.score >= 70) {
-            return 'Assessment Stage';
-        }
-        
         // Assessment/SHL stages
         if (statusStr.includes('assessment') || 
             statusStr.includes('shl')) {
-            // If we have assessment result, check score
-            if (assessmentResult) {
-                return assessmentResult.score >= 70 ? 'Assessment Stage' : 'Not Selected';
-            }
-            // Still in assessment process
-            return 'Application Received';
+            return 'Assessment Stage';
         }
         
         // Default status - application received
