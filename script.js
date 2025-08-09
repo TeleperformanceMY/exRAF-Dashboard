@@ -119,6 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 mappedStatus = 'Previously Applied (No Payment)';
             }
             
+            // Special case: if status indicates hired and has been more than 90 days
+            if (mappedStatus === 'Hired (Probation)' && daysInStage >= 90) {
+                mappedStatus = 'Hired (Confirmed)';
+            }
+            
             const statusType = StatusMapping.getSimplifiedStatusType(rawStatus, assessment);
             const stage = StatusMapping.determineStage(rawStatus, assessment);
             
@@ -164,8 +169,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Action flags
                 needsAction: needsAction,
                 
-                // Payment eligibility
-                isEligibleForAssessmentPayment: isXRAF && assessment && assessment.score >= 70,
+                // Payment eligibility (without assessment data, base on status only)
+                isEligibleForAssessmentPayment: isXRAF && (
+                    mappedStatus === 'Assessment Stage' || 
+                    mappedStatus === 'Hired (Probation)' || 
+                    mappedStatus === 'Hired (Confirmed)'
+                ),
                 isEligibleForProbationPayment: isXRAF && mappedStatus === 'Hired (Confirmed)',
                 
                 // Original data
@@ -607,6 +616,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span class="badge bg-${ref.statusType} status-badge">
                                     ${ref.mappedStatus}
                                 </span>
+                                ${assessmentInfo}
+                            </div>
+                        </div>>
                                 ${assessmentInfo}
                             </div>
                         </div>
