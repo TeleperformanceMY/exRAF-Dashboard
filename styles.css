@@ -415,7 +415,7 @@ body {
 .referral-card {
     background: var(--light-color);
     border-radius: var(--border-radius);
-    padding: 1.5rem;
+    padding: 0;
     margin-bottom: 1rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
@@ -450,6 +450,26 @@ body {
 
 .referral-card.status-previously-applied {
     border-left: 4px solid var(--status-previous);
+}
+
+/* Referral Info Items */
+.referral-info-item {
+    background: var(--tp-pastel-gray);
+    padding: 0.75rem;
+    border-radius: 6px;
+    height: 100%;
+}
+
+.referral-info-item small {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.referral-info-item .fw-semibold {
+    font-size: 0.875rem;
+    color: var(--tp-dark-gray);
 }
 
 /* Status Examples */
@@ -553,6 +573,12 @@ body {
 .remind-btn:hover {
     background: var(--tp-turquoise);
     color: white;
+    transform: translateY(-1px);
+}
+
+.remind-btn.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
 }
 
 /* Responsive */
