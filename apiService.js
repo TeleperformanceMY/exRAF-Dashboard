@@ -1,15 +1,6 @@
-// API Service Module with Assessment Results
+// API Service Module - Power Automate Integration
 const ApiService = (function() {
     const POWER_AUTOMATE_URL = 'https://prod-77.southeastasia.logic.azure.com:443/workflows/3dcf20be6af641a4b49eb48727473a47/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uVigg-lTLRaUgLgUdGUnqCt9-TWJC7E7c8ryTjLC0Hw';
-    
-    // Mock assessment results - In real implementation, this would come from SharePoint
-    const ASSESSMENT_RESULTS = {
-        "amr@yahoo.com": { score: 85, date: "2025-07-10", days: 6 },
-        "amr@my.com": { score: 65, date: "2025-07-12", days: 4 },
-        "john.doe@example.com": { score: 92, date: "2025-04-01", days: 97 },
-        "jane.smith@example.com": { score: 75, date: "2025-06-15", days: 22 },
-        "mike.wilson@example.com": { score: 45, date: "2025-07-01", days: 15 }
-    };
 
     // Field mappings for SharePoint data
     const FIELD_MAPPINGS = {
@@ -53,9 +44,6 @@ const ApiService = (function() {
         const created = getFieldValue(item, FIELD_MAPPINGS.created) || new Date().toISOString();
         const modified = getFieldValue(item, FIELD_MAPPINGS.modified) || created;
         
-        // Add assessment results if available
-        const assessmentResult = ASSESSMENT_RESULTS[email.toLowerCase()] || null;
-        
         // Return standardized referral object
         return {
             // IDs
@@ -98,8 +86,8 @@ const ApiService = (function() {
             updatedDate: modified,
             applicationDate: created,
             
-            // Assessment data
-            assessment: assessmentResult,
+            // Assessment data - will be null unless added from SharePoint
+            assessment: null,
             
             // Keep original item data for debugging
             _original: item
@@ -243,8 +231,6 @@ const ApiService = (function() {
     // Public API
     return { 
         fetchReferrals,
-        testConnection,
-        // Expose assessment results for testing
-        ASSESSMENT_RESULTS
+        testConnection
     };
 })();
