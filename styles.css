@@ -223,7 +223,7 @@ body {
 }
 
 .bg-previously-applied { 
-    background-color: var(--status-previous) !important; 
+    background-color: var(--tp-gray) !important; 
     color: white !important; 
 }
 
@@ -449,7 +449,7 @@ body {
 }
 
 .referral-card.status-previously-applied {
-    border-left: 4px solid var(--status-previous);
+    border-left: 4px solid var(--tp-gray);
 }
 
 /* Referral Info Items */
