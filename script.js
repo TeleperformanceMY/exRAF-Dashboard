@@ -466,8 +466,15 @@ document.addEventListener('DOMContentLoaded', function() {
             counts[status] = referrals.filter(r => r.mappedStatus === status).length;
         });
         
-        // Chart colors
-        const colors = ['#0087FF', '#00d769', '#f5d200', '#84c98b', '#5f365e', '#dc3545'];
+        // Chart colors - updated to use green for Hired (Confirmed) and gray for Previously Applied
+        const colors = [
+            '#0087FF',  // Application Received - blue
+            '#00d769',  // Assessment Stage - green flash
+            '#f5d200',  // Hired (Probation) - yellow
+            '#84c98b',  // Hired (Confirmed) - green
+            '#676767',  // Previously Applied (No Payment) - gray
+            '#dc3545'   // Not Selected - red
+        ];
         
         // Create new chart
         AppState.statusChart = new Chart(ctx, {
@@ -693,18 +700,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-md-6">
                     <h6 class="mb-3" data-translate="statusExamples">Status Examples</h6>
                     <div class="status-examples">
-                        ${statusExamples.map(example => `
-                            <div class="status-example">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <strong>${t[`status${example.status.replace(/[\s()]/g, '')}`] || example.status}</strong>
-                                    <span class="badge bg-${StatusMapping.getSimplifiedStatusType(example.status)}">
-                                        ${example.status}
-                                    </span>
+                        ${statusExamples.map(example => {
+                            // Get the correct status type for coloring
+                            let statusType = StatusMapping.getSimplifiedStatusType(example.status);
+                            if (example.status === "Hired (Confirmed)") statusType = 'passed';
+                            if (example.status === "Previously Applied (No Payment)") statusType = 'previously-applied';
+                            
+                            return `
+                                <div class="status-example">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong>${t[`status${example.status.replace(/[\s()]/g, '')}`] || example.status}</strong>
+                                        <span class="badge bg-${statusType}">
+                                            ${example.status}
+                                        </span>
+                                    </div>
+                                    <p class="mb-1 mt-2 small">${example.description}</p>
+                                    <small class="text-muted">${example.action}</small>
                                 </div>
-                                <p class="mb-1 mt-2 small">${example.description}</p>
-                                <small class="text-muted">${example.action}</small>
-                            </div>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </div>
                 </div>
                 
