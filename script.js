@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Fetch referrals from API
             const apiData = await ApiService.fetchReferrals(phone, email);
             
-            // Process and store referrals
+            // Process and store referrals with deduplication
             AppState.currentReferralsData = processReferrals(apiData);
             
             // Always show dashboard
@@ -81,11 +81,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Process API response with new logic
+    // Process API response with deduplication and fixed status mapping
     function processReferrals(apiData) {
         if (!Array.isArray(apiData)) return [];
         
-        return apiData.map(item => {
+        // Create a Map to track unique referrals by email+name combination
+        const uniqueReferrals = new Map();
+        
+        apiData.forEach(item => {
+            // Create unique key using email and name (or phone as fallback)
+            const email = (item.Email || item.email || '').toLowerCase().trim();
+            const name = (item.First_Name || item.name || 'Unknown').trim();
+            const phone = (item.Employee || item.phone || '').trim();
+            
+            // Use email+name as primary key, or phone+name as fallback
+            const uniqueKey = email ? `${email}_${name}` : `${phone}_${name}`;
+            
+            // Skip if we've already processed this person
+            if (uniqueReferrals.has(uniqueKey)) {
+                const existing = uniqueReferrals.get(uniqueKey);
+                // If duplicate found, keep the one with more recent update date
+                const existingDate = new Date(existing.UpdatedDate || existing.updatedDate || 0);
+                const currentDate = new Date(item.UpdatedDate || item.updatedDate || 0);
+                if (currentDate <= existingDate) {
+                    return; // Skip this duplicate
+                }
+            }
+            
             // Parse dates
             const parseDate = (dateStr) => {
                 if (!dateStr) return new Date();
@@ -100,45 +122,50 @@ document.addEventListener('DOMContentLoaded', function() {
             const updatedDate = parseDate(item.UpdatedDate || item.updatedDate);
             const createdDate = parseDate(item.CreatedDate || item.createdDate);
             const daysInStage = Math.floor((new Date() - updatedDate) / (86400000));
+            const daysSinceCreation = Math.floor((new Date() - createdDate) / (86400000));
             
             // Get status and source
             const rawStatus = (item.Status || item.status || 'Application Received').trim();
-            const source = (item.Source || item.source || item.SourceName || '').toLowerCase();
+            const source = (item.Source || item.source || item.SourceName || '').trim();
             
-            // Check if xRAF referral
-            const isXRAF = source.includes('xraf') || source.includes('employee referral');
+            // Check if xRAF referral (improved logic)
+            const sourceL = source.toLowerCase();
+            const isXRAF = sourceL.includes('xraf') || 
+                           sourceL.includes('employee referral') || 
+                           sourceL.includes('employee_referral') ||
+                           sourceL.includes('raf') ||
+                           sourceL === '' ||  // Empty source might be xRAF
+                           source === 'xRAF' ||
+                           source === 'RAF' ||
+                           source === 'Employee Referral';
             
             // Get assessment result if available
             const assessment = item.assessment || null;
             
-            // Map status based on new rules
-            let mappedStatus = StatusMapping.mapStatusToGroup(rawStatus, assessment);
+            // Map status with all parameters including source and days
+            let mappedStatus = StatusMapping.mapStatusToGroup(rawStatus, assessment, source, daysInStage);
             
-            // Override if not xRAF
-            if (!isXRAF) {
-                mappedStatus = 'Previously Applied (No Payment)';
-            }
-            
-            // Special case: if status indicates hired and has been more than 90 days
-            if (mappedStatus === 'Hired (Probation)' && daysInStage >= 90) {
+            // Special case: if status indicates hired and has been more than 90 days since created date
+            if (mappedStatus === 'Hired (Probation)' && daysSinceCreation >= 90) {
                 mappedStatus = 'Hired (Confirmed)';
             }
             
-            const statusType = StatusMapping.getSimplifiedStatusType(rawStatus, assessment);
-            const stage = StatusMapping.determineStage(rawStatus, assessment);
+            const statusType = StatusMapping.getSimplifiedStatusType(rawStatus, assessment, source, daysInStage);
+            const stage = StatusMapping.determineStage(rawStatus, assessment, source, daysInStage);
             
-            // Check if needs reminder (only Application Received status)
+            // Check if needs reminder (only Application Received status and been > 3 days)
             const needsAction = mappedStatus === 'Application Received' && daysInStage > 3;
             
-            return {
+            const processedReferral = {
                 // IDs
-                id: item.Person_system_id || item.personId || item.ID,
+                id: item.Person_system_id || item.personId || item.ID || uniqueKey,
                 personId: item.Person_system_id || item.personId || item.ID,
+                uniqueKey: uniqueKey,
                 
                 // Contact info
-                name: item.First_Name || item.name || 'Unknown',
-                email: item.Email || item.email || '',
-                phone: item.Employee || item.phone || '',
+                name: name,
+                email: email,
+                phone: phone,
                 
                 // Status info
                 status: rawStatus,
@@ -147,9 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 stage: stage,
                 
                 // Source and eligibility
-                source: item.Source || item.source || '',
+                source: source,
                 isXRAF: isXRAF,
-                isPreviousCandidate: !isXRAF,
+                isPreviousCandidate: !isXRAF && source !== '',
                 
                 // Assessment info
                 assessment: assessment,
@@ -165,21 +192,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 createdDate: createdDate,
                 updatedDate: updatedDate,
                 daysInStage: daysInStage,
+                daysSinceCreation: daysSinceCreation,
                 
                 // Action flags
                 needsAction: needsAction,
                 
-                // Payment eligibility (without assessment data, base on status only)
+                // Payment eligibility (with proper checks)
                 isEligibleForAssessmentPayment: isXRAF && (
                     mappedStatus === 'Assessment Stage' || 
                     mappedStatus === 'Hired (Probation)' || 
                     mappedStatus === 'Hired (Confirmed)'
-                ),
+                ) && (!assessment || assessment.score >= 70),
                 isEligibleForProbationPayment: isXRAF && mappedStatus === 'Hired (Confirmed)',
                 
-                // Original data
+                // Original data for debugging
                 _original: item
             };
+            
+            // Add to unique map
+            uniqueReferrals.set(uniqueKey, processedReferral);
+        });
+        
+        // Convert Map values to array and sort by created date (newest first)
+        return Array.from(uniqueReferrals.values()).sort((a, b) => {
+            return b.createdDate - a.createdDate;
         });
     }
     
@@ -450,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.open(`https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`, '_blank');
     }
     
-    // Update status chart
+    // Update status chart with fixed mapping
     function updateChart(referrals) {
         const ctx = document.getElementById('statusChart')?.getContext('2d');
         if (!ctx) return;
@@ -460,13 +496,20 @@ document.addEventListener('DOMContentLoaded', function() {
             AppState.statusChart.destroy();
         }
         
-        // Count statuses
+        // Count statuses using fixed mapping
         const counts = {};
         StatusMapping.displayOrder.forEach(status => {
-            counts[status] = referrals.filter(r => r.mappedStatus === status).length;
+            counts[status] = 0;
         });
         
-        // Chart colors - updated to use green for Hired (Confirmed) and gray for Previously Applied
+        // Count each referral's mapped status
+        referrals.forEach(r => {
+            if (counts[r.mappedStatus] !== undefined) {
+                counts[r.mappedStatus]++;
+            }
+        });
+        
+        // Chart colors - updated to match status types
         const colors = [
             '#0087FF',  // Application Received - blue
             '#00d769',  // Assessment Stage - green flash
@@ -500,6 +543,23 @@ document.addEventListener('DOMContentLoaded', function() {
                             padding: 15,
                             font: {
                                 size: 12
+                            },
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map((label, i) => {
+                                        const value = data.datasets[0].data[i];
+                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                        return {
+                                            text: `${label} (${value})`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                                return [];
                             }
                         }
                     },
@@ -643,9 +703,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <span class="badge bg-${ref.statusType} status-badge">
                                     ${ref.mappedStatus}
                                 </span>
-                                ${assessmentInfo}
-                            </div>
-                        </div>>
                                 ${assessmentInfo}
                             </div>
                         </div>
