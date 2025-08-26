@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const statusType = StatusMapping.getSimplifiedStatusType(rawStatus, assessment, source, daysInStage);
             const stage = StatusMapping.determineStage(rawStatus, assessment, source, daysInStage);
             
-            // Check if needs reminder (only Application Received status and been > 3 days)
-            const needsAction = mappedStatus === 'Application Received' && daysInStage > 3;
+            // Check if needs reminder (any Application Received status)
+            const needsAction = mappedStatus === 'Application Received';
             
             const processedReferral = {
                 // IDs
