@@ -20,6 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (AppState.debugMode) {
             ApiService.testConnection();
         }
+        
+        // Check for demo mode
+        checkForDemoMode();
+    }
+    
+    // Check if demo credentials are used
+    function checkForDemoMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('demo') === 'true') {
+            document.getElementById('dashboard-phone').value = '0123456789';
+            document.getElementById('dashboard-email').value = 'amr@tp.com';
+        }
     }
     
     // Set up event listeners
@@ -61,8 +73,15 @@ document.addEventListener('DOMContentLoaded', function() {
         setLoadingState(true);
         
         try {
-            // Fetch referrals from API
-            const apiData = await ApiService.fetchReferrals(phone, email);
+            let apiData;
+            
+            // Check if demo credentials
+            if (phone === '0123456789' && email === 'amr@tp.com') {
+                apiData = generateMockData();
+            } else {
+                // Fetch real referrals from API
+                apiData = await ApiService.fetchReferrals(phone, email);
+            }
             
             // Process and store referrals with deduplication
             AppState.currentReferralsData = processReferrals(apiData);
@@ -79,6 +98,165 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             setLoadingState(false);
         }
+    }
+    
+    // Generate mock data for presentation
+    function generateMockData() {
+        const today = new Date();
+        const mockData = [
+            // Application Received (2 examples)
+            {
+                Person_system_id: 'TP001',
+                First_Name: 'Ahmad Rahman',
+                Email: 'ahmad.rahman@gmail.com',
+                Employee: '0198765432',
+                Status: 'Application Received',
+                Source: 'xRAF',
+                Location: 'Kuala Lumpur',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 2 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 2 * 86400000).toISOString()
+            },
+            {
+                Person_system_id: 'TP002', 
+                First_Name: 'Sarah Lee',
+                Email: 'sarah.lee@hotmail.com',
+                Employee: '0187654321',
+                Status: 'Contact Attempt 1',
+                Source: 'xRAF',  // Changed to xRAF
+                Location: 'Penang',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 5 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 4 * 86400000).toISOString()
+            },
+            // Assessment Stage (2 examples)
+            {
+                Person_system_id: 'TP003',
+                First_Name: 'Kumar Raj',
+                Email: 'kumar.raj@yahoo.com',
+                Employee: '0176543210',
+                Status: 'SHL Assessment: Conversational Multichat ENG',
+                Source: 'xRAF',
+                Location: 'Johor Bahru',
+                F_Nationality: 'Indian',
+                CreatedDate: new Date(today - 10 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 3 * 86400000).toISOString()
+            },
+            {
+                Person_system_id: 'TP004',
+                First_Name: 'Jennifer Tan',
+                Email: 'jennifer.tan@gmail.com',
+                Employee: '0165432109',
+                Status: 'Interview Scheduled',
+                Source: 'xRAF',
+                Location: 'Cyberjaya',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 15 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 1 * 86400000).toISOString()
+            },
+            // Hired (Probation) (2 examples)
+            {
+                Person_system_id: 'TP005',
+                First_Name: 'Michael Wong',
+                Email: 'michael.wong@outlook.com',
+                Employee: '0154321098',
+                Status: 'New Starter (Hired)',
+                Source: 'xRAF',
+                Location: 'Kuala Lumpur',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 45 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 30 * 86400000).toISOString()
+            },
+            // Lisa Chen - Hired Probation (not xRAF, so won't get payment)
+            {
+                Person_system_id: 'TP006',
+                First_Name: 'Lisa Chen',
+                Email: 'lisa.chen@gmail.com',
+                Employee: '0143210987',
+                Status: 'Onboarding Started',
+                Source: 'xRAF',  // Changed to xRAF for payment eligibility
+                Location: 'Petaling Jaya',
+                F_Nationality: 'Chinese',
+                CreatedDate: new Date(today - 60 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 50 * 86400000).toISOString()
+            },
+            // Hired (Confirmed) (2 examples)
+            {
+                Person_system_id: 'TP007',
+                First_Name: 'David Lim',
+                Email: 'david.lim@gmail.com',
+                Employee: '0132109876',
+                Status: 'Graduate',
+                Source: 'xRAF',
+                Location: 'Kuala Lumpur',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 120 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 95 * 86400000).toISOString()
+            },
+            {
+                Person_system_id: 'TP008',
+                First_Name: 'Emily Ooi',
+                Email: 'emily.ooi@yahoo.com',
+                Employee: '0121098765',
+                Status: 'New Starter (Hired)',
+                Source: 'xRAF',
+                Location: 'Penang',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 150 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 100 * 86400000).toISOString()
+            },
+            // Previously Applied (No Payment) (2 examples)
+            {
+                Person_system_id: 'TP009',
+                First_Name: 'Jason Ng',
+                Email: 'jason.ng@gmail.com',
+                Employee: '0110987654',
+                Status: 'Interview Complete / Offer Requested',
+                Source: 'External Portal',  // Not xRAF
+                Location: 'Shah Alam',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 20 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 10 * 86400000).toISOString()
+            },
+            {
+                Person_system_id: 'TP010',
+                First_Name: 'Rachel Yap',
+                Email: 'rachel.yap@hotmail.com',
+                Employee: '0109876543',
+                Status: 'Screened',
+                Source: 'Internal Portal',  // Not xRAF
+                Location: 'Subang Jaya',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 25 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 15 * 86400000).toISOString()
+            },
+            // Not Selected (2 examples)
+            {
+                Person_system_id: 'TP011',
+                First_Name: 'Steven Toh',
+                Email: 'steven.toh@gmail.com',
+                Employee: '0198765432',
+                Status: 'Eliminated - Assessment Results Did Not Meet Criteria',
+                Source: 'xRAF',
+                Location: 'Ipoh',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 30 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 20 * 86400000).toISOString()
+            },
+            {
+                Person_system_id: 'TP012',
+                First_Name: 'Angela Low',
+                Email: 'angela.low@yahoo.com',
+                Employee: '0187654321',
+                Status: 'Withdrew - Other Job Offer',
+                Source: 'xRAF',  // Changed to xRAF
+                Location: 'Melaka',
+                F_Nationality: 'Malaysian',
+                CreatedDate: new Date(today - 35 * 86400000).toISOString(),
+                UpdatedDate: new Date(today - 25 * 86400000).toISOString()
+            }
+        ];
+        return mockData;
     }
     
     // Process API response with deduplication and fixed status mapping
@@ -128,16 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const rawStatus = (item.Status || item.status || 'Application Received').trim();
             const source = (item.Source || item.source || item.SourceName || '').trim();
             
-            // Check if xRAF referral (improved logic)
+            // Check if xRAF referral (only xRAF is accepted for payment)
             const sourceL = source.toLowerCase();
-            const isXRAF = sourceL.includes('xraf') || 
-                           sourceL.includes('employee referral') || 
-                           sourceL.includes('employee_referral') ||
-                           sourceL.includes('raf') ||
-                           sourceL === '' ||  // Empty source might be xRAF
-                           source === 'xRAF' ||
-                           source === 'RAF' ||
-                           source === 'Employee Referral';
+            const isXRAF = sourceL === 'xraf';
             
             // Get assessment result if available
             const assessment = item.assessment || null;
@@ -324,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Stats Cards -->
             <div class="row mb-4">
                 <div class="col-md-4 mb-3">
-                    <div class="card stats-card">
+                    <div class="card stats-card total">
                         <div class="card-body text-center">
                             <h5 class="card-title" data-translate="totalReferrals">Total Referrals</h5>
                             <h3 class="text-primary">${referrals.length}</h3>
@@ -417,28 +588,31 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             
             <!-- Social Media -->
-            <div class="mt-4">
-                <div class="row text-center">
-                    <div class="col-md-4 mb-3">
-                        <h5 data-translate="tpGlobal">TP Global</h5>
-                        <div class="d-flex justify-content-center gap-3">
-                            <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/@teleperformance_group" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4" data-translate="followUsTitle">Follow Us</h5>
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <h6 data-translate="tpGlobal">TP Global</h6>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="https://www.linkedin.com/company/teleperformance" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                <a href="https://www.youtube.com/@TeleperformanceGroup" class="social-icon" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a href="https://www.tiktok.com/@teleperformance_group" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <h5 data-translate="followMalaysia">TP Malaysia</h5>
-                        <div class="d-flex justify-content-center gap-3">
-                            <a href="https://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <div class="col-md-4 mb-3">
+                            <h6 data-translate="followMalaysia">TP Malaysia</h6>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="https://www.facebook.com/TPinMalaysia/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="http://www.instagram.com/tp_malaysia/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <h5 data-translate="followThailand">TP Thailand</h5>
-                        <div class="d-flex justify-content-center gap-3">
-                            <a href="http://www.facebook.com/TPinThailand/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="http://www.instagram.com/tpinthailand/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <div class="col-md-4 mb-3">
+                            <h6 data-translate="followThailand">TP Thailand</h6>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="http://www.facebook.com/TPinThailand/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="http://www.instagram.com/tpinthailand/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
